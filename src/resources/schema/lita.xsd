@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="http://www.w3.org/2001/xml.xsd" />
+
+
+
+
+	<xs:element name="lita" type="litaType"></xs:element>
+
+	<xs:complexType name="singlelineType" mixed="true">
+		<xs:attribute ref="xml:lang"></xs:attribute>
+		<xs:attribute name="lang" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+
+	<xs:complexType name="litaType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element name="title" type="singlelineType" minOccurs="1"
+				maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="frame" type="frameType" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="frameAnn" type="frameAnnType" minOccurs="0"
+				maxOccurs="1">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+
+	<xs:complexType name="frameType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element name="frameContent" type="frameContentType"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="order" type="xs:int"></xs:attribute>
+		<xs:attribute name="x" type="xs:int"></xs:attribute>
+		<xs:attribute name="y" type="xs:int"></xs:attribute>
+		<xs:attribute name="width" type="xs:int"></xs:attribute>
+		<xs:attribute name="height" type="xs:int"></xs:attribute>
+	</xs:complexType>
+
+
+	<xs:complexType name="frameContentType" mixed="false">
+		<xs:attribute name="ref" type="xs:string"></xs:attribute>
+		<xs:attribute name="x" type="xs:int"></xs:attribute>
+		<xs:attribute name="y" type="xs:int"></xs:attribute>
+		<xs:attribute name="width" type="xs:int"></xs:attribute>
+		<xs:attribute name="height" type="xs:int"></xs:attribute>
+	</xs:complexType>
+
+
+
+
+	<xs:complexType name="frameAnnType" mixed="false">
+		<xs:sequence minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="annotation" type="multilineType" minOccurs="1"
+				maxOccurs="1">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="visible" type="xs:boolean"></xs:attribute>
+		<xs:attribute name="x" type="xs:int"></xs:attribute>
+		<xs:attribute name="y" type="xs:int"></xs:attribute>
+		<xs:attribute name="width" type="xs:int"></xs:attribute>
+		<xs:attribute name="height" type="xs:int"></xs:attribute>
+	</xs:complexType>
+
+
+	<xs:complexType name="multilineType" mixed="false">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="line" type="lineType" maxOccurs="unbounded"
+				minOccurs="0">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang"></xs:attribute>
+		<xs:attribute name="lang" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+	
+		<xs:complexType name="lineType" mixed="true">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="b" type="biuType" maxOccurs="unbounded"
+				minOccurs="0">
+			</xs:element>
+			<xs:element name="i" type="biuType" maxOccurs="unbounded"
+				minOccurs="0">
+			</xs:element>
+			<xs:element name="u" type="biuType" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="link" type="linkType" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+
+	<xs:complexType name="biuType" mixed="true">
+		<xs:sequence>
+			<xs:element name="link" type="linkType" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="linkType" mixed="true">
+		<xs:attribute name="ref" type="xs:string" use="required"></xs:attribute>
+	</xs:complexType>
+
+	
+
+
+</xs:schema>

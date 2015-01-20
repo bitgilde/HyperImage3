@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prefs>
+	<!-- Preferenzes "normal" -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### GUI allgemein -->
+
+	<pref key="INITIAL_REF" val="start.xml"/>            <!-- Name (und Pfad) der Start-Datei des Projektes (mit Suffix) -->
+	<pref key="OVERLAYS_OPACITY" val="0.94"/>            <!-- Deckkraft der überlagernden Elemente [1.0 = deckend, 0.0 = unsichtbar] -->
+	<pref key="BG_COLOR" val="#777777"/>                 <!-- allgemeine Hintergrundfarbe -->
+	<pref key="SHADOW_COLOR" val="#000000"/>             <!-- Farbe der Schatten allgemein -->
+	<pref key="INFOLINE_COLOR" val="#777777"/>           <!-- Farbe der Informationszeile -->
+	<pref key="INFOLINE_COLOR_HI" val="#ffcda5"/>        <!-- Farbe der Informationszeile bei Hervorhebung -->
+	<pref key="SCROLLBAR_COLOR" val="#333333"/>          <!-- Farbe des Scroll-Balkens (#CCCCCC) -->
+	<pref key="SCROLLBAR_COLOR_SLIDER" val="#999999"/>   <!-- Farbe des Schiebereglers über dem Scroll-Balken (#999999) -->
+	<pref key="TEXT_WIDTH" val="640"/>                   <!-- maximale Breite der Projekttexte in Pixel -->
+	<pref key="BACKFORTH_COLOR" val="#ffcda5"/>          <!-- Farbe des Zurück- und Vor-Buttons -->
+	<pref key="INFOLINE_METADATA_NUM" val="3"/>          <!-- Anzahl der Objekt-Metadaten in der Informationszeile -->
+	<pref key="INFOLINE_METADATA_VIEW" val="true"/>      <!-- Titel der aktuellen Ansicht in der Informationszeile [true | false] -->
+
+	<!-- Standardtext (Infozeile, Registerkarten u. a.): -->
+	<pref key="MAINTEXT_FONT" val="Verdana"/>            <!-- Schriftart -->
+	<pref key="MAINTEXT_SIZE" val="12"/>                 <!-- Größe -->
+	<pref key="MAINTEXT_COLOR" val="#ffffff"/>           <!-- Farbe -->
+	<pref key="MAINTEXT_BOLD" val="false"/>              <!-- fett [true | false] -->
+	<pref key="MAINTEXT_ITALIC" val="false"/>            <!-- kursiv [true | false] -->
+	<pref key="MAINTEXT_UNDERLINE" val="false"/>         <!-- unterstrichen [true | false] -->
+	<pref key="MAINTEXT_LETTERSPACING" val="0"/>         <!-- Spationierung -->
+	<pref key="MAINTEXT_LINK_COLOR" val="#ffcda5"/>      <!-- Link: Farbe -->
+	<pref key="MAINTEXT_LINK_BOLD" val="false"/>         <!-- Link: fett [true | false] -->
+	<pref key="MAINTEXT_LINK_ITALIC" val="false"/>       <!-- Link: kursiv [true | false] -->
+	<pref key="MAINTEXT_LINK_UNDERLINE" val="true"/>     <!-- Link: unterstrichen [true | false] -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Registerkarten -->
+
+	<pref key="TABS_COLOR" val="#777777"/>               <!-- Farbe der Registerkarte -->
+	<pref key="TABS_COLOR_DESEL" val="#444444"/>         <!-- Farbe der deselektierten Registerkarten -->
+	<pref key="TABS_COLOR_BORDER" val="#777777"/>        <!-- Umrissfarbe der Reiter der Registerkarten -->
+	<pref key="TABS_STANDARD" val="1"/>                  <!-- standardmäßig selektierte Registerkarte [0 | 1 | 2 | 3] -->
+	<pref key="TABS_BUTTON_COLOR" val="#444444"/>        <!-- Farbe der Schaltflächen -->
+	<pref key="TABS_INPUT_COLOR" val="#999999"/>         <!-- Hintergrundfarbe des Eingabefeldes -->
+
+	<!-- Text für Zwischentitel auf den Registerkarten: -->
+	<pref key="TABTITLE_FONT" val="Verdana"/>            <!-- Schriftart -->
+	<pref key="TABTITLE_SIZE" val="12"/>                 <!-- Größe -->
+	<pref key="TABTITLE_COLOR" val="#cccccc"/>           <!-- Farbe -->
+	<pref key="TABTITLE_BOLD" val="true"/>               <!-- fett [true | false] -->
+	<pref key="TABTITLE_ITALIC" val="false"/>            <!-- kursiv [true | false] -->
+	<pref key="TABTITLE_UNDERLINE" val="false"/>         <!-- unterstrichen [true | false] -->
+
+	<!-- Beschriftung der Items der Erweiterten Suche: -->
+	<pref key="SEARCH_ITEM_FONT" val="Verdana"/>         <!-- Schriftart -->
+	<pref key="SEARCH_ITEM_SIZE" val="10"/>              <!-- Größe -->
+	<pref key="SEARCH_ITEM_COLOR" val="#ffffff"/>        <!-- Farbe -->
+	<pref key="SEARCH_ITEM_BOLD" val="false"/>           <!-- fett [true | false] -->
+	<pref key="SEARCH_ITEM_ITALIC" val="false"/>         <!-- kursiv [true | false] -->
+	<pref key="SEARCH_ITEM_UNDERLINE" val="false"/>      <!-- unterstrichen [true | false] -->
+	<pref key="SEARCH_ITEM_LETTERSPACING" val="0"/>      <!-- Spationierung -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Tooltip -->
+
+	<pref key="TOOLTIP_COLOR" val="#ffcda5"/>            <!-- Farbe des Tooltipfensters -->
+	<pref key="TOOLTIP_WIDTH" val="240"/>                <!-- Breite des Tooltipfensters in Pixel -->
+
+	<!-- Text in den "Tooltip"-Fenstern: -->
+	<pref key="TOOLTIPTEXT_FONT" val="Verdana"/>         <!-- Schriftart -->
+	<pref key="TOOLTIPTEXT_SIZE" val="12"/>              <!-- Größe -->
+	<pref key="TOOLTIPTEXT_COLOR" val="#000000"/>        <!-- Farbe -->
+	<pref key="TOOLTIPTEXT_BOLD" val="false"/>           <!-- fett [true | false] -->
+	<pref key="TOOLTIPTEXT_ITALIC" val="false"/>         <!-- kursiv [true | false] -->
+	<pref key="TOOLTIPTEXT_UNDERLINE" val="false"/>      <!-- unterstrichen [true | false] -->
+	<pref key="TOOLTIPTEXT_LETTERSPACING" val="0"/>      <!-- Spationierung -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Fortschrittsbalken -->
+
+	<pref key="PROBAR_COLOR" val="#ffcda5"/>             <!-- Farbe des Fortschrittsbalkens -->
+	<pref key="PROBAR_COLOR_BG" val="#FFFFFF"/>          <!-- Hintergrundfarbe des Fortschrittsbalkens -->
+	<pref key="PROBAR_COLOR_BORDER" val="#777777"/>      <!-- Farbe des Rahmens um den Fortschrittsbalken -->
+
+	<!-- Text über dem Fortschrittsbalken: -->
+	<pref key="PROTEXT_FONT" val="Verdana"/>             <!-- Schriftart -->
+	<pref key="PROTEXT_SIZE" val="10"/>                  <!-- Größe -->
+	<pref key="PROTEXT_COLOR" val="#ffffff"/>            <!-- Farbe -->
+	<pref key="PROTEXT_BOLD" val="false"/>               <!-- fett [true | false] -->
+	<pref key="PROTEXT_ITALIC" val="false"/>             <!-- kursiv [true | false] -->
+	<pref key="PROTEXT_UNDERLINE" val="false"/>          <!-- unterstrichen [true | false] -->
+	<pref key="PROTEXT_LETTERSPACING" val="0"/>          <!-- Spationierung -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Menü am oberen Rand -->
+
+	<pref key="MENU_COLOR" val="#444444"/>               <!-- Farbe des Menüs -->
+	<pref key="MENU_COLOR_ACTIVE" val="#444444"/>        <!-- Farbe des Menüs bei Benutzung -->
+	<pref key="MENU_SHADOW_COLOR" val="#000000"/>        <!-- Farbe des Schattens -->
+	<pref key="MENU_COLOR_HI" val="#777777"/>            <!-- Farbe der fokussierten Zeile -->
+	<pref key="MENU_COLOR_STROKE" val="#CCCCCC"/>        <!-- Farbe der Trennlinien und des Scrollpfeiles -->
+
+	<!-- Text für Menü: -->
+	<pref key="MENUTEXT_FONT" val="Verdana"/>            <!-- Schriftart -->
+	<pref key="MENUTEXT_SIZE" val="12"/>                 <!-- Größe -->
+	<pref key="MENUTEXT_COLOR" val="#ffffff"/>           <!-- Farbe -->
+	<pref key="MENUTEXT_COLOR_DEACT" val="#999999"/>     <!-- Farbe deaktivierter Menüzeilen-->
+	<pref key="MENUTEXT_BOLD" val="false"/>              <!-- fett [true | false] -->
+	<pref key="MENUTEXT_ITALIC" val="false"/>            <!-- kursiv [true | false] -->
+	<pref key="MENUTEXT_UNDERLINE" val="false"/>         <!-- unterstrichen [true | false] -->
+	<pref key="MENUTEXT_LETTERSPACING" val="0"/>         <!-- Spationierung -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Ansicht -->
+
+	<pref key="VIEW_CENTER" val="false"/>                <!-- Zentrierung der Ansicht [true | false] -->
+	<pref key="VIEW_WHOLE_PICTURE" val="true"/>          <!-- An das Fenster angepasste Anfangsgröße der Ansicht [true | false] -->
+	<pref key="VIEW_BG_OPACITY" val="0.13"/>             <!-- Deckkraft der Ansicht, wenn sie im Hintergrund liegt [1.0 = deckend, 0.0 = unsichtbar] -->
+	<pref key="VIEW_SCROLL_FACTOR" val="1"/>             <!-- Richtung und Geschwindigkeit beim Bewegen der Ansichten mit der Maus (negativ: gegenläufig) -->
+	<pref key="VIEW_SHOW_LAYER" val="false"/>            <!-- Darstellung aller Layer nach dem Aufruf einer Ansicht [true | false] -->
+	
+	<pref key="LAYER_CENTER" val="false"/>               <!-- Zentrierung des Layers nach dem Aufruf [true | false] -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Gruppen -->
+
+	<pref key="GROUPMEMBER_COLOR" val="#606060"/>        <!-- Hintergrundfarbe der Gruppenelemente mit Text -->
+	<pref key="GROUPMEMBER_COLOR_BORDER" val="#ffffff"/> <!-- Randfarbe der Gruppenelemente mit Text -->
+
+	<!-- Text in den Thumbnails der Gruppen: -->
+	<pref key="GROUP_THUMB_FONT" val="Verdana"/>         <!-- Schriftart -->
+	<pref key="GROUP_THUMB_SIZE" val="12"/>              <!-- Größe -->
+	<pref key="GROUP_THUMB_COLOR" val="#ffffff"/>        <!-- Farbe -->
+	<pref key="GROUP_THUMB_BOLD" val="false"/>           <!-- fett [true | false] -->
+	<pref key="GROUP_THUMB_ITALIC" val="false"/>         <!-- kursiv [true | false] -->
+	<pref key="GROUP_THUMB_UNDERLINE" val="false"/>      <!-- unterstrichen [true | false] -->
+	<pref key="GROUP_THUMB_LETTERSPACING" val="0"/>      <!-- Spationierung -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Lichttisch -->
+
+	<pref key="LITA_COLOR_BG" val="#777777"/>            <!-- Hintergrundfarbe des Lichttisches -->
+	<pref key="LITA_INFOLINE_COLOR" val="#ffcda5"/>      <!-- Farbe der Informationszeile -->
+	<pref key="LITA_INFOLINE_COLOR_HI" val="#ffcda5"/>   <!-- Farbe der Informationszeile bei Hervorhebung -->
+
+	<!-- Text der Info-Zeile: -->
+	<pref key="LITA_INFO_FONT" val="Verdana"/>           <!-- Schriftart -->
+	<pref key="LITA_INFO_SIZE" val="12"/>                <!-- Größe -->
+	<pref key="LITA_INFO_COLOR" val="#000000"/>          <!-- Farbe -->
+	<pref key="LITA_INFO_BOLD" val="false"/>             <!-- fett [true | false] -->
+	<pref key="LITA_INFO_ITALIC" val="false"/>           <!-- kursiv [true | false] -->
+	<pref key="LITA_INFO_UNDERLINE" val="false"/>        <!-- unterstrichen [true | false] -->
+	<pref key="LITA_INFO_LETTERSPACING" val="0"/>        <!-- Spationierung -->
+	
+	<!-- Lichttisch-Elemente: -->
+	<pref key="LITA_COLOR_HEAD" val="#cccccc"/>          <!-- Hintergrundfarbe der Kopfzeilen der Lichttisch-Elemente -->
+	<pref key="LITA_COLOR_HEADSEL" val="#ffcda5"/>       <!-- Hintergrundfarbe der Kopfzeile des selektierten Lichttisch-Elementes -->
+	<pref key="LITA_COLOR_TOOL1" val="#000000"/>         <!-- Farbe des Lichttisch-Tools "Bild skalieren" -->
+	<pref key="LITA_COLOR_TOOL2" val="#ffffff"/>         <!-- Farbe des Lichttisch-Tools "Rahmen skalieren" -->
+	<pref key="LITA_SHADOW_COLOR" val="#000000"/>        <!-- Farbe des Schattens der Lichttischelemente -->
+
+	<!-- Text in den Kopfleisten der Lichttisch-Elemente: -->
+	<pref key="LITA_HEAD_FONT" val="Verdana"/>           <!-- Schriftart -->
+	<pref key="LITA_HEAD_SIZE" val="10"/>                <!-- Größe -->
+	<pref key="LITA_HEAD_COLOR" val="#000000"/>          <!-- Farbe -->
+	<pref key="LITA_HEAD_BOLD" val="false"/>             <!-- fett [true | false] -->
+	<pref key="LITA_HEAD_ITALIC" val="false"/>           <!-- kursiv [true | false] -->
+	<pref key="LITA_HEAD_UNDERLINE" val="false"/>        <!-- unterstrichen [true | false] -->
+	<pref key="LITA_HEAD_LETTERSPACING" val="0"/>        <!-- Spationierung -->
+
+	<!-- Text der Anmerkung auf dem Lichttisch: -->
+	<pref key="LITA_ANN_FONT" val="Verdana"/>            <!-- Schriftart -->
+	<pref key="LITA_ANN_SIZE" val="12"/>                 <!-- Größe -->
+	<pref key="LITA_ANN_COLOR" val="#ffffff"/>           <!-- Farbe -->
+	<pref key="LITA_ANN_BOLD" val="false"/>              <!-- fett [true | false] -->
+	<pref key="LITA_ANN_ITALIC" val="false"/>            <!-- kursiv [true | false] -->
+	<pref key="LITA_ANN_UNDERLINE" val="false"/>         <!-- unterstrichen [true | false] -->
+	<pref key="LITA_ANN_LETTERSPACING" val="0"/>         <!-- Spationierung -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Eingabe- und Dialogfelder -->
+
+	<pref key="DIALOG_COLOR" val="#444444"/>             <!-- Farbe -->
+	<pref key="DIALOG_INPUT_COLOR" val="#777777"/>       <!-- Hintergrundfarbe der Eingabefelder -->
+	<pref key="DIALOG_BUTTON_COLOR" val="#777777"/>      <!-- Farbe der Schaltflächen der Eingabefelder -->
+
+
+	<!-- Infotext, Eingabefelder und Beschriftung der Buttons: -->
+	<pref key="DIALOGTEXT_FONT" val="Verdana"/>          <!-- Schriftart -->
+	<pref key="DIALOGTEXT_SIZE" val="12"/>               <!-- Größe -->
+	<pref key="DIALOGTEXT_COLOR" val="#ffffff"/>         <!-- Farbe -->
+	<pref key="DIALOGTEXT_BOLD" val="false"/>            <!-- fett [true | false] -->
+	<pref key="DIALOGTEXT_ITALIC" val="false"/>          <!-- kursiv [true | false] -->
+	<pref key="DIALOGTEXT_UNDERLINE" val="false"/>       <!-- unterstrichen [true | false] -->
+	<pref key="DIALOGTEXT_LETTERSPACING" val="0"/>       <!-- Spationierung -->
+
+	<!-- ######################################################################################################################### -->
+	<!-- #################################################### Speicher -->
+
+	<pref key="MEMORY_CACHE" val="270"/>                 <!-- Größe des Bild-Caches in MB -->
+	<pref key="MEMORY_DISPLAY" val="false"/>             <!-- Anzeige der vom Reader verwendeten Speichermenge [true | false] -->
+</prefs>
+

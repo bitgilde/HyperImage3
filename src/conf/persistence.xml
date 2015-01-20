@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <persistence-unit name="HIEditor_ORM" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/HIEditorORM</jta-data-source>
+    <class>org.hyperimage.service.model.HIBase</class>
+    <class>org.hyperimage.service.model.HIGroup</class>
+    <class>org.hyperimage.service.model.HIInscription</class>
+    <class>org.hyperimage.service.model.HILayer</class>
+    <class>org.hyperimage.service.model.HILightTable</class>
+    <class>org.hyperimage.service.model.HIObject</class>
+    <class>org.hyperimage.service.model.HIObjectContent</class>
+    <class>org.hyperimage.service.model.HIText</class>
+    <class>org.hyperimage.service.model.HIURL</class>
+    <class>org.hyperimage.service.model.HIView</class>
+    <class>org.hyperimage.service.model.HIFlexMetadataName</class>
+    <class>org.hyperimage.service.model.HIFlexMetadataRecord</class>
+    <class>org.hyperimage.service.model.HIFlexMetadataSet</class>
+    <class>org.hyperimage.service.model.HIFlexMetadataTemplate</class>
+    <class>org.hyperimage.service.model.HIKeyValue</class>
+    <class>org.hyperimage.service.model.HIProject</class>
+    <class>org.hyperimage.service.model.HIPreference</class>
+    <class>org.hyperimage.service.model.HIRepository</class>
+    <class>org.hyperimage.service.model.HIUser</class>
+    <class>org.hyperimage.service.model.HIRole</class>
+    <class>org.hyperimage.service.model.HILanguage</class>
+    <properties>
+      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+    </properties>
+  </persistence-unit>
+</persistence>

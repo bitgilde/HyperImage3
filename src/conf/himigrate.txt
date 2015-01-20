@@ -1,0 +1,11 @@
+alter table hiproject add column quota bigint not null default 0;
+
+alter table hiproject add column defaultlanguage_id bigint;
+UPDATE hiproject SET defaultlanguage_id=subquery.langid FROM (select hiproject.id, hilanguage.id as langid from hiproject, hilanguage where hilanguage.project_id=hiproject.id) AS subquery WHERE hiproject.id=subquery.id;
+alter table hiproject alter column defaultlanguage_id set not null;
+
+alter table hibase add column uuid character varying(36);
+
+ALTER TABLE hibase ADD COLUMN timestamp bigint;
+UPDATE hibase SET timestamp=(select (extract('epoch' from CURRENT_TIMESTAMP)*1000)::bigint);
+ALTER TABLE hibase ALTER COLUMN timestamp SET NOT NULL;
