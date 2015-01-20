@@ -1,0 +1,1024 @@
+/*
+ * HTML5 Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	font-size: 10pt;
+}
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+ */
+
+img {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Chrome Frame prompt
+   ========================================================================== */
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Custom styles
+   ========================================================================== */
+
+span.hiBold, li.hiBold {
+	font-weight: bold;
+}
+span.hiItalic {
+	font-style: italic;
+}
+span.hiUnderline {
+	text-decoration: underline;
+}
+a.hiLink {
+	/* TODO */
+}
+
+footer {
+	display: none;
+	position: absolute;
+	opacity: 0.4;
+	text-shadow: 1px 1px 3px #333;
+	margin: auto;
+	bottom: 0px;
+	width: 100%;
+	height: 24px;
+	left: 20px;
+	right: 20px;
+	z-index: 20000;
+}
+
+#insertLinkDialog {
+	display: none;
+	font-family: 'Verdana', sans-serif;
+	font-size: 12px; 
+}
+#insertLinkField {
+	width: 100%;
+}
+
+#errorDialog {
+	display: none;
+	font-family: 'Verdana', sans-serif;
+	font-size: 12px; 
+}
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+#errorFooter {
+	font-size: 75%;
+	margin-top: 30px;
+	color: red;
+}
+
+#aboutDialog {
+	display: none;
+	font-size: 10pt;
+	font-family: 'Verdana', sans-serif;
+}
+#aboutDialog a {
+	color: blue;
+	text-decoration: none;
+}
+#aboutDialog im {
+	float: left;
+}
+.aboutHeader {
+	float: right;
+	font-size: 75%;
+	text-align: right;
+}
+.aboutText {
+	clear: both;
+}
+.aboutLibs {
+	font-size: 75%;
+}
+#aboutDialog table {
+	font-size: 75%;
+	text-align: center;	
+}
+.ui-dialog {
+	box-shadow: 9px 9px 12px #333;
+}
+#nameTableDialog {
+	display: none;
+}
+#nameTableDialog input {
+	margin-top: 4px;
+	width: 100%;
+}
+#showTableXMLDialog {
+	display: none;
+	overflow: hidden;
+	font-family: 'Verdana', sans-serif;
+	font-size: 12px; 
+}
+
+#showTableXMLDialog textarea {
+	resize: none;
+	display: block;
+	text-wrap: none;
+	width: 465px;
+	height: 260px;
+	top: 0px;
+	left: 0px;
+}
+#guiInitIndicator {
+	height: 100%;
+}
+
+#projectlogo {
+	z-index: 10;
+	width: 48px;
+	height: 48px;
+	background-color: grey;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	cursor: pointer;
+	border: 0px;
+}
+
+#projectlogo a img {
+	margin: 0;
+	padding: 0;
+	border: 0px;
+	width: 48px;
+	height: 48px;
+}
+
+#mainmenu {
+	opacity: 0.94;
+	background-color: #EFEFEF;
+	position: absolute;
+	top: 0px;
+	left: 48px;
+	right: 0px;
+	padding-left: 10px;
+	height: 24px;
+	display: block;
+	z-index: 20;
+}
+#mainmenu:hover {
+	box-shadow: 0px 5px 12px #333;
+}
+ul.mainmenu, ul.mainmenu * {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul.mainmenu {
+	position: absolute;
+}
+
+ul.mainmenu a {
+	display: block;
+	position: relative;
+}
+ul.mainmenu ul ul {
+	top: 0;
+	left: 100%;
+}
+
+
+ul.mainmenu > li {
+	height: 21px;
+	margin: 0;
+	padding 0;
+	padding-top: 3px;
+	vertical-align: middle;
+	float: left;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+ul.mainmenu li {
+	padding-top: 4px;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 20px;
+	position: relative;
+	white-space: nowrap;
+}
+ul.mainmenu li:hover {
+	background-color: white;
+}
+ul.mainmenu ul {
+	background-color: #EFEFEF;
+	margin: 0;
+	padding: 0;
+	display: none;
+	top: 100%;
+	left: 0;
+	z-index: 110;
+	position: absolute;
+	box-shadow: 8px 9px 11px #333;
+
+}
+
+ul.mainmenu a {
+	display: block;
+	position: relative;
+	color: black;
+	text-decoration: none;
+}
+
+li.hidden {
+	display: none;
+}
+li.separator {
+	display: block;
+	max-height: 4px;
+}
+li.separator:hover {
+	background-color: #EFEFEF !important;
+}
+
+#info {
+	opacity: 0.94;
+	z-index: 10;
+	background-color: white;
+	position: absolute;
+	top: 24px;
+	left: 48px;
+	right: 0px;
+	height: 24px;
+	padding-left: 10px;
+}
+
+#tabs {
+	background-color: #EEEEEE;
+	right: 0px;
+	top: 0px;
+	position: absolute;
+	height: 24px;
+	width: 330px;
+}
+
+ul.tabmenu {
+	margin: 0;
+	padding: 0;
+}
+ul.tabmenu li {
+	margin: 0;
+	padding 0;
+	padding-top: 3px;
+	vertical-align: middle;
+	list-style-type: none;
+	text-align: center;
+	display: block;
+	float: left;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-right: 1px solid;
+	border-right-color: #CCCCCC;
+	width: 71px;
+	height: 21px;
+}
+ul.tabmenu li.selected {
+	background-color: white;
+}
+ul.tabmenu li a {
+	text-decoration: none;
+	color: black;
+}
+.clearfloat {
+	clear: both;
+}
+.disabled, .disabled > a {
+	cursor: default;
+	background-color: #EFEFEF !important;
+	color: grey !important;
+	text-decoration: none;	
+}
+
+
+#groupView {
+	display: none;
+	z-index: 1;
+	position: absolute;
+	top: 48px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	padding-right: 330px;
+}
+#groupList {
+	position: absolute;
+	overflow: auto;
+	top: 0px;
+	bottom: 0px;
+	right: 330px;
+	left: 0px;
+	display: block;
+	margin: 0;
+	margin-left: 5px;
+	padding: 0;
+}
+#groupList li, #groupList li.text {
+	position: relative;
+	width: 128px;
+	height: 128px;
+	margin: 2px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	overflow: hidden;
+}
+#groupList li.text {
+	border: 1px solid #EFEFEF;
+}
+#groupList li a {
+	color: black;
+	text-decoration: none;
+	display: inline-block;
+	vertical-align: middle;
+}
+#groupList li.text a {
+	text-align: left;
+	width: 128px;
+	max-width: 122px;
+	max-height: 122px;
+	overflow: hidden;
+	margin: 3px;
+}
+
+#groupList li a img {
+	position: absolute; 
+	bottom: 0;
+	top: 0; 
+	left: 0; 
+	right: 0; 
+	margin: auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#textView {
+	background-color: white;
+	display: none;
+	z-index: 1;
+	position: absolute;
+	top: 48px;
+	left: 0px;
+	bottom: 0px;
+	padding-right: 330px;
+	right: 0px;
+}
+#textContent {
+	top: 0px;
+	max-width: 650px;
+	line-height: 1.2;
+	bottom: 0px;
+	padding: 10px;
+	padding-top: 12px;
+	left: 0px;
+	right: 0px;
+	opacity: 1.0;
+	margin: 0px;
+	position: absolute;
+	overflow: auto;
+}
+#lighttableView {
+	position: absolute;
+	background-color: white;
+	display: none;
+	z-index: 1;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	overflow: auto;
+}
+#lighttableContent {
+	position: absolute;
+	top: 48px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	overflow: auto;	
+}
+.ltFrame {
+	display: block;
+	position: absolute; 
+	overflow: hidden;
+	box-shadow: 0px 3px 6px #000;
+	min-width: 32px;
+	min-height: 48px;
+	font-size: 10px;
+}
+.ltFrame.ltSelected {
+	box-shadow: 0px 9px 15px #000;	
+}
+.ltSelected .ltFrameTitle {
+	background-color: #f0f0a2;
+}
+.ltFrameTitle {
+	position: absolute; 
+	cursor: pointer;
+	top: 0px; 
+	left: 0px;
+	width: 100%; 
+	height: 14px; 
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	background-color: white;	
+	overflow: hidden;
+}
+.ltFrame.ltSelected .ltFrameContent {
+	background-color: white;
+}
+.ltFrameContent {
+	position: absolute;
+	overflow: hidden;
+	cursor: move;
+	top: 16px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+.ltFrameContent > img {
+	position: absolute;
+}
+.ltResizeContainer {
+	display: none;
+	position: absolute;
+	box-shadow: 1px 1px 3px #000;
+	width: 24px; 
+	height: 24px;
+	bottom: 0px; 
+	right: 0px;
+}
+.ltLoadingIndicator {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	margin: auto;
+	width: 100px;
+	height: 100px;
+}
+.ltAnnotation .ltResizeContainer {
+	box-shadow: none;	
+}
+
+.ltResizeCanvas {
+	cursor: pointer;
+	position: absolute;
+	width: 24px;
+	height:24px;
+	bottom: 0px;
+	right: 0px;
+}
+.ltSelected .ltResizeContainer {
+	display: block;
+}
+.ltFrame:hover .ltResizeContainer {
+	display: block;
+}
+.ltFrame.ltAnnotation {
+	min-width: 100px;
+	min-height: 48px;
+	box-shadow: none;
+}
+.ltFrame.ltAnnotation.ltSelected {
+	box-shadow: 0px 9px 15px #000;	
+}
+.ltFrame.ltAnnotation .ltFrameTitle {
+	visibility: hidden;
+}
+.ltFrame.ltAnnotation.ltSelected .ltFrameTitle {
+	visibility: visible;
+}
+.ltFrame.ltAnnotation .ltFrameContent {
+	cursor: default;
+}
+.ltFrame.ltAnnotation .ltText {
+	display: block;
+	border: 0px;
+	overflow: hidden;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	margin: 7px;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	background-color: transparent;
+	background-image: none;
+}
+#emptyInput {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1px;
+	height: 1px;
+	z-index: -10;
+}
+
+.ui-resizable-handle.ui-resizable-se {
+	bottom: 0px;
+	right: 0px;
+	background-image: none;
+}
+
+.ui-widget-overlay {
+/*	opacity: 0.8 !important; */
+}
+
+#inscriptionContent {
+	margin: 5px;
+	margin-top: 10px;
+}
+#canvasWrapper {
+	position: absolute;
+	top: 48px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;	
+}
+#canvasImage {
+	display: none;
+}
+#imageLoadingIndicator {
+	position: absolute;
+	z-index: 200;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	margin: auto;
+	width: 100px;
+	height: 100px;
+	display: none;
+}
+.contentLoadingIndicator {
+	margin: auto;
+	width: 128px;
+	height: 128px;
+}
+
+.tooltip {
+	position: absolute;
+	width: 240px;
+	z-index: 501;
+	max-width: 240px;
+	box-shadow: 3px 3px 5px #666;
+	display: none;
+}
+.tooltipBackground {
+	position: absolute;
+	z-index: 499;
+	background-color: #ffffaa;
+	padding: 3px;
+	padding-right: 7px;
+	padding-left: 7px;
+	font-size: 12px;
+	opacity: 0.9;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+.tooltipContent {
+	color: black;
+	opacity: 1.0;
+	position: relative;
+	z-index: 500;
+	padding: 3px;
+	padding-right: 7px;
+	padding-left: 7px;
+}
+
+.tooltip a {
+	cursor: pointer;
+}
+
+#canvas {
+	display: none;
+	overflow: hidden;
+	z-index: 1;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+#content {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	bottom: 0px;
+}
+#sidebar {
+	opacity: 0.94;
+	z-index: 10;
+	overflow: auto;
+	position: absolute;
+	width: 330px;
+	min-width: 330px;
+	top: 48px;
+	right: 0px;
+}
+#metadataBar, #annotationBar, #inscriptionBar, #searchBar {
+	background-color: white;
+	overflow: auto;
+	min-height: 1em;
+}
+#metadataBar p {
+	margin: 0;
+}
+
+#loadingpanel {
+	display: block;
+	position: absolute;
+	z-index: 100;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background-color: white;
+	opacity: 0.9;
+}
+
+.mdfield {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.mdkey {
+	margin-left: 3px;
+	margin-right: 3px;
+	color: grey;
+	font-weight: bold;
+}
+.mdvalue {
+	margin-left: 3px;
+	margin-right: 3px;
+	font-weight: normal;
+	color: black;
+	text-shadow: none;
+}
+#loadingIndicator {
+	margin: 0;
+	margin-right: 5px;
+	padding: 0;
+	max-width: 24px;
+	max-height: 24px;
+	overflow: hidden;
+	width: 24px;
+	height: 24px;
+	float: left;
+	background-color: white;
+}
+#infotext {
+	margin: 0;
+	padding: 0;
+	height: 20px;
+	overflow: hidden;
+	float: left;
+	line-height: 24px;
+}
+
+#searchContent {
+	margin: 10px;
+	margin-top: 7px;
+	top: 0px;
+}
+
+#searchInput {
+	margin: 0px;
+	padding: 0px;
+	padding-left: 3px;
+	width: 215px;
+	margin-right: 5px;
+	height: 19px;
+	border: 1px solid #B3B3B3;
+	border-bottom: 1px solid #ECECEC;
+	border-right: 1px solid #ECECEC;
+	box-shadow: inset 1px 1px 3px #B3B3B3;
+}
+.hiButton {
+	background-color: white;
+	color: black;
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid #B3B3B3;
+	box-shadow: 0px 0px 3px #B3B3B3;	
+	height: 21px;
+}
+#searchButton {
+	width: 80px;
+}
+#basicSearchButton, #extendedSearchButton {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 152px;
+	float: right;
+}
+#basicSearchButton {
+	display: none;
+}
+
+#searchResults, #searchOptions {
+	position: relative;
+/*	top: 59px; */
+	width: 320px;
+/*	bottom: 0px; */
+/*	right: 0px; */
+	overflow: auto;
+}
+#searchResultsContent, #searchOptionsContent {
+	padding-top: 11px;
+	padding-left: 10px;
+	padding-right: 5px;
+}
+
+#searchOptions {
+	display: none;
+}
+
+#searchOptionsList, #searchOptionsList ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+#searchOptionsList ul {
+	margin-left: 20px;
+}
+li.hiBold {
+	margin-top: 7px;
+}
+
+
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Image replacement
+ */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

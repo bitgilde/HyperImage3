@@ -1,0 +1,49 @@
+HyperImage 3: HTML5 Static Reader - Upgrade Instructions from HyperImage 2
+--------------------------------------------------------------------------
+
+Place all files contained in this release in the directory on your web server containing your exported PostPeTAL 1.2 project.
+Overwrite files if necessary.
+
+IMPORTANT:
+If you selected a custom skin or other custom visual settings in the PostPeTAL generator for your published project or manually tweaked your hi_prefs.xml file
+DO NOT overwrite the file "hi_prefs.xml" in the directory "resource" with the one in this release or your settings will be reset to the default settings.
+
+
+NOTES
+-----
+
+The following preference keys (resource/hi_prefs.xml) of the HyperImage 2 Reader (Flash) are not yet supported by this version of the HyperImage 3 Reader (HTML5):
+- VIEW_WHOLE_PICTURE (always defaults to "true")
+- SHADOW_COLOR (defaults to #000000)
+- MAINTEXT_LETTERSPACING (defaults to 0px)
+- TABS_BUTTON_COLOR (defaults to #FFFFFF)
+- TABS_INPUT_COLOR (defaults to #FFFFFF)
+- MENU_COLOR_ACTIVE (defaults to #EEEEEE)
+- MENU_SHADOW_COLOR (defaults to #000000)
+- LITA_INFOLINE_COLOR (defaults white)
+- LITA_INFO_FONT (defaults to MENUTEXT_* value)
+- LITA_INFO_SIZE (defaults to MENUTEXT_* value)
+- LITA_INFO_COLOR (defaults to MENUTEXT_* value)
+- LITA_INFO_BOLD (defaults to MENUTEXT_* value)
+- LITA_INFO_ITALIC (defaults to MENUTEXT_* value)
+- LITA_INFO_UNDERLINE (defaults to MENUTEXT_* value)
+- LITA_INFO_LETTERSPACING (defaults to MENUTEXT_* value)
+- LITA_SHADOW_COLOR (defaults to #000000)
+- LITA_HEAD_BOLD (defaults to normal/false)
+- LITA_HEAD_ITALIC (defaults to normal/false)
+- LITA_HEAD_UNDERLINE (defaults to none/false)
+- LITA_HEAD_LETTERSPACING (defaults to 0px)
+- LITA_ANN_BOLD (defaults to normal/false)
+- LITA_ANN_ITALIC (defaults to normal/false)
+- LITA_ANN_UNDERLINE (defaults to none/false)
+- LITA_ANN_LETTERSPACING (defaults to 0px)
+- DIALOG_COLOR (defaults to #EEEEEE)
+- DIALOGTEXT_BOLD (defaults to normal/false)
+- DIALOGTEXT_ITALIC (defaults to normal/false)
+- DIALOGTEXT_UNDERLINE (defaults to none/false)
+- DIALOGTEXT_LETTERSPACING (defaults to 0px)
+
+The following preference keys (resource/hi_prefs.xml) of the HyperImage 2 Reader (Flash) are technologically obsolete and are no longer supported in the HyperImage 3 Reader (HTML5):
+- BACKFORTH_COLOR, SCROLLBAR_COLOR, SCROLLBAR_COLOR_SLIDER, INFOLINE_COLOR_HI, VIEW_BG_OPACITY, VIEW_SCROLL_FACTOR, LITA_INFOLINE_COLOR_HI, MENU_COLOR_STROKE,
+- PROBAR_COLOR, PROBAR_COLOR_BG, PROBAR_COLOR_BORDER, PROTEXT_FONT, PROTEXT_SIZE, PROTEXT_COLOR, PROTEXT_BOLD, PROTEXT_ITALIC, PROTEXT_UNDERLINE, PROTEXT_LETTERSPACING,
+- MEMORY_CACHE, MEMORY_DISPLAY

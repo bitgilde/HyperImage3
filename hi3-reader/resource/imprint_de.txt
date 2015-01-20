@@ -1,0 +1,7 @@
+<h1>Impressum der HyperImage-Autoren</h1>
+<p>
+S&auml;mtliche HTML-Tags werden unterst&uuml;tzt.
+</p>
+<p>
+	Ersetzen Sie diesen Text in der Datei <strong>imprint_de.txt</strong> im Verzeichnis <strong>resource</strong> durch Ihr eigenes Impressum.
+</p>

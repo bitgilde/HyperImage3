@@ -1,0 +1,7 @@
+<h1>Imprint of the HyperImage Authors</h1>
+<p>
+	All HTML tags are supported.
+</p>
+<p>
+	Replace this text, located in the file <strong>imprint_en.txt</strong> in directory <strong>resource</strong>, with your own imprint.
+</p>

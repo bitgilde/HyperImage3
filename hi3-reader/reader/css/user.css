@@ -1,0 +1,244 @@
+/* add custom skin definitions here
+   NOTE: settings in hi_prefs.xml take precedence.
+ */
+
+/* General Preferences */
+
+#info {
+	/* INFOLINE_COLOR: Farbe der Informationszeile */
+	background-color: white; 
+}
+body {
+	/* MAINTEXT_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;
+	/* MAINTEXT_SIZE: Größe */
+	font-size: 12px;
+	/* MAINTEXT_BOLD: fett */
+	font-weight: normal;
+	/* MAINTEXT_ITALIC: kursiv */
+	font-style: normal;
+	/* MAINTEXT_UNDERLINE: unterstrichen */
+	text-decoration: none;
+}
+body, #canvas, #groupView, #textView, #searchContent, #searchOptionsContent, #searchResultsContent, #metadataBar, #annotationBar, #inscriptionBar, #searchBar {
+	/* BG_COLOR: allgemeine Hintergrundfarbe */	
+	background-color: white; 
+}
+body, #info, #canvas, #groupView, #textView, #lighttableView, #sidebar, #metadataContent, #annotationContent, #inscriptionBar, #searchBar, .mdvalue, a, a:visited, ul.tabmenu li a {
+	/* MAINTEXT_COLOR: Farbe */
+	color: black;
+}
+#textContent {
+	/* TEXT_WIDTH: maximale Breite der Projekttexte in Pixel */
+	max-width: 640px;
+}
+
+a, a:visited {
+	/* MAINTEXT_LINK_BOLD: fett */
+	font-weight: normal;
+	/* MAINTEXT_LINK_ITALIC: kursiv */
+	font-style: normal;
+	/* MAINTEXT_LINK_UNDERLINE: unterstrichen */
+	text-decoration: none;
+	/* MAINTEXT_LINK_COLOR: Farbe */
+	color: #0000EE;
+}
+
+/* Menu Preferences */	
+
+#mainmenu, ul.mainmenu a {
+	/* MENUTEXT_COLOR: Farbe */
+	color: black;
+	/* MENUTEXT_BOLD: fett */
+	font-weight: normal;
+	/* MENUTEXT_ITALIC: kursiv */
+	font-style: normal;
+	/* MENUTEXT_UNDERLINE: unterstrichen */
+	text-decoration: none;
+	/* MENUTEXT_LETTERSPACING: Spationierung */
+	letter-spacing: 0px;	
+}
+#mainmenu {
+	/* MENU_COLOR: Farbe des Menüs */
+	background-color: #EFEFEF;
+}
+.disabled, .disabled > a, ul.mainmenu li.separator:hover {
+	/* MENU_COLOR: Farbe des Menüs */
+	background-color: #EFEFEF;
+}
+#mainmenu {
+	/* MENUTEXT_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;	
+}
+#mainmenu {
+	/* MENUTEXT_SIZE: Größe */
+	font-size: 12px;	
+}
+ul.mainmenu li:hover {
+	/* MENU_COLOR_HI: Farbe der fokussierten Zeile */
+	background-color: white;
+}
+.disabled, .disabled > a {
+	/* MENUTEXT_COLOR_DEACT: Farbe deaktivierter Menüzeilen */
+	color: #999999;
+}
+	
+/* Tab Preferences */
+
+ul.tabmenu li.selected {
+	/* TABS_COLOR: Farbe der Registerkarte */
+	background-color: white;
+}
+#tabs {
+	/*TABS_COLOR_DESEL: Farbe der deselektierten Registerkarten*/
+	background-color: #EEEEEE;
+}
+ul.tabmenu li {
+	/* TABS_COLOR_BORDER: Umrissfarbe der Reiter der Registerkarten */
+	border-right-color: #CCCCCC;
+}
+.mdkey {
+	/* TABTITLE_BOLD: fett */
+	font-weight: bold;
+	/* TABTITLE_ITALIC: kursiv */
+	font-style: normal;
+	/* TABTITLE_UNDERLINE: unterstrichen */
+	text-decoration: none;
+	/* TABTITLE_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;
+	/* TABTITLE_SIZE: Größe */
+	font-size: 12px;
+	/* TABTITLE_COLOR: Farbe */
+	color: #999999;
+	
+}
+
+/* Tooltip Preferences */
+
+.tooltip {
+	/* TOOLTIP_WIDTH: Breite des Tooltipfensters in Pixel */
+	width: 240px;
+	max-width: 240px;
+}
+.tooltipBackground {
+	/* TOOLTIP_COLOR: Farbe des Tooltipfensters */
+	background-color: #FFF099;
+	/* OVERLAYS_OPACITY: Farbe des Tooltipfensters + Deckkraft der überlagernden Elemente */
+	opacity: 0.94;
+	
+}
+.tooltipContent {
+	/* TOOLTIPTEXT_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;
+	/* TOOLTIPTEXT_SIZE: Größe */
+	font-size: 12px;
+	/* TOOLTIPTEXT_COLOR: Farbe */
+	color: black;
+	/* TOOLTIPTEXT_BOLD: fett */
+	font-weight: normal;
+	/* TOOLTIPTEXT_ITALIC: kursiv */
+	font-style: normal;
+	/* TOOLTIPTEXT_UNDERLINE: unterstrichen */
+	text-decoration: none;
+	/* TOOLTIPTEXT_LETTERSPACING: Spationierung */
+	letter-spacing: 0px;
+}
+
+/* Group / List Preferences */
+#groupList li.text {
+	/* GROUPMEMBER_COLOR: Hintergrundfarbe der Gruppenelemente mit Text */
+	background-color: white;
+	/* GROUPMEMBER_COLOR_BORDER: Randfarbe der Gruppenelemente mit Text */
+	border-color: black;
+		
+}
+#groupList li.text a {
+	/* GROUP_THUMB_COLOR: Farbe */
+	color: black;
+	/* GROUP_THUMB_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;
+	/* GROUP_THUMB_SIZE: Größe */
+	font-size: 12px;
+	/* GROUP_THUMB_BOLD: fett */
+	font-weight: normal;
+	/* GROUP_THUMB_ITALIC: kursiv */
+	font-style: normal;
+	/* GROUP_THUMB_UNDERLINE: unterstrichen */
+	text-decoration: none;
+	/* GROUP_THUMB_LETTERSPACING: Spationierung */
+	letter-spacing: 0px;	
+}}
+	
+/* Light Table Preferences */
+#lighttableView {
+	/* LITA_COLOR_BG: Hintergrundfarbe des Lichttisches */
+	background-color: white;
+}
+.ltFrameTitle {
+	/* LITA_COLOR_HEAD: Hintergrundfarbe der Kopfzeilen der Lichttisch-Elemente */
+	background-color: white;
+}
+.ltSelected .ltFrameTitle {
+	/* LITA_COLOR_HEADSEL: Hintergrundfarbe der Kopfzeile des selektierten Lichttisch-Elementes */
+	background-color: #F0F0A2;
+}
+.ltFrameTitle {
+	/* LITA_HEAD_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;
+	/* LITA_HEAD_SIZE: Größe */
+	font-size: 10px;
+	/* LITA_HEAD_COLOR: Farbe */
+	color: black;
+}
+.ltAnnotation .ltText {
+	/* LITA_ANN_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;
+	/* LITA_ANN_SIZE: Größe */
+	font-size: 12px;
+	/* LITA_ANN_COLOR: Farbe */
+	color: black;
+}
+	
+/* Dialog / Input / Button Preferences */
+.hiButton, #searchInput {
+	/* DIALOGTEXT_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;
+	/* DIALOGTEXT_SIZE: Größe */
+	font-size: 12px;
+	/* DIALOGTEXT_COLOR: Farbe */
+	color: black;
+}
+.hiButton {
+	/* DIALOG_BUTTON_COLOR: Farbe der Schaltflächen der Eingabefelder */
+	background-color: white;
+}
+#searchInput {
+	/* DIALOG_INPUT_COLOR: Hintergrundfarbe der Eingabefelder */
+	background-color: white;
+}
+
+/* Search Preferences */
+
+.highlight {
+	/* highlight a word in metadata that was the result of a search term */
+	font-weight: bold;
+}
+
+#searchOptionsList, #searchOptionsList ul {
+	/* Beschriftung der Items der Erweiterten Suche */
+	
+	/* SEARCH_ITEM_FONT: Schriftart */
+	font-family: 'Verdana', sans-serif;
+	/* SEARCH_ITEM_SIZE: Größe */
+	font-size: 10px;
+	/* SEARCH_ITEM_COLOR: Farbe */
+	color: black;
+	/* SEARCH_ITEM_BOLD: fett */
+	font-weight: normal;
+	/* SEARCH_ITEM_ITALIC: kursiv */
+	font-style: normal;
+	/* SEARCH_ITEM_UNDERLINE: unterstrichen */
+	text-decoration: none;
+	/* SEARCH_ITEM_LETTERSPACING: Spationierung */
+	letter-spacing: 0px;
+}
