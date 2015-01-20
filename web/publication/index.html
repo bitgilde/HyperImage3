@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!-- 
+	Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+		
+		@author Jens-Martin Loebel
+-->
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>HyperImage 3 &middot; Publication Tool</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+        <link rel="stylesheet" href="pubtool/css/normalize.css">
+        <link rel="stylesheet" href="pubtool/css/main.css">
+        <link rel="stylesheet" href="pubtool/css/flick/jquery-ui.min.css">
+
+        <script src="pubtool/js/libs/modernizr-2.7.1.min.js"></script>
+        <script src="pubtool/js/libs/jquery/jquery-1.10.2.min.js"></script>
+        <script src="pubtool/js/libs/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="pubtool/js/libs/jquery/jquery.ddslick.min.js"></script>
+
+        <!-- HI webservice (SOAP) plugins -->
+        <script type="text/javascript" src="pubtool/js/libs/cxf-utils.js"></script>
+        <script type="text/javascript" src="pubtool/js/api/soap/HILoginService.js"></script>
+        <script type="text/javascript" src="pubtool/js/api/soap/HIEditorService.js"></script>
+
+        <script type="text/javascript" src="pubtool/js/libs/jszip/jszip.js"></script>
+        <script type="text/javascript" src="pubtool/js/libs/jszip/jszip-load.js"></script>
+        <script type="text/javascript" src="pubtool/js/libs/jszip/jszip-inflate.js"></script>
+        <script type="text/javascript" src="pubtool/js/libs/jszip/jszip-deflate.js"></script>
+        <script type="text/javascript" src="pubtool/js/libs/jszip/jszip-utils.min.js"></script>
+        <script type="text/javascript" src="pubtool/js/libs/filesaver/FileSaver.js"></script>
+        <script type="text/javascript" src="pubtool/js/libs/i18next/i18next-1.7.3.min.js"></script>
+
+        <script src="pubtool/js/pubtool.plugins.js"></script>
+        <script src="pubtool/js/pubtool.main.js"></script>
+
+    </head>
+    <body onload="initPubTool();">
+        <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+
+<div id='mainmenu'>
+	<span style="float: left; padding-top: 2px;"><strong><a href="http://hyperimage.ws/" style="text-decoration: none; color: black;">HyperImage 3</a></strong> &middot; Publication Tool</span>
+	<span style="float: right; padding-top: 2px;padding-right: 5px;">v3.0.0.alpha</span>
+</div>
+<div id="maincontent">
+	<div id="warningbar"><strong data-i18n="note"></strong> <span data-i18n="safariText"></span> 
+		<a href="http://www.mozilla.org/firefox/new/" style="text-decoration: none;">Firefox</a> <span data-i18n="or"></span> 
+		<a href="https://www.google.de/chrome/browser/" style="text-decoration: none;">Chrome</a> <span data-i18n="toOpen"></span>
+	</div>
+	
+	<div id="zipdialog" title="Publikation Speichern">
+		<p style="text-align: center;">
+			<strong data-i18n="publicationReady"></strong>
+		</p>
+		<p style="text-align: center;">
+			<img onclick="javascript:saveZIPFile();" src="pubtool/img/zip-icon.png" alt="Download" style="margin-right: 15px;" />
+			<button id="zipbutton" data-i18n="saveZIP"></button>
+		</p>
+  		<p style="text-align: justify; font-size: 11pt;"><span data-i18n="saveText"></span>
+  			<br />
+  		</p>
+  		<p id="safarinote" style="text-align: justify; font-size: 11pt;">
+  			<strong data-i18n="note"></strong> <span data-i18n="safariExplain"></span>
+  		</p>
+	</div>
+	 
+	<div id="pubtoolwindow">
+		<div id="pubtoolwindow_title" data-i18n="createStaticPublication"></div>
+		<div id="tabs" class="windowarea">
+			  		<ul>
+						<li>
+							<a href="#tabs-1" data-i18n="metadata"></a>
+						</li>
+						<li>
+							<a href="#tabs-2"><img src="pubtool/img/hi_loading_small.gif" alt="" style="margin-right: 5px;" class="grouploader" /><span data-i18n="groups" ></span></a>
+						</li>
+						<li>
+							<a href="#tabs-3"><img src="pubtool/img/hi_loading_small.gif" alt="" style="margin-right: 5px;" class="textloader" /><span data-i18n="texts"></span></a>
+						</li>
+						<li>
+							<a href="#tabs-4"><img src="pubtool/img/hi_loading_small.gif" alt="" style="margin-right: 5px;" class="litaloader" /><span data-i18n="lighttables"></span></a>
+						</li>
+						</ul>
+						<div id="tabs-1" class="listtab">
+							<p data-i18n="metadataText"></p>
+								<ul class="sortable" id="metadataSortable"></ul>
+						</div>
+
+						<div id="tabs-2" class="listtab">
+							<p data-i18n="groupText"></p>
+							<ul class="sortable" id="groupSortable"></ul>
+						</div>
+
+						<div id="tabs-3" class="listtab">
+							<p data-i18n="textText"></p>
+							<ul class="sortable" id="textSortable"></ul>
+						</div>
+
+						<div id="tabs-4" class="listtab">
+							<p data-i18n="litaText"></p>
+							<ul class="sortable" id="litaSortable"></ul>
+						</div>
+			
+		</div>
+		<div class="windowarea" id="infoarea">
+			<p style="text-align: justify;" data-i18n="pubToolText">
+			</p>
+			<hr />
+			<p style="text-align: center;">
+			<span data-i18n="chooseTheme"></span>
+<!--				<img style="margin-bottom: 15px; border: 1px solid gray;" src="pubtool/img/themes/standard.png" alt="" id="themepreview" width="128" height="100" /> -->
+				<select id="combobox">
+					<option data-imagesrc="pubtool/img/themes/standard.png" value="standard" data-i18n="defaultTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/schwarz-blau.png" value="schwarz-blau" data-i18n="blackBlueTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/blau-blau.png" value="blau-blau" data-i18n="blueTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/braun-rot.png" value="braun-rot" data-i18n="brownRedTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/dunkel-gruen.png" value="dunkel-gruen" data-i18n="darkGreenTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/dunkel-orange.png" value="dunkel-orange" data-i18n="darkOrangeTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/dunkelbraun-pink.png" value="dunkelbraun-pink" data-i18n="darkBrownPinkTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/gelbgruen-cyan.png" value="gelbgruen-cyan" data-i18n="yellowGreenCyanTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/graugruen-cyan.png" value="graugruen-cyan" data-i18n="grayGreenCyanTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/hell-warm.png" value="hell-warm" data-i18n="lightWarmTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/hell-warm-dunkelpink-orange.png" value="hell-warm-dunkelpink-orange" data-i18n="lightPinkOrangeTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/weiss-dunkelpink.png" value="weiss-dunkelpink" data-i18n="whiteDarkPinkTheme"></option>
+					<option data-imagesrc="pubtool/img/themes/weiss-gelbgruen-cyan.png" value="weiss-gelbgruen-cyan" data-i18n="whiteYellowGreenTheme"></option>
+				</select>
+			</p>
+			<hr />
+						<p style="text-align: justify; font-size: 10pt;">
+				<strong data-i18n="note"></strong> <span data-i18n="staticObsolete"></span>
+			</p>
+			<hr />
+			<p style="text-align: center;">
+				<button id="startbutton" data-i18n="createPublication"></button>
+			</p>
+		</div>
+	</div>
+	
+	<div id="errorDialog">
+			<p>
+				<strong data-i18n="message"></strong><br><span id="errorMessage" class="ui-icon-alert">&nbsp;</span>
+			</p>
+			<p id="errorFooter" data-i18n="applicationError"></p>
+	</div>
+	<div id="pageinit">
+		<div id="pageinitcontent">
+			<img src="pubtool/img/hi_loading.gif" id="hiloading" style="margin-bottom: 35px;" alt="" /><br />
+			<div style="clear: both;" id="progressbar"><div class="progress-label" data-i18n="loadProjectData"></div></div>
+			<img id="previewImage" alt="" src='pubtool/img/hyperimage-logo-pubtool.png' />
+		</div>
+	</div>	
+
+</div>		
+
+
+    </body>
+</html>

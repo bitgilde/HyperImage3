@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+<!-- 
+	Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+		
+		@author Jens-Martin Loebel
+-->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta charset="utf-8">
+
+        <title>HyperImage 3 – HTML5 PreViewer</title>
+        <meta name="description" content="HyperImage 3 – HTML5 PreViewer">
+        <meta name="source" content="http://hyperimage.ws/">
+		<meta name="generator" content="HyperImage 3 - PreViewer v3.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+		<link rel="icon" href="reader/icons/favicon.ico" type="image/x-icon">
+
+        <!-- iPhone -->
+        <link href="reader/icons/apple-touch-icon.png" rel="apple-touch-icon">
+        <link href="reader/icons/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon"> 
+        <!-- iPad -->
+        <link href="reader/icons/apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon"> 
+        <link href="reader/icons/apple-touch-icon-144x144.png" sizes="144x144" rel="apple-touch-icon">
+
+        <link rel="stylesheet" href="reader/css/normalize.css" />
+        <link rel="stylesheet" href="reader/css/main.css" />
+        <link rel="stylesheet" href="reader/css/user.css" />
+        <link rel="stylesheet" href="reader/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="reader/css/jquery.contextMenu.css" />
+        <link rel="stylesheet" href="reader/css/miniplayer.css" />
+
+        <!-- jquery and jquery plugins -->
+        <script type="text/javascript" src="reader/js/libs/modernizr-2.6.2.min.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery.tools.min.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery.stylesheet.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery-ui-1.10.2.custom.min.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery.activity-indicator-1.0.0.min.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery.svg.min.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery.contextMenu.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery.jplayer.min.js"></script>
+        <script type="text/javascript" src="reader/js/libs/jquery/jquery.mb.miniPlayer.js"></script>
+        <!-- menu and scroll plugins -->
+        <script type="text/javascript" src="reader/js/libs/dragscrollable.js"></script>
+        <script type="text/javascript" src="reader/js/libs/superfish.js"></script>
+        <!-- HI webservice (SOAP) plugins -->
+        <script type="text/javascript" src="reader/js/libs/cxf-utils.js"></script>
+        <script type="text/javascript" src="reader/js/api/soap/HILoginService.js"></script>
+        <script type="text/javascript" src="reader/js/api/soap/HIEditorService.js"></script>
+
+        <!-- reader application -->
+        <script type="text/javascript" src="reader/js/reader.min.js"></script>
+        <script type="text/javascript" src="reader/js/reader.plugin.previewer.js"></script>
+    </head>
+    <body onload="initReader()">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+		<!-- APPLICATION LOGIC -->
+		
+		<div id="loadingpanel">
+			<div id="guiInitIndicator">&nbsp;</div>
+		</div>
+		
+		<header>
+		<div id="projectlogo"><a  class="startitem" href="#"><img src="resource/home.png" alt="" /></a></div>
+		</header>
+		<nav>
+		<div id="mainmenu">
+			<ul class="mainmenu">
+				<li class="MENU_FILE">
+					<ul id="languageMenu">
+						<li class="separator"><hr /></li>
+						<li><a class="MENU_CURRENT_ID" href="javascript:showID();">&nbsp;</a></li>
+						<li class="separator"><hr /></li>
+						<li><a class="MENU_IMPRINT" href="#imprint/">&nbsp;</a></li>
+						<li><a class="MENU_ABOUT" href="javascript:aboutReader();">&nbsp;</a></li>
+					</ul>	
+				</li>
+				
+				<li class="MENU_DISPLAY">
+					<ul id="displayMenu">
+						<li><a id="wholePictureLink" class="MENU_WHOLE_PICT" href="#">&nbsp;</a></li>
+						<li><a id="wholeWindowLink" class="MENU_WHOLE_WINDOW" href="#">&nbsp;</a></li>
+						<li><a id="bestResolutionLink" class="MENU_BEST_RESOLUTION" href="#">&nbsp;</a></li>
+						<li><a id="zoomInLink" class="MENU_ZOOM_IN" onclick="javascript:zoomIn();" href="#">&nbsp;</a></li>
+						<li><a id="zoomOutLink" class="MENU_ZOOM_OUT" onclick="javascript:zoomOut();" href="#">&nbsp;</a></li>
+						<li class="separator"><hr /></li>
+						<li><a id="showLayersLink_ON" class="MENU_SHOW_LAYERS" href="javascript:highlightAllLayers();">&nbsp;</a></li>
+						<li><a id="showLayersLink_OFF" class="MENU_HIDE_LAYERS" href="javascript:highlightAllLayers();">&nbsp;</a></li>
+						<li><a id="targetLayerLink_ON" class="MENU_SHOW_TARGETLAYER" href="javascript:highlightSourceLayer();">&nbsp;</a></li>
+						<li><a id="targetLayerLink_OFF" class="MENU_HIDE_TARGETLAYER" href="javascript:hideSourceLayer();">&nbsp;</a></li>
+					</ul>
+				</li>
+
+				<li class="MENU_NAVIGATION">
+					<ul>
+						<li><a class="startitem" href="#">Startseite</a></li>
+						<li class="separator"><hr /></li>
+						<li><a id="allLink" class="MENU_SIBLINGS" href="#">&nbsp;</a></li>
+						<li><a id="sitesLink" class="MENU_SITES" href="#">&nbsp;</a></li>
+						<li><a id="refsLink" class="MENU_REFS" href="#">&nbsp;</a></li>
+					</ul>
+				</li>
+				
+				<li class="MENU_TEXTS">
+					<ul id="textmenu">
+					</ul>
+				</li>
+		
+				<li class="MENU_GROUPS">
+					<ul id="groupmenu">
+					</ul>			
+				</li>
+				
+				<li class="MENU_LITA">
+					<ul>
+						<li><a id="addViewLink" class="MENU_VIEW_TO_LITA" href="#">&nbsp;</a></li>
+						<li><a id="showLitaLink_ON" class="MENU_SWITCH_ON" href="javascript:displayLightTable();">&nbsp;</a></li>
+						<li><a id="showLitaLink_OFF" class="MENULITA_SWITCH_OFF" href="javascript:returnFromLightTable();">&nbsp;</a></li>
+						<li><a id="showViewLink" class="MENULITA_BROWSER" href="#">&nbsp;</a></li>
+						<li class="separator"><hr /></li>
+						<li><a id="duplicateLink" class="MENULITA_DUPLICATE_ELEMENT" href="#">&nbsp;</a></li>
+						<li><a id="removeLink" class="MENULITA_DELETE_ELEMENT" href="#">&nbsp;</a></li>
+						<li><a id="fitFrameLink" class="MENULITA_FIT_FRAME" href="#">&nbsp;</a></li>
+						<li><a id="fitToThumbLink" class="MENULITA_THUMBNAIL" href="#">&nbsp;</a></li>
+						<li class="separator"><hr /></li>
+						<li><a id="addAnnotationLink_ON" class="MENULITA_ADD_ANNOTATION" href="#">&nbsp;</a></li>
+						<li><a id="addAnnotationLink_OFF" class="MENULITA_REMOVE_ANNOTATION" href="#">&nbsp;</a></li>
+						<li><a id="insertLinkLink" class="MENULITA_INSERT_LINK" href="#">&nbsp;</a></li>
+						<li class="separator"><hr /></li>
+						<li><a id="nameTableLink" class="MENULITA_NAME" href="#">&nbsp;</a></li>
+						<li><a id="saveTableLink" class="MENULITA_SAVE" href="#">&nbsp;</a></li>
+					</ul>					
+				</li>
+
+				<li class="MENU_GALLERY">
+					<ul id="gallerymenu">
+						<li id="publicLightTables" class="MENULITA_PROJECT_LITA disabled">&nbsp;</li>
+					</ul>
+				</li>
+
+				<li class="MENU_BOOKMARK">
+					<ul id="bookmarkmenu">
+						<li><a id="saveBookmarkLink" class="MENU_BOOKMARK_SAVE" href="javascript:saveBookmark();">&nbsp;</a></li>
+						<li><a id="deleteBookmarkLink" class="MENU_BOOKMARK_DELETE" href="javascript:deleteBookmark();">&nbsp;</a></li>
+						<li><a id="deleteAllBookmarksLink" class="MENU_BOOKMARK_DELETE_ALL" href="javascript:deleteAllBookmarks();">&nbsp;</a></li>
+						<li id="beginBookmarks" class="separator"><hr /></li>
+					</ul>
+				</li>
+
+				<li class="MENU_THEME">
+					<ul id="thememenu">
+						<li><a class="MENU_THEME_DEFAULT" href="javascript:loadSkin('standard');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_BLACK_BLUE" href="javascript:loadSkin('schwarz-blau');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_BLUE" href="javascript:loadSkin('blau-blau');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_BROWN_RED" href="javascript:loadSkin('braun-rot');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_DARKGREEN" href="javascript:loadSkin('dunkel-gruen');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_DARKORANGE" href="javascript:loadSkin('dunkel-orange');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_DARKBROWN_PINK" href="javascript:loadSkin('dunkelbraun-pink');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_YELLOWGREEN_CYAN" href="javascript:loadSkin('gelbgruen-cyan');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_GREYGREEN_CYAN" href="javascript:loadSkin('graugruen-cyan');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_BRIGHT_WARM" href="javascript:loadSkin('hell-warm');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_BRIGHT_DARKPINK" href="javascript:loadSkin('hell-warm-dunkelpink-orange');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_WHITE_DARKPINK" href="javascript:loadSkin('weiss-dunkelpink');">&nbsp;</a></li>
+						<li><a class="MENU_THEME_WHITE_YELLOWGREEN" href="javascript:loadSkin('weiss-gelbgruen-cyan');">&nbsp;</a></li>
+					</ul>
+				</li>
+
+
+			</ul>
+		</div>
+		</nav>
+		<div id="info">
+			<div id="loadingIndicator">&nbsp;</div><div id="infotext">&nbsp;</div>
+			<div id="tabs">
+				<ul class="tabmenu">
+					<li><a class="TAB_METADATA" href="javascript:showTab(0);">&nbsp;</a></li>
+					<li><a class="TAB_ANNOTATIONS" href="javascript:showTab(1);">&nbsp;</a></li>
+					<li><a class="TAB_INSCRIPTION" href="javascript:showTab(2);">&nbsp;</a></li>
+					<li><a class="TAB_SEARCH" href="javascript:showTab(3);">&nbsp;</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content">
+			<div id="canvasWrapper">
+				<div id="canvasTooltip" class="tooltip"><div class="tooltipContent">&nbsp;</div><div class="tooltipBackground">&nbsp;</div></div>
+				<div id="imageLoadingIndicator">
+				</div>
+				<div id="canvas">
+				</div>
+			</div>
+			<div id="groupView">
+				<ul id="groupList">
+				</ul>
+			</div>
+			<div id="textView">
+				<div id="textContent">
+					Text View
+				</div>
+			</div>
+			<div id="lighttableView">
+				<div id="lighttableContent">
+				</div>
+			</div>
+
+			<div id="sidebar">
+				<div id="metadataBar" class="sidebars">
+				</div>
+				<div id="annotationBar" class="sidebars">
+					<div id="annotationTitle" class="mdkey">
+						<div id="objectannotation_field" class="mdfield">
+							<div class="ANNOTATION_OBJECT mdkey">&nbsp;</div>
+							<div id="objectannotation_value" class="mdvalue">&nbsp;</div>
+						</div>
+						<div id="viewannotation_field" class="mdfield">
+							<div class="ANNOTATION_VIEW mdkey">&nbsp;</div>
+							<div id="viewannotation_value" class="mdvalue">&nbsp;</div>
+						</div>
+						<div id="layerannotation_field" class="mdfield">
+							<div class="ANNOTATION_LAYER mdkey">&nbsp;</div>
+							<div id="layerannotation_value" class="mdvalue">&nbsp;</div>
+						</div>
+						<div id="groupannotation_field" class="mdfield">
+							<div class="ANNOTATION_GROUP mdkey">&nbsp;</div>
+							<div id="groupannotation_value" class="mdvalue">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div id="inscriptionBar" class="sidebars">
+					<div id="inscriptionContent">&nbsp;</div>
+				</div>
+				<div id="searchBar" class="sidebars">
+					<div id="searchContent">
+						<input autocomplete="off" name="searchInput" id="searchInput" type="search"/>
+						<input name="searchButton" id="searchButton" type="button" class="hiButton" value=" " /><br />
+						<input name="basicSearchButton" id="basicSearchButton" class="hiButton" type="button" value=" " />
+						<input name="extendedSearchButton" id="extendedSearchButton" class="hiButton" type="button" value=" " /><br />
+						<div id="searchOptions">
+							<div id="searchOptionsContent">
+								<ul id="searchOptionsList">
+									<li class="hiBold">
+										<input id="search_everything" checked="checked" type="checkbox" class="searchSection" />
+										<label for="search_everything"><span class="SEARCH_ALL">&nbsp;</span></label>
+									</li>
+										<ul id="searchSectionsList">
+											
+										</ul>
+								</ul>
+							</div>
+						</div>
+						<div id="searchResults">
+							<div id="searchResultsContent">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<footer>powered by HyperImage</footer>
+		<input id="emptyInput" />
+		<div id="aboutDialog">
+			<p>
+				<img src="reader/icons/logo_hi_reader.png" alt="HyperImage Reader" />
+				<span class="aboutHeader">
+					<strong><span style="font-size:10pt;" class="VERSION" >&nbsp;</span></strong><br />
+					Author: Jens-Martin Loebel<br /><br />
+					Part of the <a href="http://hyperimage.ws/">Hyperimage Authoring System</a>
+				</span>
+			</p>
+			<hr>
+			<p class="aboutText">
+				<strong style="font-size: 11pt;">HyperImage 3 PreViewer</strong><br /><br />
+				Complete re-implementation based on HTML5 and JavaScript technologies<br />
+				by <a href="http://www.skriptorium.org/">Jens-Martin Loebel</a><br />
+			</p>
+			<p>
+				This software is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.
+			</p>
+			<hr />
+			<p class="aboutLibs">
+				<strong>This software uses the following libraries:</strong>
+				<a href="http://modernizr.com">Modernizr.js</a> by Modernizr Team (<a href="http://modernizr.com/license/">MIT</a>), 
+				<a href="http://jquery.com">jQuery.js</a> by jQuery Team (<a href="https://jquery.org/license/">MIT</a>), 
+				<a href="http://jquerytools.org">jQuery Tools</a> by jQuery Tools Team (N/A), 
+				<a href="https://github.com/f0r4y312/jquery-stylesheet">jQuery Stylesheet</a> by Vimal Aravindashan (<a href="http://opensource.org/licenses/MIT">MIT</a>), 
+				<a href="http://jqueryui.com">jQuery UI</a> by JQuery UI Team (<a href="https://jquery.org/license/">MIT</a>), 
+				<a href="http://neteye.github.io/activity-indicator.html">NETEYE Activity Indicator</a> by Felix Gnass (<a href="http://opensource.org/licenses/MIT">MIT</a>), 
+				<a href="http://keith-wood.name/svg.html">jQuery SVG</a> by Keith Wood (<a href="http://opensource.org/licenses/MIT">MIT</a>), 
+				<a href="http://medialize.github.io/jQuery-contextMenu/index.html">jQuery contextMenu</a> by Rodney Rehm, Christian Baartse, Addy Osmani (<a href="http://opensource.org/licenses/MIT">MIT</a>, <a href="http://www.gnu.org/licenses/gpl.html">GPL</a>), 
+				<a href="http://www.jqueryplugins.com/plugin/285/">Dragscrollable</a> by Miquel Herrera (<a href="ttp://opensource.org/licenses/MIT">MIT</a>, <a href="http://www.gnu.org/licenses/gpl.html">GPL</a>), 
+				<a href="http://users.tpg.com.au/j_birch/plugins/superfish/">Superfish</a> by Joel Birch (<a href="ttp://opensource.org/licenses/MIT">MIT</a>)
+			</p>
+		</div>
+		<div id="nameTableDialog">
+			<p>
+				<span class="LITA_INPUT_NAME">&nbsp;</span><br />
+				<input id="tableNameInput" name="tableNameInput" />
+			</p>
+		</div>
+		<div id="showTableXMLDialog">
+			<p>
+				<textarea id="tableXML" name="tableXML">
+				</textarea>
+			</p>
+		</div>
+		<div id="insertLinkDialog">
+			<p>
+				<span class="LITA_INPUT_REF">&nbsp;</span><br>
+				<input id="insertLinkField" type="text" />
+			</p>
+		</div>
+		<div id="errorDialog">
+			<p>
+				<strong>Message</strong><br><span id="errorMessage" class="ui-icon-alert">&nbsp;</span>
+			</p>
+			<p id="errorFooter">The Application cannot be initialized. Please contact the Site Administrator.</p>
+		</div>
+		<div id="alphaDialog">
+			<p>
+				<strong style="font-size:115%;">This is a preview of your Project's HyperImage Reader export.</strong><br><br>
+				<strong>Note</strong>: This preview is only active while you are logged in to the HyperImage Editor and to the specific project. 
+				Your session will expire after 1 hour of inactivity.
+				You can select different themes from the "Themes" Menu.
+			</p>
+			<p>
+				<strong>This Alpha Version contains the following known limitations:</strong>
+				
+				<ul>
+					<li>You cannot define the annotation or title metadata fields.</li>
+					<li>Sites (backlinks) and References of Elements are not supported.</li>
+					<li>Advanced Search feature is currently not supported.</li>
+				</ul>
+			</p>
+			<p>Please submit bug reports, feedback and/or feature requests. Thank you!</p>
+		</div>
+    </body>
+</html>

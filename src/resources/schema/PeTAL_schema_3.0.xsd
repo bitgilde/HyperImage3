@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://hyperimage.ws/PeTAL/3.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:petal="http://hyperimage.ws/PeTAL/3.0"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:svg="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" >
+	
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+	schemaLocation="xml.xsd"/>
+	
+	<xs:import namespace="http://www.w3.org/1999/xlink" 
+	schemaLocation="xlink.xsd" />
+	<!--
+	<xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		schemaLocation="http://ilrt.org/discovery/2001/09/rdf-xml-schema/rdf.xsd"/>
+
+	<xs:import namespace="xhttp://www.w3.org/2000/svg"
+		schemaLocation="http://www.w3.org/TR/2002/WD-SVG11-20020108/SVG.xsd"/>
+	-->
+	
+	<xs:annotation>
+		<xs:documentation>
+			PeTAL XML Validation Schema valid for PeTAL v3.0 
+			@author: Jens-Martin Loebel
+			
+			This version adds a timestamp field to PeTAL entities (group, object, view, layer, inscription, text, url) for update coordination
+			and updates namespaces for new HI system formats.
+
+			Note: Support for non standard Leuphana University Lueneburg "Lichtische" will be removed in the next version and
+			they will be replaced with a new standard compliant (XHTML, XLINK, RDF) version.
+		</xs:documentation>
+	</xs:annotation>
+	
+	<xs:element name="petal" type="petal:petalType" >
+		<xs:unique name="uniqueIDs">
+			<xs:selector xpath=".//petal:layer|.//petal:inscription|.//petal:view|.//petal:object|.//petal:text|.//petal:lita|.//petal:url|.//petal:group"/>
+			<xs:field xpath="@id"/>
+		</xs:unique>
+	</xs:element>
+	<xs:element name="language" type="petal:languageType"/>
+	<xs:element name="projectMetadata" type="petal:projectMetadataType"/>
+	<xs:element name="template" type="petal:templateType" />
+	<xs:element name="key" type="petal:keyType" />
+	<xs:element name="displayName" type="petal:displayNameType" />
+	<xs:element name="text" type="petal:textType" />
+	<xs:element name="object" type="petal:objectType" />
+	<xs:element name="view" type="petal:viewType" />
+	<xs:element name="inscription" type="petal:inscriptionType" />
+	<xs:element name="original" type="petal:originalType" />
+	<xs:element name="img" type="petal:imgType" />
+	<xs:element name="layer" type="petal:layerType" />
+	<xs:element name="metadata" type="petal:metadataType" />
+	<xs:element name="url" type="petal:urlType" />
+	<xs:element name="group" type="petal:groupType" />
+	<xs:element name="member" type="petal:memberType" />
+	<xs:element name="defaultView" type="petal:defaultViewType" />
+	
+	
+	<xs:complexType name="petalType">
+		<xs:sequence maxOccurs="1" minOccurs="1">
+			
+			<xs:element ref="petal:language" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element maxOccurs="1" minOccurs="1" ref="petal:projectMetadata" />
+			<xs:element ref="petal:template" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element ref="petal:text" minOccurs="0" maxOccurs="unbounded">
+				
+			</xs:element>
+			<xs:element ref="petal:object" maxOccurs="unbounded" minOccurs="0">
+				
+			</xs:element>
+			<xs:element minOccurs="0" maxOccurs="unbounded" ref="petal:lita">
+				
+			</xs:element>
+			<xs:element ref="petal:url" minOccurs="0" maxOccurs="unbounded">
+				
+			</xs:element>
+			<xs:element ref="petal:group" minOccurs="0" maxOccurs="unbounded">
+				
+			</xs:element>
+			
+		</xs:sequence>
+		<xs:attribute name="version" use="required" type="petal:versionType" />
+		<xs:attribute name="id" use="required" type="xs:ID" />
+		<xs:attribute name="startRef" use="required"  type="xs:string" />
+		<xs:attribute ref="xml:base" use="optional" />
+	</xs:complexType>	
+	
+	<xs:simpleType name="versionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="3.0"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="languageType" mixed="true">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="default" use="optional"
+					type="xs:boolean">
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="projectMetadataType">
+		<xs:sequence>
+			<xs:annotation><xs:documentation>There is currently no valid XML Schema definition for RDF available.</xs:documentation></xs:annotation>
+			<xs:any namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" processContents="lax"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="templateType">
+		<xs:sequence maxOccurs="1" minOccurs="1">
+			<xs:element maxOccurs="unbounded" minOccurs="1" ref="petal:key" />
+				
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"  use="required"/>
+		<xs:attribute name="nsPrefix" use="required" type="xs:string">
+			
+		</xs:attribute>
+		<xs:attribute name="schema" use="required" type="xs:string">
+			
+		</xs:attribute>
+		<xs:attribute name="schemaLocation" use="optional" type="xs:string">
+			
+		</xs:attribute>
+			
+		
+	</xs:complexType>
+	
+	<xs:complexType name="keyType">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			<xs:element ref="petal:displayName">
+				
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="richText" default="false" type="xs:boolean">
+			
+		</xs:attribute>
+		<xs:attribute name="tagName" type="xs:string" use="required">
+			
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="displayNameType" mixed="true">
+		<xs:attribute ref="xml:lang" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="textType">
+		<xs:sequence>
+			<xs:annotation><xs:documentation>There is currently no valid XML Schema definition for RDF available.</xs:documentation></xs:annotation>
+			<xs:any namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" processContents="lax"/>
+		</xs:sequence>
+		<xs:attribute type="petal:idType"  name="id" use="required"/>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime" />			
+		
+	</xs:complexType>
+	
+	<xs:complexType name="objectType">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="petal:defaultView" maxOccurs="1" minOccurs="0">
+				
+			</xs:element>
+			<xs:choice maxOccurs="1" minOccurs="0">
+				<xs:element ref="petal:view" />
+				<xs:element ref="petal:inscription" />
+			</xs:choice>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="petal:metadata" />
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="petal:idType"/>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime" />
+			
+		
+	</xs:complexType>
+	
+	<xs:complexType name="viewType">
+		<xs:sequence maxOccurs="1" minOccurs="1">
+			<xs:element ref="petal:original"  maxOccurs="1" minOccurs="1"/>
+			<xs:element ref="petal:img" maxOccurs="unbounded" minOccurs="1" />
+			
+			<xs:any namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" processContents="lax"><xs:annotation><xs:documentation>There is currently no valid XML Schema definition for RDF available.</xs:documentation></xs:annotation></xs:any>
+			<xs:element ref="petal:layer" minOccurs="0" maxOccurs="unbounded" />
+				
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="petal:idType"/>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime" />			
+		
+	</xs:complexType>
+	
+	<xs:complexType name="inscriptionType">
+		<xs:sequence maxOccurs="1" minOccurs="1">
+			<xs:annotation><xs:documentation>There is currently no valid XML Schema definition for RDF available.</xs:documentation></xs:annotation>
+			<xs:any namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" processContents="lax"/>
+		</xs:sequence>
+		<xs:attribute  name="id" use="required" type="petal:idType"/>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime" />			
+		
+	</xs:complexType>
+	
+	<xs:complexType name="originalType">
+		<xs:attribute name="filename" use="optional" type="xs:string">
+			
+		</xs:attribute>
+		<xs:attribute name="hash" use="required" type="xs:string">
+			
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="imgType">
+		<xs:attribute name="width" type="xs:long" />
+		<xs:attribute name="height" type="xs:long" />
+		<xs:attribute type="xs:string" name="src" use="required" />
+		<xs:attribute name="use" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="pict" />
+					<xs:enumeration value="thumb" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+
+	</xs:complexType>
+	
+	<xs:complexType name="layerType">
+		<xs:sequence maxOccurs="1" minOccurs="1">
+			<xs:annotation><xs:documentation>There is currently no valid XML Schema definition for RDF available.</xs:documentation></xs:annotation>
+			<xs:any namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" processContents="lax"/>
+			
+			<xs:any namespace="http://www.w3.org/2000/svg" processContents="lax"><xs:annotation><xs:documentation>Preliminary SVG XML-Schema available under http://www.w3.org/TR/2002/WD-SVG11-20020108/SVG.xsd</xs:documentation></xs:annotation></xs:any>
+				
+			
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="petal:idType"/>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime" />
+		<xs:attribute name="order" type="xs:int" default="1" />
+		<xs:anyAttribute namespace="http://www.w3.org/1999/xlink" processContents="lax" />		
+		
+	</xs:complexType>
+	
+	<xs:complexType name="metadataType">
+		<xs:sequence maxOccurs="1" minOccurs="1">
+			<xs:annotation><xs:documentation>There is currently no valid XML Schema definition for RDF available.</xs:documentation></xs:annotation>
+			<xs:any namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" processContents="lax"/>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="required">
+			
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="defaultViewType">
+		<xs:anyAttribute processContents="lax"  namespace="http://www.w3.org/1999/xlink"/>
+	</xs:complexType>
+	
+	
+	
+	
+	
+	<!-- Legacy part for Leuphana Univertity Lueneburg Lichttische - to be replaced soon -->
+	
+	<xs:element name="lita" type="petal:litaType" />
+	<xs:element name="title" type="petal:singlelineType" />
+	<xs:element name="frame" type="petal:frameType" />
+	<xs:element name="frameAnn" type="petal:frameAnnType" />
+	<xs:element name="frameContent" type="petal:frameContentType" />
+	<xs:element name="annotation" type="petal:multilineType" />
+	<xs:element name="line" type="petal:lineType" />
+	<xs:element name="b" type="petal:biuType" />
+	<xs:element name="i" type="petal:biuType" />
+	<xs:element name="u" type="petal:biuType" />
+	<xs:element name="link" type="petal:linkType" />
+	
+	<xs:complexType name="singlelineType" mixed="true">
+		<xs:attribute ref="xml:lang"></xs:attribute>
+		<xs:attribute name="lang" type="xs:string"></xs:attribute>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="litaType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element ref="petal:title" minOccurs="1"
+				maxOccurs="unbounded">
+			</xs:element>
+			<xs:element ref="petal:frame" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+			<xs:element ref="petal:frameAnn" minOccurs="0"
+				maxOccurs="1">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="petal:idType" use="required"/>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime" />
+	</xs:complexType>
+	
+	
+	<xs:complexType name="frameType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element ref="petal:frameContent" />
+		</xs:sequence>
+		<xs:attribute name="order" type="xs:int"></xs:attribute>
+		<xs:attribute name="x" type="xs:int"></xs:attribute>
+		<xs:attribute name="y" type="xs:int"></xs:attribute>
+		<xs:attribute name="width" type="xs:int"></xs:attribute>
+		<xs:attribute name="height" type="xs:int"></xs:attribute>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="frameContentType" mixed="false">
+		<xs:attribute name="ref" type="xs:string"></xs:attribute>
+		<xs:attribute name="x" type="xs:int"></xs:attribute>
+		<xs:attribute name="y" type="xs:int"></xs:attribute>
+		<xs:attribute name="width" type="xs:int"></xs:attribute>
+		<xs:attribute name="height" type="xs:int"></xs:attribute>
+	</xs:complexType>
+	
+	
+	
+	
+	<xs:complexType name="frameAnnType" mixed="false">
+		<xs:sequence minOccurs="1" maxOccurs="unbounded">
+			<xs:element ref="petal:annotation" minOccurs="1"
+				maxOccurs="1">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="visible" type="xs:boolean"></xs:attribute>
+		<xs:attribute name="x" type="xs:int"></xs:attribute>
+		<xs:attribute name="y" type="xs:int"></xs:attribute>
+		<xs:attribute name="width" type="xs:int"></xs:attribute>
+		<xs:attribute name="height" type="xs:int"></xs:attribute>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="multilineType" mixed="true">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="petal:line" maxOccurs="unbounded"
+				minOccurs="0">
+			</xs:element>
+			<xs:any minOccurs="0" processContents="lax" namespace="http://www.w3.org/1999/xhtml">
+				
+			</xs:any>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang"></xs:attribute>
+		<xs:attribute name="lang" type="xs:string"></xs:attribute>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="lineType" mixed="true">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="petal:b" maxOccurs="unbounded"
+				minOccurs="0">
+			</xs:element>
+			<xs:element ref="petal:i" maxOccurs="unbounded"
+				minOccurs="0">
+			</xs:element>
+			<xs:element ref="petal:u" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+			<xs:element ref="petal:link" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	
+	<xs:complexType name="biuType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="petal:link" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="linkType" mixed="true">
+		<xs:attribute name="ref" type="xs:string" use="optional"></xs:attribute>
+		<xs:anyAttribute namespace="http://www.w3.org/1999/xlink" processContents="lax">
+			
+		</xs:anyAttribute>
+	</xs:complexType>
+	
+	<xs:complexType name="urlType" mixed="true">
+		<xs:sequence minOccurs="0" maxOccurs="1">
+			<xs:element ref="petal:annotation" maxOccurs="1" minOccurs="1" />		
+		</xs:sequence>
+		<xs:attribute  name="id" use="required" type="petal:idType"/>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime" />
+		<xs:anyAttribute  namespace="http://www.w3.org/1999/xlink" processContents="lax"/>
+	</xs:complexType>
+
+	<xs:complexType name="groupType">
+		<xs:sequence>
+			<xs:annotation><xs:documentation>There is currently no valid XML Schema definition for RDF available.</xs:documentation></xs:annotation>
+			<xs:any namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" processContents="lax"/>
+			<xs:element ref="petal:member" minOccurs="0" maxOccurs="unbounded">
+				
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute  name="id"  use="required" type="petal:idType"/>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime" />
+		<xs:attribute name="type" default="regular">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="import" />						
+					<xs:enumeration value="regular" />
+					<xs:enumeration value="trash" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="memberType">
+		<xs:anyAttribute  processContents="lax" namespace="http://www.w3.org/1999/xlink"/>
+	</xs:complexType>
+	
+		<xs:simpleType name="idType">
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"/>
+			</xs:restriction>
+		</xs:simpleType>
+
+	
+</xs:schema>
