@@ -1,0 +1,1 @@
+../../../../../hi3-reader/reader/js/reader.init.js
