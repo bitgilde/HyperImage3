@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.gui.dialogs;
 
 import java.awt.Color;
@@ -133,6 +153,7 @@ public class AddTemplateDialog extends JDialog implements ActionListener {
         boolean dcFound = false;
         boolean cdwaFound = false;
         boolean vra4Found = false;
+        boolean vra4HdlbgFound = false;
         boolean customFound = false;
 
         // scan templates
@@ -141,6 +162,7 @@ public class AddTemplateDialog extends JDialog implements ActionListener {
             if ( template.getNamespacePrefix().compareTo("dc") == 0 ) dcFound = true;
             if ( template.getNamespacePrefix().compareTo("cdwalite") == 0 ) cdwaFound = true;
             if ( template.getNamespacePrefix().compareTo("vra4") == 0 ) vra4Found = true;
+            if ( template.getNamespacePrefix().compareTo("vra4hdlbg") == 0 ) vra4HdlbgFound = true;
             if ( template.getNamespacePrefix().equalsIgnoreCase("custom") ) customFound = true;
         }
 
@@ -161,6 +183,12 @@ public class AddTemplateDialog extends JDialog implements ActionListener {
             templateChoices.addElement("vra4RichText");
             //templateComboBox.addItem(Messages.getString("AddTemplateDialog.VRA_CORE_4"));
             templateComboBox.addItem(Messages.getString("AddTemplateDialog.VRA_CORE_4_RICH_TEXT"));
+        }
+        if ( !vra4HdlbgFound ) {
+            //templateChoices.addElement("vra4hdlbg");
+            templateChoices.addElement("vra4hdlbgRichText");
+            //templateComboBox.addItem(Messages.getString("AddTemplateDialog.VRA_CORE_4_HDLBG"));
+            templateComboBox.addItem(Messages.getString("AddTemplateDialog.VRA_CORE_4_HDLBG_RICH_TEXT"));
         }
         if ( !customFound ) {
             templateChoices.addElement("custom");

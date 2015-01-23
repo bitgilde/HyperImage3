@@ -107,6 +107,54 @@ a.hiLink {
 	/* TODO */
 }
 
+#navWidget {
+    background-image: url(../../resource/close-nav-icon.png);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #333333;
+    border: 1px solid white;
+    border-bottom: 0px;
+    height: 32px;
+    width: 64px;
+    left: calc(50% - 32px);
+    z-index: 99;
+    opacity: 0.4;
+    cursor: s-resize;
+    position: absolute;
+    bottom: 148px;
+}
+.nav-closed {
+    background-image: url(../../resource/nav-icon.png) !important;
+    cursor: n-resize !important;
+    bottom: 0px !important;
+    height: 32px;
+    width: 32px;
+    left: calc(50% - 16px);
+    opacity: 0.75 !important;
+}
+#navWidget:hover {
+    opacity: 1.0;
+}
+#navWidget.nav-closed:hover {
+    opacity: 1.0 !important;
+}
+
+#nav {
+    /* navigation window for large images */
+    display: none;
+    position: absolute;
+    z-index: 98;
+    background-color: #333333;
+    overflow: auto;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    max-height: 148px;
+    box-shadow: 0px 0px 12px #333;
+}
+
 footer {
 	display: none;
 	position: absolute;

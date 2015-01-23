@@ -30,6 +30,25 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
 
 package org.hyperimage.client.gui;
 
@@ -113,7 +132,7 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
 	// undo/redo manager
 	final UndoManager undo = new UndoManager();
 
-	private JToggleButton boldButton, italicButton, underlineButton, regularButton;
+	private JToggleButton boldButton, italicButton, underlineButton, regularButton, subscriptButton, superscriptButton, literalButton;
 	private ButtonGroup styleButtonGroup;
 	private JButton linkButton;
 	private JTextField linkField;
@@ -125,7 +144,7 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
 	private TitledBorder fieldBorder;
 
 	private StyledDocument document;
-	private Style regularStyle, boldStyle, italicStyle, underlineStyle, linkStyle;
+	private Style regularStyle, boldStyle, italicStyle, underlineStyle, linkStyle, subscriptStyle, superscriptStyle, literalStyle;
 	private static final String LINK_TARGET_ATTR = "target";
 
 	private int stylePos = 0;
@@ -432,6 +451,12 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
 					richText.addChunk(HIRichTextChunk.chunkTypes.ITALIC, text);
 				else if ( styleName.compareTo("underline") == 0 )
 					richText.addChunk(HIRichTextChunk.chunkTypes.UNDERLINE, text);
+				else if ( styleName.compareTo("subscript") == 0 )
+					richText.addChunk(HIRichTextChunk.chunkTypes.SUBSCRIPT, text);
+				else if ( styleName.compareTo("superscript") == 0 )
+					richText.addChunk(HIRichTextChunk.chunkTypes.SUPERSCRIPT, text);
+				else if ( styleName.compareTo("literal") == 0 )
+					richText.addChunk(HIRichTextChunk.chunkTypes.LITERAL, text);
 				else if ( styleName.compareTo("link") == 0 )
 					richText.addChunk(HIRichTextChunk.chunkTypes.LINK, text, linkTarget);
 				else richText.addChunk(HIRichTextChunk.chunkTypes.REGULAR, text);
@@ -458,6 +483,12 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
 					document.insertString(document.getLength(), chunk.getValue(), italicStyle);
 				else if ( chunk.getChunkType() == HIRichTextChunk.chunkTypes.UNDERLINE )
 					document.insertString(document.getLength(), chunk.getValue(), underlineStyle);
+				else if ( chunk.getChunkType() == HIRichTextChunk.chunkTypes.SUBSCRIPT )
+					document.insertString(document.getLength(), chunk.getValue(), subscriptStyle);
+				else if ( chunk.getChunkType() == HIRichTextChunk.chunkTypes.SUPERSCRIPT )
+					document.insertString(document.getLength(), chunk.getValue(), superscriptStyle);
+				else if ( chunk.getChunkType() == HIRichTextChunk.chunkTypes.LITERAL )
+					document.insertString(document.getLength(), chunk.getValue(), literalStyle);
 				else if ( chunk.getChunkType() == HIRichTextChunk.chunkTypes.LINK ) {
 					int startPos = document.getLength();
 					document.insertString(document.getLength(), chunk.getValue(), regularStyle);
@@ -478,6 +509,9 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
 		boldButton.setEnabled(editable);
 		italicButton.setEnabled(editable);
 		underlineButton.setEnabled(editable);
+                subscriptButton.setEnabled(editable);
+                superscriptButton.setEnabled(editable);
+                literalButton.setEnabled(editable);
 		
 		if ( editable ) linkField.setBorder(BorderFactory.createLineBorder(Color.black));
 		else linkField.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -555,6 +589,15 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
 		} else if ( styleName.compareTo("underline") == 0 ) {
 			styleState = underlineStyle;
 			buttonState = underlineButton;
+		} else if ( styleName.compareTo("subscript") == 0 ) {
+			styleState = subscriptStyle;
+			buttonState = subscriptButton;
+		} else if ( styleName.compareTo("superscript") == 0 ) {
+			styleState = superscriptStyle;
+			buttonState = superscriptButton;
+		} else if ( styleName.compareTo("literal") == 0 ) {
+			styleState = literalStyle;
+			buttonState = literalButton;
 		} else {
 			styleState = regularStyle;
 			buttonState = regularButton;
@@ -642,6 +685,9 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
         boldButton.setToolTipText(Messages.getString("HIRichTextFieldControl.BOLDTEXT"));
         italicButton.setToolTipText(Messages.getString("HIRichTextFieldControl.ITALICSTEXT"));
         underlineButton.setToolTipText(Messages.getString("HIRichTextFieldControl.UNDERLINEDTEXT"));
+        subscriptButton.setToolTipText(Messages.getString("HIRichTextFieldControl.SUBSCRIPTTEXT"));
+        superscriptButton.setToolTipText(Messages.getString("HIRichTextFieldControl.SUPERSCRIPTTEXT"));
+        literalButton.setToolTipText(Messages.getString("HIRichTextFieldControl.LITERALTEXT"));
         linkButton.setToolTipText(Messages.getString("HIRichTextFieldControl.REMOVELINK"));
     }
 
@@ -652,6 +698,9 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
         boldButton = new JToggleButton();
         italicButton = new JToggleButton();
         underlineButton = new JToggleButton();
+        subscriptButton = new JToggleButton();
+        superscriptButton = new JToggleButton();
+        literalButton = new JToggleButton();
         regularButton = new JToggleButton();
         textPaneScroll = new JScrollPane();
         textPane = new JTextPane();
@@ -694,6 +743,12 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
         italicButton.addActionListener(this);
         underlineButton.setActionCommand("group_underlineButton");
         underlineButton.addActionListener(this);
+        subscriptButton.setActionCommand("group_subscriptButton");
+        subscriptButton.addActionListener(this);
+        superscriptButton.setActionCommand("group_superscriptButton");
+        superscriptButton.addActionListener(this);
+        literalButton.setActionCommand("group_literalButton");
+        literalButton.addActionListener(this);
         linkButton.addActionListener(this);
         linkButton.setActionCommand("removeLink");
         regularButton.setActionCommand("group_regularButton");
@@ -724,6 +779,27 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
         underlineButton.setDisabledIcon(new ImageIcon(getClass().getResource("/resources/icons/underline-disabled.png"))); // NOI18N
         underlineButton.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         underlineButton.setPreferredSize(new Dimension(24, 24));
+
+        styleButtonGroup.add(subscriptButton);
+        subscriptButton.setIcon(new ImageIcon(getClass().getResource("/resources/icons/subscript.png"))); // NOI18N
+        subscriptButton.setPressedIcon(new ImageIcon(getClass().getResource("/resources/icons/subscript-active.png"))); // NOI18N
+        subscriptButton.setDisabledIcon(new ImageIcon(getClass().getResource("/resources/icons/subscript-disabled.png"))); // NOI18N
+        subscriptButton.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        subscriptButton.setPreferredSize(new Dimension(24, 24));
+
+        styleButtonGroup.add(superscriptButton);
+        superscriptButton.setIcon(new ImageIcon(getClass().getResource("/resources/icons/superscript.png"))); // NOI18N
+        superscriptButton.setPressedIcon(new ImageIcon(getClass().getResource("/resources/icons/superscript-active.png"))); // NOI18N
+        superscriptButton.setDisabledIcon(new ImageIcon(getClass().getResource("/resources/icons/superscript-disabled.png"))); // NOI18N
+        superscriptButton.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        superscriptButton.setPreferredSize(new Dimension(24, 24));
+
+        styleButtonGroup.add(literalButton);
+        literalButton.setIcon(new ImageIcon(getClass().getResource("/resources/icons/literal.png"))); // NOI18N
+        literalButton.setPressedIcon(new ImageIcon(getClass().getResource("/resources/icons/literal-active.png"))); // NOI18N
+        literalButton.setDisabledIcon(new ImageIcon(getClass().getResource("/resources/icons/literal-disabled.png"))); // NOI18N
+        literalButton.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        literalButton.setPreferredSize(new Dimension(24, 24));
 
         styleButtonGroup.add(regularButton);
 
@@ -768,7 +844,10 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
                 .add(layout.createParallelGroup(GroupLayout.LEADING)
                     .add(boldButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .add(italicButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(subscriptButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(superscriptButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .add(underlineButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(literalButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.RELATED)
                 .add(textPaneScroll)
                 .addContainerGap())
@@ -784,6 +863,12 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
                         .add(italicButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(0, 0, 0)
                         .add(underlineButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .add(4, 4, 4)
+                        .add(superscriptButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, 0)
+                        .add(subscriptButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .add(4, 4, 4)
+                        .add(literalButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(0, 0, Short.MAX_VALUE))
                     .add(textPaneScroll))
                 .addPreferredGap(LayoutStyle.RELATED)
@@ -791,6 +876,13 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
                 .addContainerGap())
         );
 
+
+	// ------
+        if ( System.getProperty("HI.feature.advancedEditorDisabled") != null ) {
+            subscriptButton.setVisible(false);
+            superscriptButton.setVisible(false);
+            literalButton.setVisible(false);
+        }
         
         initStyles();
 
@@ -805,25 +897,59 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
 		StyleConstants.setBold(regularStyle, false);
 		StyleConstants.setItalic(regularStyle, false);
 		StyleConstants.setUnderline(regularStyle, false);
+		StyleConstants.setSubscript(regularStyle, false);
+		StyleConstants.setSuperscript(regularStyle, false);
 
 		boldStyle = document.addStyle("bold", null);
 		StyleConstants.setBold(boldStyle, true);
 		StyleConstants.setItalic(boldStyle, false);
 		StyleConstants.setUnderline(boldStyle, false);
+		StyleConstants.setSubscript(boldStyle, false);
+		StyleConstants.setSuperscript(boldStyle, false);
 
 		italicStyle = document.addStyle("italic", null);
 		StyleConstants.setItalic(italicStyle, true);
 		StyleConstants.setBold(italicStyle, false);
 		StyleConstants.setUnderline(italicStyle, false);
+		StyleConstants.setSubscript(italicStyle, false);
+		StyleConstants.setSuperscript(italicStyle, false);
 
 		underlineStyle = document.addStyle("underline", null);
 		StyleConstants.setItalic(underlineStyle, false);
 		StyleConstants.setBold(underlineStyle, false);
 		StyleConstants.setUnderline(underlineStyle, true);
+		StyleConstants.setSubscript(underlineStyle, false);
+		StyleConstants.setSuperscript(underlineStyle, false);
+
+		subscriptStyle = document.addStyle("subscript", null);
+		StyleConstants.setItalic(subscriptStyle, false);
+		StyleConstants.setBold(subscriptStyle, false);
+		StyleConstants.setUnderline(subscriptStyle, false);
+		StyleConstants.setSubscript(subscriptStyle, true);
+		StyleConstants.setSuperscript(subscriptStyle, false);
+
+		superscriptStyle = document.addStyle("superscript", null);
+		StyleConstants.setItalic(superscriptStyle, false);
+		StyleConstants.setBold(superscriptStyle, false);
+		StyleConstants.setUnderline(superscriptStyle, false);
+		StyleConstants.setSubscript(superscriptStyle, false);
+		StyleConstants.setSuperscript(superscriptStyle, true);
+
+		literalStyle = document.addStyle("literal", null);
+		StyleConstants.setItalic(literalStyle, false);
+		StyleConstants.setBold(literalStyle, true);
+		StyleConstants.setUnderline(literalStyle, false);
+		StyleConstants.setSubscript(literalStyle, false);
+		StyleConstants.setSuperscript(literalStyle, false);
+                StyleConstants.setBackground(literalStyle, new Color(240,240,240));
+                StyleConstants.setFontFamily(literalStyle, "monospaced");
+                StyleConstants.setForeground(literalStyle, new Color(38,115,4));
                 
 		linkStyle = document.addStyle("link", null);
 		StyleConstants.setUnderline(linkStyle, true);
 		StyleConstants.setForeground(linkStyle, Color.BLUE);
+		StyleConstants.setSubscript(linkStyle, false);
+		StyleConstants.setSuperscript(linkStyle, false);
 
 		styleState = regularStyle;
 
@@ -862,6 +988,9 @@ implements ActionListener, CaretListener, MouseListener, MouseMotionListener {
 			if ( source == boldButton ) updateStyleStateByName("bold");
 			else if ( source == italicButton ) updateStyleStateByName("italic");
 			else if ( source == underlineButton ) updateStyleStateByName("underline");
+			else if ( source == subscriptButton ) updateStyleStateByName("subscript");
+			else if ( source == superscriptButton ) updateStyleStateByName("superscript");
+			else if ( source == literalButton ) updateStyleStateByName("literal");
 			else updateStyleStateByName("regular");
 		}
 		if ( selection != 0 ) document.setCharacterAttributes(startPos, selection, styleState, true);

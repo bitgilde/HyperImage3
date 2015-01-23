@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.service.ws;
 
 import com.sun.media.jai.codec.JPEGEncodeParam;
@@ -169,10 +189,9 @@ public class HIEditor {
 
     public static enum HI_ImageSizes {
 
-        HI_THUMBNAIL, HI_PREVIEW, HI_FULL, HI_ORIGINAL
+        HI_THUMBNAIL, HI_PREVIEW, HI_FULL, HI_ORIGINAL, HI_NAV
     };
 
-    
     /**
      * Constructor - should only be instantiated by HILogin WebService
      *
@@ -190,7 +209,7 @@ public class HIEditor {
         this.storageManager = new FileStorageManager(repositoryLocation);
         indexer = new HIIndexer(repositoryLocation);
     }
-   
+    
     public HIEditor() throws InstantiationException {
         throw new InstantiationException("HIEditorService initialized without user");
     }
@@ -395,7 +414,7 @@ public class HIEditor {
 
         return null;
     }
-	    
+
     // -- SYSOP METHOD, a user gets a list of all his projects, the sysop gets all projects in the database --
     @SuppressWarnings("unchecked")
     @WebMethod
@@ -3073,6 +3092,8 @@ public class HIEditor {
             bitstream = storageManager.getHiRes(view);
         } else if (size == HI_ImageSizes.HI_ORIGINAL) {
             bitstream = storageManager.getOriginal(view);
+        } else if ( size == HI_ImageSizes.HI_NAV ) {
+            bitstream = storageManager.getNav(view);            
         }
 
         return bitstream;
@@ -5103,7 +5124,7 @@ public class HIEditor {
     //-------------------------
     // Metadata Methods
     //-------------------------
-    
+        
     private void addSystemTemplates(HIProject project) {
         // create the base template
         EntityManager em = emf.createEntityManager();

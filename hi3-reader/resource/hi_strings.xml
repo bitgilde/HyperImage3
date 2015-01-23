@@ -11,6 +11,7 @@
 		<str key="MENU_LANG_fr">Französisch</str>
 		<str key="MENU_LANG_fy">Friesisch</str>
 		<str key="MENU_LANG_it">Italienisch</str>
+		<str key="MENU_LANG_ja">Japanisch</str>
 		<str key="MENU_LANG_la">Lateinisch</str>
 		<str key="MENU_LANG_nl">Holländisch</str>
 		<str key="MENU_FILE">Datei</str>
@@ -200,6 +201,7 @@
 		<str key="MENU_LANG_fr">French</str>
 		<str key="MENU_LANG_fy">Frisian</str>
 		<str key="MENU_LANG_it">Italian</str>
+		<str key="MENU_LANG_ja">Japanese</str>
 		<str key="MENU_LANG_la">Latin</str>
 		<str key="MENU_LANG_nl">Dutch</str>
 		<str key="MENU_FILE">File</str>

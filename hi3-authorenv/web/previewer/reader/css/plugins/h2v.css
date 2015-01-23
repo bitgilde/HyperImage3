@@ -1,0 +1,435 @@
+@charset 'UTF-8';
+/* 縦書き変換スクリプト h2v.js ver 3.4.2用スタイルシート h2v.css   
+    last updated : Sep 19 , 2014 
+    (c)tyz@freefielder.jp  http://tategaki.info/h2v/
+*/
+body{
+	-webkit-text-size-adjust:100%;
+}
+
+.h2v{
+	position:relative;
+	line-height:1em;
+}
+
+.h2v a{
+	text-decoration:none !important;
+}
+
+.h2v .h2v_e{
+	display:block !important;
+	float:right;
+	position : relative;
+	width:1em !important;
+	word-wrap:break-word;
+	word-break:break-all;
+	direction:ltr;
+	margin-top:2px;
+}
+
+.h2v .h2v_imgFloat{
+	display:block;
+	float:right;
+	position : relative;
+	width:1px !important;
+	overflow:visible;
+}
+
+.h2v .h2v_imgFloat_clear{
+	clear:both;
+}
+
+/* ブロック要素たち */
+.h2v ul , 
+.h2v ol ,
+.h2v dl ,
+.h2v p ,
+.h2v blockquote ,
+.h2v h1, .h2v h2 , .h2v h3 , .h2v h4 , .h2v h5 , .h2v h6 , 
+.h2v article , .h2v aside , .h2v footer , .h2v header , .h2v hgroup , .h2v nav , .h2v details , .h2v section , .h2v summary ,
+.h2v div,
+.h2v li,
+.h2v dd,
+.h2v dt{
+	clear : none !important; 
+	float:right !important;
+	line-height:1em ;
+	font-family : inherit !important;
+}
+
+.h2v ul , .h2v ol , .h2v dl{
+	list-style: none;
+}
+
+.h2v ul ul , .h2v ul ol , .h2v ul dl , 
+.h2v ol ul , .h2v ol ol , .h2v ol dl ,
+.h2v dl ul , .h2v dl ol ,.h2v dl dl{
+	margin-left:0;
+	margin-right:0;
+}
+
+/* インライン要素たち */
+.h2v_e span, 
+.h2v_e font , .h2v_e strong , .h2v_e big, .h2v_e small , .h2v_e i , .h2v_e b , .h2v_e em, .h2v_e sub, .h2v_e sup , .h2v_e a,
+.h2v_e mark , .h2v_e time , .h2v_e meter , .h2v_e s , .h2v_e cite, .h2v_e q, .h2v_e dfn , .h2v_e abbr , .h2v_e code ,
+.h2v_e var , .h2v_e samp , .h2v_e kbd{
+	display:block  !Important; 
+	position:relative ;
+	left:50% ;
+	width:1em; 
+	line-height:1em ;
+	margin-left:-0.5em; 
+	font-family : inherit !important;
+} 
+
+.h2v_e a{
+	border:none !important;
+	text-decoration:none !important;
+}
+.h2v_e a:visited{
+	border:none !important;
+	text-decoration:none !important;
+}
+.h2v_e a:hover{
+	border-right: 1px solid darkblue !important;
+	text-decoration:none !important;
+}
+
+.h2v_e sub{
+	margin-left:-1em !Important;
+}
+
+.h2v_e sup{
+	margin-left:0 !Important;
+}
+
+.h2v img{
+	display:block !important;
+	position:relative;
+}
+
+.h2v pre , .h2v table, .h2v textarea, .h2v iframe , .h2v form , .h2v audio , .h2v video , .h2v canvas , .h2v embed , .h2v figure , .h2v video , .h2v menu{
+	position:relative;
+	float: right;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+} 
+
+.h2v pre{
+	overflow: hidden;
+}
+
+.h2v form div , .h2v pre div{
+	clear: both !important;
+	float: none !important;
+}
+.h2v_e span.h2v_mark{
+	position:absolute;
+	top: -1em;
+	font-weight: bold;
+}
+
+/* 縦書き字形 */
+.h2v_e span.h2v_kuto{
+	position:static;
+	width:0.4em;
+	margin-top:-0.5em;
+ 	padding-bottom:0.5em; 
+	margin-left:0.6em !Important;
+}
+
+.h2v_e span.h2v_cho{
+	height:1em !important;
+	width:1em !important;
+	-moz-transform:matrix(0, 1, 1, 0, 0, 0);
+	-webkit-transform:matrix(0, 1, 1, 0, 0, 0);
+	-o-transform:matrix(0, 1, 1, 0, 0, 0);
+	-ms-transform:matrix(0, 1, 1, 0, 0, 0);
+}
+
+.h2v_e span.h2v_komoji{
+	position:static;
+	line-height:0.7em ;
+	margin-bottom:0.3em;
+	margin-left:0.11em !Important;
+}
+
+.h2v_e span.h2v_rotate{
+	-moz-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
+	-o-transform:rotate(90deg);
+	-ms-transform:translate(-0.05em) rotate(90deg);
+	transform:rotate(90deg);
+}
+
+/* for xp */
+.h2v_e .h2v_kakko_t,.h2v_e .h2v_kakko_b{
+	-moz-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
+	-o-transform:rotate(90deg);
+	-ms-transform:translate(-0.05em) rotate(90deg);
+	transform:rotate(90deg);
+}
+
+.h2v_sp, .h2v_alpha{
+	display : inline-block;
+	text-align:left;
+	white-space:pre;
+	word-wrap:normal;
+}
+
+.h2v_e span.h2v_alpha , .h2v_e span.h2v_sp{
+	text-align:left !important;
+	white-space:pre; 
+	word-wrap:normal; 
+	margin-top:0em;
+	-moz-transform-origin: left bottom;
+	-moz-transform:translate(0em,-1em) rotate(90deg);
+	-webkit-transform-origin: left bottom;
+	-webkit-transform:translate(0em,-1em) rotate(90deg);
+	-o-transform-origin: left bottom;
+	-o-transform: translate(0em,-1em) rotate(90deg);
+	-ms-transform-origin: left bottom;
+	-ms-transform:translate(-0.05em,-1em) rotate(90deg);
+	transform-origin: left bottom;
+	transform:translate(0em,-1em) rotate(90deg);
+}
+
+.h2v_separator{
+	clear:both;
+	width:100%;
+	height:15px;
+	margin-bottom:15px;
+	border-bottom: dotted 1px #ccc;
+}
+
+.h2v_e hr{
+   border-width: 0px 1px 0px 0px;
+   border-style : solid;
+   width: 1px;
+}
+
+/* 縦書き表示領域 */
+.h2v_page{
+	clear: both;
+	position:relative;
+	margin-top:0.5em;
+	overflow : hidden;
+}
+
+.h2v_pinner{
+	position: absolute;
+	direction:ltr;
+}
+
+.h2v_oc{
+	clear: both;
+	position:relative;
+	border:1px solid #999 ;
+	border-left-width : 3px;
+	border-bottom-width: 3px;
+	padding-top:10px;
+	overflow-x : scroll ;
+	overflow-y : hidden;
+}
+
+.h2v_clearfix{
+	clear:both;
+	width:1px;
+	height:1px;
+	visibility:hidden;
+}
+
+.h2v_bar{
+	font-family : sans-serif;
+	position:relative;
+	margin-bottom:3px;
+	padding:0;
+	height:1.2em;
+	width: 100%;
+	font-size:12px;
+	line-height:1em;
+	text-align:right;
+	clear:both;
+}
+.h2v_bar a , .h2v_bar span{
+	color: inherit !important;
+	text-decoration:underline !important;
+	cursor: pointer;
+}
+
+/* 作業div */
+#h2v_tmp_div{
+	position : absolute ;
+	top : 0;
+	right : 0;
+	visibility : hidden;
+}
+
+#h2v_tmp_sq{
+	position:relative;
+	font-family:inherit !important;
+}
+
+#h2v_tmp_sq ul , 
+#h2v_tmp_sq ol ,
+#h2v_tmp_sq dl ,
+#h2v_tmp_sq p ,
+#h2v_tmp_sq blockquote ,
+#h2v_tmp_sq h1, #h2v_tmp_sq h2 , #h2v_tmp_sq h3 , #h2v_tmp_sq h4 , #h2v_tmp_sq h5 , #h2v_tmp_sq h6 , 
+#h2v_tmp_sq article , #h2v_tmp_sq aside , #h2v_tmp_sq footer , #h2v_tmp_sq header , #h2v_tmp_sq hgroup , #h2v_tmp_sq nav , #h2v_tmp_sq details , #h2v_tmp_sq section , #h2v_tmp_sq summary ,#h2v_tmp_sq div,
+#h2v_tmp_sq li,
+#h2v_tmp_sq dd,
+#h2v_tmp_sq dt{
+	float : none !important;
+	font-family : inherit !important;
+}
+
+#h2v_tmp_sq img{
+	display:inline;
+/*	float:none !important;*/
+}
+
+/* 横書き用ルビ webkitfix */
+rbc+rtc~rt , rbc+rp+rtc~rt , 
+rbc+rp , rtc~rt+rp , rtc+rp{
+	font-size:100%;
+	display:inline;
+}
+
+/* 縦書き用 */
+.h2v_e ruby , #h2v_tmp_div ruby{
+	display:table !important; 
+	width:1em;
+	text-align:left ;
+	vertical-align:baseline;
+	word-wrap:break-word ;
+}
+
+.h2v_e .psdo_rb_inner, .h2v_e .psdo_rt_inner{		/* 3.4.0 */
+	display:inline;
+	position:static;
+	margin-left:0;
+	left:0;
+}
+
+.h2v_e .psdo_rt_inner{ /* 3.4.0 */
+	line-height:1em !important;
+}
+
+.h2v_e ruby>rb ,#h2v_tmp_div ruby>rb{
+	display:table-cell !important;
+	width:1em ;
+	max-width:1em ; 
+	font-size:100%;
+	word-wrap : break-word ;
+	word-break: break-all ;
+	vertical-align:middle;
+ }
+ 
+.h2v_e ruby>rbc,#h2v_tmp_div ruby>rbc{
+ 	display : table-cell !important;
+	font-size:100%;
+	width:1em ;
+	max-width:1em ; 
+	vertical-align:middle;
+ }
+ 
+
+.h2v_e ruby>rbc>rb,#h2v_tmp_div ruby>rbc>rb{
+	display:inline-block !important ;
+	float : none ;
+	clear:both ;
+	width:1em ; 
+	max-width: 1em ; 
+}
+
+.h2v_e ruby>rt,#h2v_tmp_div ruby>rt{
+ 	display:table-cell/* !important*/;
+	font-size:70%;
+	width:1em ;
+	max-width : 1em ; 
+	line-height:1em;
+	vertical-align:middle;
+	word-wrap : break-word ;
+	word-break: break-all ;	
+ }
+
+.h2v_e ruby>rtc,#h2v_tmp_div ruby>rtc{
+ 	display : table-cell;
+	font-size:70%;
+	width:1em ;
+	max-width : 1em ; 
+	vertical-align:middle;
+	line-height:1em;
+ }
+
+.h2v_e ruby>rtc>rt,#h2v_tmp_div ruby>rtc>rt{
+	display:inline-block  !important;
+	float : none ;
+	clear:both ;
+	width:1em ; 
+	max-width: 1em ; 
+	line-height:1em ;
+}
+
+.h2v ruby>rp{
+	display: none !important;
+}
+
+/* スプラッシュダイアログ */
+.h2v_splash{
+	position: absolute;
+	height:50px;
+	padding:20px;
+	background-color:lavender;
+	border:3px solid khaki ;
+	font-size:15px;
+	line-height:20px;
+	font-weight:bold;
+	text-align:center;
+	-webkit-transition: opacity 1s ease-in-out 0s ;
+	-moz-transition: opacity 1s ease-in-out 0s ;
+	-o-transition: opacity 1s ease-in-out 0s;
+	-ms-transition: opacity 1s ease-in-out 0s;
+	transition: opacity 1s ease-in-out 0s;
+}
+
+/* 縦中横エスケープ */
+#h2v_tmp_div span.h2v_tcy{ display:inline-block;/*height:1em;*/}
+.h2v_e span.h2v_tcy{
+	width:2em !important;
+	margin-left:-1em !important;
+	text-align:center !important;
+}
+ 
+/* 傍線 */
+span.bousen_double_h2v{
+	border-bottom:3px double black;
+}
+span.bousen_solid_h2v{
+	border-bottom:1px solid black;
+}
+span.bousen_dashed_h2v{
+	border-bottom:1px dashed black;
+}
+span.bousen_dotted_h2v{
+	border-bottom:1px dotted black;
+}
+
+#h2v_tmp_div span.bousen_double_h2v{
+	border-bottom:0px;
+	border-top:3px double black;
+}
+#h2v_tmp_div span.bousen_solid_h2v{
+	border-bottom:0px;
+	border-top:1px solid black;
+}
+#h2v_tmp_div span.bousen_dashed_h2v{
+	border-bottom:0px;
+	border-top:1px dashed black;
+}
+#h2v_tmp_div span.bousen_dotted_h2v{
+	border-bottom:0px;
+	border-top:1px dotted black;
+}

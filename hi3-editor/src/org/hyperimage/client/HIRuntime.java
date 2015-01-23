@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client;
 
 import java.awt.event.ActionEvent;
@@ -55,12 +75,12 @@ import org.hyperimage.client.gui.HIClientGUI;
 public abstract class HIRuntime {
 
 	private static final String clientVersion = "3.0";
-	private static final String minorRev = "0.pre-alpha.20140813";
+	private static final String minorRev = "a1";
 	
 	// DEBUG replace with local preference file
 	public static final int MAX_GROUP_ITEMS = 100; // number of items in a group after which the group browser switches to list-display-style
 	public static final long MINIMUM_FREE_MEMORY = (1024*1024*5); 	// minimum free memory for GUI / layer editor in bytes --> currently 5 MB
-                
+        
 	// available gui languages
 	public static final Locale[] supportedLanguages = {
 		new Locale("de"),

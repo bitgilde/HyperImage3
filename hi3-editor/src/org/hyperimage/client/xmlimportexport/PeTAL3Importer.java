@@ -1,5 +1,8 @@
 /*
  * Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+ *
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt). All rights reserved.
+ * http://bitgilde.de/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +15,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
  */
 
 package org.hyperimage.client.xmlimportexport;
@@ -22,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -69,7 +75,12 @@ import org.w3c.dom.NodeList;
  * @author Jens-Martin Loebel
  */
 public class PeTAL3Importer extends XMLImporter {
-
+    
+    class RemoteFile {
+        public byte[] data = null;
+        public String filename = "unknown.jpg";
+        public String href = "[Remote Repository]";
+    }
 
     SimpleDateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
@@ -198,6 +209,14 @@ public class PeTAL3Importer extends XMLImporter {
                     && chunkElement.getLocalName().compareTo("u") == 0) {
                     chunkText = getSubElementText(chunkElement);
                     if ( chunkText.length() > 0 ) hiText.addChunk(HIRichTextChunk.chunkTypes.UNDERLINE, chunkText);
+                } else if (chunkElement.getNamespaceURI().compareTo(XHTML_XMLNS) == 0 // superscript rich text chunk
+                    && chunkElement.getLocalName().compareTo("sup") == 0) {
+                    chunkText = getSubElementText(chunkElement);
+                    if ( chunkText.length() > 0 ) hiText.addChunk(HIRichTextChunk.chunkTypes.SUPERSCRIPT, chunkText);
+                } else if (chunkElement.getNamespaceURI().compareTo(XHTML_XMLNS) == 0 // subscript rich text chunk
+                    && chunkElement.getLocalName().compareTo("sub") == 0) {
+                    chunkText = getSubElementText(chunkElement);
+                    if ( chunkText.length() > 0 ) hiText.addChunk(HIRichTextChunk.chunkTypes.SUBSCRIPT, chunkText);
                 } else if (chunkElement.getNamespaceURI().compareTo(XHTML_XMLNS) == 0 // single line break chunk
                     && chunkElement.getLocalName().compareTo("br") == 0) {
                     chunkText = "\n";
@@ -208,8 +227,16 @@ public class PeTAL3Importer extends XMLImporter {
                     chunkText = "";
                     if (href != null && href.length() > 0) chunkText = getSubElementText(chunkElement);
                     if ( chunkText.length() > 0 ) hiText.addChunk(HIRichTextChunk.chunkTypes.LINK, chunkText, href);
-                } 
-            } 
+                } else if (chunkElement.getNamespaceURI().compareTo(XHTML_XMLNS) != 0 // add unsupported tag as literal
+                    || chunkElement.getLocalName().compareTo("br") != 0) {
+                    String elementText = serializeElement(chunkElement);
+                    if ( chunkElement.getNamespaceURI().compareTo(XHTML_XMLNS) == 0 )
+                        elementText = elementText.replaceAll("<html:", "<").replaceAll("</html:", "</").replaceAll(" xmlns:html=\"http://www.w3.org/1999/xhtml\"", "");
+                    hiText.addChunk(HIRichTextChunk.chunkTypes.LITERAL, elementText);                                        
+                }
+            } else if ( chunkNode.getNodeType() == Node.CDATA_SECTION_NODE ) { // add CDATA as literal chunk
+                hiText.addChunk(HIRichTextChunk.chunkTypes.LITERAL, chunkNode.getNodeValue());
+            }
         }
 
         return hiText.getModel();
@@ -574,7 +601,91 @@ public class PeTAL3Importer extends XMLImporter {
         }
     }
     
-   
+    public boolean checkIfRemoteFileExists(String urlString) {
+        URL url;
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        
+        try {
+            HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+            httpConn.setRequestMethod("HEAD");
+            if ( httpConn.getResponseCode() == HttpURLConnection.HTTP_OK ) return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return false;
+    }
+
+    public RemoteFile getImageViaHTTP(String fileURL) {
+        RemoteFile remoteFile = new RemoteFile();
+        URL url;
+        try {
+            url = new URL(fileURL);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            remoteFile.data = null;
+            return remoteFile;
+        }
+
+        try {
+            HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+            int responseCode = httpConn.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                String filename = "unknown.jpg";
+                String disposition = httpConn.getHeaderField("Content-Disposition");
+                String contentType = httpConn.getContentType();
+                int contentLength = httpConn.getContentLength();
+
+                if (disposition != null) {
+                    // extracts file name from header field
+                    int index = disposition.indexOf("filename=");
+                    if (index > 0) {
+                        filename = disposition.substring(index + 10,
+                                disposition.length() - 1);
+                    }
+                } else {
+                    filename = fileURL.substring(fileURL.lastIndexOf("/") + 1,
+                            fileURL.length());
+                }
+
+                InputStream inputStream = httpConn.getInputStream();
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+                int bytesRead = -1;
+                byte[] buffer = new byte[2048];
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+                outputStream.close();
+                inputStream.close();
+
+                if ( filename != null && filename.length() > 0 ) remoteFile.filename = filename;
+                remoteFile.data = outputStream.toByteArray();
+                remoteFile.href = fileURL;
+
+            } else {
+                System.out.println("HTTP error code: " + responseCode);
+                remoteFile.data = null;
+            }
+            httpConn.disconnect();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            remoteFile.data = null;
+            return remoteFile;
+        }
+
+        return remoteFile;
+    }
+    
     private void evaluateBinaries() {
         HIRuntime.getGui().setMessage(Messages.getString("PeTALImporter.19"));
         corruptViews.clear();
@@ -585,19 +696,25 @@ public class PeTAL3Importer extends XMLImporter {
             } else {
                 // TODO verify hash
                 Element origElement = (Element) viewElement.getElementsByTagNameNS(PeTAL_3_0_XMLNS, "original").item(0);
-                Element imgElement = (Element) viewElement.getElementsByTagNameNS(PeTAL_3_0_XMLNS, "img").item(0);          
+                Element imgElement = (Element) viewElement.getElementsByTagNameNS(PeTAL_3_0_XMLNS, "img").item(0);
                 
-                // search / verify local file
-                String pathToFile = inputFile.getParent() + "/" + imgElement.getAttribute("src");
-                if (File.separator.compareTo("\\") == 0) {
-                    pathToFile = pathToFile.replaceAll("/", "\\" + File.separator);
+                if ( imgElement.getAttribute("src").startsWith("http://") ) {
+                    // verify remote file --> only http supported, no authentication
+                    if ( !checkIfRemoteFileExists(imgElement.getAttribute("src")) ) corruptViews.add(viewElement.getAttribute("id"));
+
                 } else {
-                    pathToFile = pathToFile.replaceAll("/", File.separator);
-                }
+                    // search / verify local file
+                    String pathToFile = inputFile.getParent() + "/" + imgElement.getAttribute("src");
+                    if (File.separator.compareTo("\\") == 0) {
+                        pathToFile = pathToFile.replaceAll("/", "\\" + File.separator);
+                    } else {
+                        pathToFile = pathToFile.replaceAll("/", File.separator);
+                    }
                     File binFile = new File(pathToFile);
-                if (!binFile.exists() || !binFile.canRead() || !binFile.isFile()) {
-                    corruptViews.add(viewElement.getAttribute("id"));
-				}
+                    if (!binFile.exists() || !binFile.canRead() || !binFile.isFile()) {
+                        corruptViews.add(viewElement.getAttribute("id"));
+                    }
+                }
                 
             }
         }
@@ -695,7 +812,17 @@ public class PeTAL3Importer extends XMLImporter {
                         byte[] data = null;
                         String filename = "unknown.jpg";
                         String repos = "[PeTAL 3.0 XML Import]";
-                        
+                        if ( imgElement.getAttribute("src").startsWith("http://") ) {
+                            // read image data from remote url, only http no authentication supported
+                            RemoteFile remoteFile = getImageViaHTTP(imgElement.getAttribute("src"));
+                            if ( remoteFile != null && remoteFile.data != null ) {
+                                data = remoteFile.data;
+                                repos = remoteFile.href;
+                                filename = remoteFile.filename;
+                                bytesRead = true;
+                            }
+                            
+                        } else {
                             // read image data from local file
                             String pathToFile = inputFile.getParent() + "/" + imgElement.getAttribute("src");
                             if (File.separator.compareTo("\\") == 0) {
@@ -711,7 +838,8 @@ public class PeTAL3Importer extends XMLImporter {
                             } catch (IOException ex) {
                                 // ignore
                             }
-							if (bytesRead && data != null) {
+                        }
+                        if (bytesRead && data != null) {
                             HiView view = null;
                             try {
                                 // try to fetch HIView from server using uuid

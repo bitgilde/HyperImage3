@@ -30,6 +30,25 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
 
 package org.hyperimage.client.components;
 
@@ -505,6 +524,18 @@ public class TemplateEditor extends HIComponent implements ListSelectionListener
                         HIRuntime.getManager().addTemplateToProject(vra4Template);
                     }
 
+                    // VRA Core 4 with Heidelberg Extensions
+/*                    
+                    if ( addTemplateDialog.getTemplateChoice().compareTo("vra4") == 0 )
+                        HIRuntime.getManager().addTemplateToProject(MetadataHelper.getVRACore4HdlbgExtTemplateBlueprint());
+*/
+                    if ( addTemplateDialog.getTemplateChoice().compareTo("vra4hdlbgRichText") == 0 ) {
+                        HiFlexMetadataTemplate vra4hdlbgTemplate = MetadataHelper.getVRACore4HdlbgExtTemplateBlueprint();
+                        for ( HiFlexMetadataSet set : vra4hdlbgTemplate.getEntries() )
+                            set.setRichText(true);
+                        HIRuntime.getManager().addTemplateToProject(vra4hdlbgTemplate);
+                    }
+                    
                     // Custom
                     if (addTemplateDialog.getTemplateChoice().compareTo("custom") == 0)
                         HIRuntime.getManager().addTemplateToProject(MetadataHelper.getCustomTemplateBlueprint());

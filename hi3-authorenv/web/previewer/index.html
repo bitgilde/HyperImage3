@@ -4,8 +4,11 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-<!-- 
-	Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+<!--
+   Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+
+   Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt). All rights reserved.
+   http://bitgilde.de/
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -18,8 +21,10 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+ 
+   For further information on HyperImage visit http://hyperimage.ws/
 		
-		@author Jens-Martin Loebel
+   @author Jens-Martin Loebel
 -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -28,7 +33,7 @@
         <title>HyperImage 3 – HTML5 PreViewer</title>
         <meta name="description" content="HyperImage 3 – HTML5 PreViewer">
         <meta name="source" content="http://hyperimage.ws/">
-		<meta name="generator" content="HyperImage 3 - PreViewer v3.0">
+		<meta name="generator" content="HyperImage 3 - PreViewer v3.0.a1">
         <meta name="apple-mobile-web-app-capable" content="yes">
 
 		<link rel="icon" href="reader/icons/favicon.ico" type="image/x-icon">
@@ -46,6 +51,10 @@
         <link rel="stylesheet" href="reader/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
         <link rel="stylesheet" href="reader/css/jquery.contextMenu.css" />
         <link rel="stylesheet" href="reader/css/miniplayer.css" />
+        
+        <!-- css plugins -->
+        <link rel="stylesheet" href="reader/css/plugins/h2v.css" />
+        
 
         <!-- jquery and jquery plugins -->
         <script type="text/javascript" src="reader/js/libs/modernizr-2.6.2.min.js"></script>
@@ -67,8 +76,14 @@
         <script type="text/javascript" src="reader/js/api/soap/HIEditorService.js"></script>
 
         <!-- reader application -->
-        <script type="text/javascript" src="reader/js/reader.min.js"></script>
+        <script type="text/javascript" src="reader/js/reader.datatypes.js"></script>
+        <script type="text/javascript" src="reader/js/reader.init.js"></script>
+        <script type="text/javascript" src="reader/js/reader.main.js"></script>
         <script type="text/javascript" src="reader/js/reader.plugin.previewer.js"></script>
+        <!-- reader plugins -->
+        <script type="text/javascript" src="reader/js/libs/plugins/h2v-min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="reader/js/plugins/reader.plugin.hdh.js"></script>
+        
     </head>
     <body onload="initReader()">
         <!--[if lt IE 7]>
@@ -158,7 +173,7 @@
 						<li id="publicLightTables" class="MENULITA_PROJECT_LITA disabled">&nbsp;</li>
 					</ul>
 				</li>
-
+<!--
 				<li class="MENU_BOOKMARK">
 					<ul id="bookmarkmenu">
 						<li><a id="saveBookmarkLink" class="MENU_BOOKMARK_SAVE" href="javascript:saveBookmark();">&nbsp;</a></li>
@@ -167,7 +182,7 @@
 						<li id="beginBookmarks" class="separator"><hr /></li>
 					</ul>
 				</li>
-
+-->
 				<li class="MENU_THEME">
 					<ul id="thememenu">
 						<li><a class="MENU_THEME_DEFAULT" href="javascript:loadSkin('standard');">&nbsp;</a></li>
@@ -277,7 +292,12 @@
 				</div>
 
 			</div>
-
+                    <div id="navWrapper">
+                        <div id="navWidget"> </div>
+                        <div id="nav">
+                        
+                        </div>
+                    </div>
 		</div>
 		<footer>powered by HyperImage</footer>
 		<input id="emptyInput" />
@@ -286,7 +306,7 @@
 				<img src="reader/icons/logo_hi_reader.png" alt="HyperImage Reader" />
 				<span class="aboutHeader">
 					<strong><span style="font-size:10pt;" class="VERSION" >&nbsp;</span></strong><br />
-					Author: Jens-Martin Loebel<br /><br />
+					Copyright 2015 bitGilde IT Solutions UG (haftungsbeschränkt)<br /><br />
 					Part of the <a href="http://hyperimage.ws/">Hyperimage Authoring System</a>
 				</span>
 			</p>

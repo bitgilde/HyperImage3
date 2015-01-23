@@ -25,6 +25,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.model;
 
 import java.util.Scanner;
@@ -105,6 +125,9 @@ public class HIRichText {
 					if ( key.compareTo("bold") == 0 ) addChunk(HIRichTextChunk.chunkTypes.BOLD, value);
 					else if ( key.compareTo("italic") == 0 ) addChunk(HIRichTextChunk.chunkTypes.ITALIC, value);
 					else if ( key.compareTo("underline") == 0 ) addChunk(HIRichTextChunk.chunkTypes.UNDERLINE, value);
+					else if ( key.compareTo("subscript") == 0 ) addChunk(HIRichTextChunk.chunkTypes.SUBSCRIPT, value);
+					else if ( key.compareTo("superscript") == 0 ) addChunk(HIRichTextChunk.chunkTypes.SUPERSCRIPT, value);
+					else if ( key.compareTo("literal") == 0 ) addChunk(HIRichTextChunk.chunkTypes.LITERAL, value);
 					else if ( key.startsWith("link") ) addChunk(HIRichTextChunk.chunkTypes.LINK,value, ref);
 					else addChunk(HIRichTextChunk.chunkTypes.REGULAR,value);
 				}

@@ -1,5 +1,8 @@
 /*
  * Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+ *
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt). All rights reserved.
+ * http://bitgilde.de/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +15,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
  */
+
 package org.hyperimage.client.xmlimportexport;
 
 import java.io.File;
@@ -60,7 +66,7 @@ import org.xml.sax.SAXParseException;
 public class XMLImporter implements ErrorHandler {
     public enum XMLFormat {
 
-        PETAL_2_0_XML, PETAL_3_0_XML, VRA_4_XML, UNRECOGNISED
+        PETAL_2_0_XML, PETAL_3_0_XML, VRA_4_XML, VRA_4_HDLBG_XML, TAMBOTI, UNRECOGNISED
     }
 
     protected static final boolean DEBUG = false;
@@ -77,6 +83,8 @@ public class XMLImporter implements ErrorHandler {
     protected static final String PeTAL_2_0_XMLNS = "http://www.hyperimage.eu/PeTAL/2.0";
     protected static final String PeTAL_3_0_XMLNS = "http://hyperimage.ws/PeTAL/3.0";
     public static final String VRA_4_XMLNS = "http://www.vraweb.org/vracore4.htm";
+    public static final String VRA_4_HDLBG_XMLNS = "http://www.vraweb.org/vracore4.htm"; // this needs to be changed in the future; Heidelberg cannot use the VRA4 namespace when the xml does not actually conform to the associated XSD.
+    public static final String VRA_4_HDLBG_NSPREFIX = "vra4hdlbg";
     public static final String IMPORT_STAGING_DIR = "tmp_ImportStagingDirectory";
     private XMLFormat xmlFormat = null;
     Document xmlDocument = null;
@@ -205,7 +213,13 @@ public class XMLImporter implements ErrorHandler {
                 //case VRA_4_XMLNS:
                 //    xmlFormat = XMLFormat.VRA_4_XML;
                 //    break;
+                case VRA_4_HDLBG_XMLNS:
+                    xmlFormat = XMLFormat.VRA_4_HDLBG_XML;
+                    break;
                 default:
+                    if( processTambotiExport() )
+                        xmlFormat = XMLFormat.TAMBOTI;
+                    else
                         xmlFormat = XMLFormat.UNRECOGNISED;
                     break;
             }
@@ -229,6 +243,11 @@ public class XMLImporter implements ErrorHandler {
             return false;
         }
     }
+    
+    private boolean processTambotiExport() {
+        Element rootElement = xmlDocument.getDocumentElement();        
+        return rootElement.getNodeName().equals("my-list-export");
+    }
 
     public boolean isPeTAL2_0() {
         return (xmlFormat != null && xmlFormat.equals(XMLFormat.PETAL_2_0_XML));
@@ -241,6 +260,15 @@ public class XMLImporter implements ErrorHandler {
     public boolean isVRA4() {
         return (xmlFormat != null && xmlFormat.equals(XMLFormat.VRA_4_XML));
     }
+
+    public boolean isVRA4Hdlbg() {
+        return ( xmlFormat != null && xmlFormat.equals(XMLFormat.VRA_4_HDLBG_XML));
+    }
+    
+    public boolean isTamboti() {
+        return ( xmlFormat != null &&  xmlFormat.equals(XMLFormat.TAMBOTI));
+    }
+ 
 
     /**
      * Returns a local or remote image as a file. -- HGK

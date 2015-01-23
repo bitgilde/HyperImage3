@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.gui.dialogs;
 
 import java.awt.Color;
@@ -64,8 +84,10 @@ public class XMLImportProjectDialog extends javax.swing.JDialog {
     private File importXMLFile = null;
     private static final String PeTAL_Description = "PeTAL 3.0 / 2.0 XML";
     private static final String VRA4_Description = "VRA Core 4 XML";
+    private static final String VRA4Hdlbg_Description = "VRA Core 4 XML (extended)";
     private static final FileFilter petalFileFilter = new FileNameExtensionFilter(PeTAL_Description, "xml");
     private static final FileFilter vra4FileFilter = new FileNameExtensionFilter(VRA4_Description, "xml");
+    private static final FileFilter vra4hdlbgFileFilter = new FileNameExtensionFilter(VRA4Hdlbg_Description, "xml");
     private XMLImporter.XMLFormat chosenFormat = XMLImporter.XMLFormat.UNRECOGNISED;
 
     public XMLImportProjectDialog(Frame parent) {
@@ -80,6 +102,8 @@ public class XMLImportProjectDialog extends javax.swing.JDialog {
         importXMLChooser.setFileHidingEnabled(true);
         importXMLChooser.setAcceptAllFileFilterUsed(false);
         importXMLChooser.addChoosableFileFilter(petalFileFilter);
+        //importXMLChooser.addChoosableFileFilter(vra4FileFilter);
+        importXMLChooser.addChoosableFileFilter(vra4hdlbgFileFilter);
         // Default format preselected in dropdown:
         importXMLChooser.setFileFilter(petalFileFilter);
 
@@ -223,7 +247,9 @@ public class XMLImportProjectDialog extends javax.swing.JDialog {
                 chosenFormat = XMLImporter.XMLFormat.PETAL_2_0_XML;
             } else if( strFileDescription.equals(VRA4_Description) ) { // not currently in use (filefilter inactive)
                 chosenFormat = XMLImporter.XMLFormat.VRA_4_XML;
-            } 
+            } else if( strFileDescription.equals(VRA4Hdlbg_Description) ) {
+                chosenFormat = XMLImporter.XMLFormat.VRA_4_HDLBG_XML;
+            }
 
             if (!(importXMLFile == null)) {
                 this.setVisible(false);
@@ -239,6 +265,10 @@ public class XMLImportProjectDialog extends javax.swing.JDialog {
         return chosenFormat == XMLImporter.XMLFormat.VRA_4_XML;
     }
     
+    public boolean isVRA4Hdlbg_Expected() {
+        return chosenFormat == XMLImporter.XMLFormat.VRA_4_HDLBG_XML;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton cancelButton;
     private JButton importButton;

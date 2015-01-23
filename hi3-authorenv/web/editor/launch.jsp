@@ -1,5 +1,5 @@
 <% 
-    response.setHeader("Content-Disposition", "attachment; filename=\"launch.jnlp\"");
+    response.setHeader("Content-Disposition", "attachment; filename=\"launch_editor.jnlp\"");
     Boolean secure = ((HttpServletRequest)pageContext.getRequest()).isSecure();
     String prot = "http";
     if (secure) prot =" https";
@@ -20,7 +20,7 @@
     <resources>
         <j2se version="1.7+" java-vm-args="-Xms500m -Xmx1000m" max-heap-size="1000m" initial-heap-size="500m" />
         <jar href="HI3Author-EditorClient_3.0.jar" main="true"/>
-    <jar href="lib/jai_codec.jar"/>
+      <jar href="lib/jai_codec.jar"/>
 <jar href="lib/jai_core.jar"/>
 <jar href="lib/jaxb-impl.jar"/>
 <jar href="lib/jaxb-xjc.jar"/>
@@ -48,6 +48,6 @@
 <jar href="lib/swing-layout-1.0.4.jar"/>
 </resources>
     <application-desc main-class="org.hyperimage.client.Main">
-    <argument><%= serverURL %>/HI3Author</argument>
-</application-desc>
+        <argument><%= serverURL %>/HI3Author</argument>
+    </application-desc>
 </jnlp>

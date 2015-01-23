@@ -772,6 +772,111 @@ function initGUI() {
 	reader.canvas.image = reader.canvas.svg.image(reader.canvas.imageGroup, 0, 0, 100, 100, '#', {id: 'canvasImage'});
 	reader.canvas.layerGroup = reader.canvas.svg.group(reader.canvas.imageGroup, 'canvasLayerGroup', {});
 	$('#canvas').dragscrollable({acceptPropagatedEvent: true}); // enable mouse scrolling
+	$('#canvas').bind('mousemove', function(event) {
+            if ( event.buttons == 1 ) {
+                updateNavRect();
+            }
+        });
+	// set up nav window canvas
+	$('#nav').svg();
+	reader.canvas.navsvg = $('#nav').svg('get');
+	reader.canvas.navsvg.root().setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+	reader.canvas.navsvg.root().setAttribute("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
+	reader.canvas.navImageGroup = reader.canvas.svg.group(reader.canvas.navsvg.root(),'navCanvasImageGroup',{});
+	reader.canvas.navimage = reader.canvas.svg.image(reader.canvas.navImageGroup, 0, 0, 128, 128, '#', {id: 'navImage'});
+        reader.canvas.navrect = reader.canvas.svg.rect(reader.canvas.navImageGroup, 0, 5, 140, 90, 0, 0, {id: 'navRect', stroke: '#660000', strokeWidth: 3, fill: 'white', fillOpacity:'0.2'});
+
+        $('#navWidget').click(function(event, ui) {
+            setNavOpened($('#navWidget').hasClass('nav-closed'));
+        });
+        
+        $('#navImage').bind('mousedown', function(event, ui) {
+            console.log("down");
+            var navtop = $('#nav').position().top;
+            var navx = event.clientX+$('#nav').scrollLeft()-(reader.canvas.navrect.getAttribute("width")/2);
+            var navy = (event.clientY-navtop)-(reader.canvas.navrect.getAttribute("height")/2);
+            navx = Math.min(navx, reader.zoom.navwidth-parseInt(reader.canvas.navrect.getAttribute('width')));
+            navy = Math.min(navy, reader.zoom.navheight-parseInt(reader.canvas.navrect.getAttribute('height'))+5);
+            navx = Math.max(navx, 0);
+            navy = Math.max(navy, 5);
+            reader.canvas.navrect.setAttribute('x', navx);
+            reader.canvas.navrect.setAttribute('y', navy);
+            
+            $('#canvas').scrollLeft( (reader.canvas.navrect.getAttribute('x') / reader.zoom.navwidth)*reader.zoom.width*reader.zoom.cur);
+            $('#canvas').scrollTop( ((reader.canvas.navrect.getAttribute('y')-5) / reader.zoom.navheight)*reader.zoom.height*reader.zoom.cur);
+            $('#navRect').removeAttr('style');
+            
+        });
+
+        // set up nav canvas navigation controls
+        $('#navImage').draggable({
+            start: function(event, ui) {
+                $(this).removeAttr('style');
+                $('#navRect').removeAttr('style');
+                reader.nav.x = parseInt(reader.canvas.navrect.getAttribute('x'));
+                reader.nav.y = parseInt(reader.canvas.navrect.getAttribute('y'));
+            },
+            stop: function(event, ui) {
+                $('#navRect').removeAttr('style');
+                $(this).removeAttr('style');
+            },
+            drag: function(event, ui) {
+                $(this).removeAttr('style');
+                // update coordinates manually, since top/left style props don't work on SVG
+                var navx = reader.nav.x+ui.position.left-ui.originalPosition.left;
+                var navy = reader.nav.y+ui.position.top-ui.originalPosition.top;
+                // check bounds
+                navx = Math.min(navx, reader.zoom.navwidth-parseInt(reader.canvas.navrect.getAttribute('width')));
+                navy = Math.min(navy, reader.zoom.navheight-parseInt(reader.canvas.navrect.getAttribute('height'))+5);
+                navx = Math.max(navx, 0);
+                navy = Math.max(navy, 5);
+                $('#navRect').attr('x',navx);
+                $('#navRect').attr('y',navy);
+                $('#navRect').removeAttr('style');
+                // update canvas viewport
+                $('#canvas').scrollLeft( (reader.canvas.navrect.getAttribute('x') / reader.zoom.navwidth)*reader.zoom.width*reader.zoom.cur);
+                $('#canvas').scrollTop( ((reader.canvas.navrect.getAttribute('y')-5) / reader.zoom.navheight)*reader.zoom.height*reader.zoom.cur);
+            }
+        });
+
+        // DEBUG
+        $('#nav, #navImage, #navRect').mouseenter(function(event) {
+//            console.log("enter");
+            $(this).fadeTo(100, 1.0);
+        });
+        $('#nav').mouseout(function(event) {
+//            console.log("leave");
+//            $(this).fadeTo(500, 0.2);
+//            event.stopPropagation();
+        });
+        reader.nav = {};
+        $('#navRect').draggable({
+            start: function(event, ui) {
+                $('#navRect').removeAttr('style');
+                reader.nav.x = parseInt(reader.canvas.navrect.getAttribute('x'));
+                reader.nav.y = parseInt(reader.canvas.navrect.getAttribute('y'));
+            },
+            stop: function(event, ui) {
+                $('#navRect').removeAttr('style');
+            },
+            drag: function(event, ui) {
+                // update coordinates manually, since top/left style props don't work on SVG
+                var navx = reader.nav.x+ui.position.left-ui.originalPosition.left;
+                var navy = reader.nav.y+ui.position.top-ui.originalPosition.top;
+                // check bounds
+                navx = Math.min(navx, reader.zoom.navwidth-parseInt(reader.canvas.navrect.getAttribute('width')));
+                navy = Math.min(navy, reader.zoom.navheight-parseInt(reader.canvas.navrect.getAttribute('height'))+5);
+                navx = Math.max(navx, 0);
+                navy = Math.max(navy, 5);
+                $(this).attr('x',navx);
+                $(this).attr('y',navy);
+                $('#navRect').removeAttr('style');
+                // update canvas viewport
+                $('#canvas').scrollLeft( (reader.canvas.navrect.getAttribute('x') / reader.zoom.navwidth)*reader.zoom.width*reader.zoom.cur);
+                $('#canvas').scrollTop( ((reader.canvas.navrect.getAttribute('y')-5) / reader.zoom.navheight)*reader.zoom.height*reader.zoom.cur);
+//                $('#canvas').scrollTop(((reader.zoom.navheight*100) / reader.zoom.height)*(reader.canvas.navrect.getAttribute('y')-7)*reader.zoom.cur);
+            }});
+
 	// set move cursor handler
 	$("#canvas").hover(function(ev) {
 		if ( reader.zoom.cur > reader.zoom.image ) $(ev.currentTarget).css('cursor', 'move');
@@ -839,7 +944,16 @@ function showTab(tab) {
 	if ( tab == 2 && reader.load != null && reader.project.items[reader.load].type == 'inscription' )  highlightSourceLayer();
 }
 
-function initReader() {	
+function initPlugins() {
+	if (!reader.plugins) reader.plugins = {};
+	if (!reader.plugins.init) reader.plugins.init = [];
+	if (!reader.plugins.tooltip) reader.plugins.tooltip = {};
+	if (!reader.plugins.tooltip.canvas) reader.plugins.tooltip.canvas = {};
+	if (!reader.plugins.tooltip.canvas.before) reader.plugins.tooltip.canvas.before = [];
+	if (!reader.plugins.tooltip.canvas.show) reader.plugins.tooltip.canvas.show = [];
+}
+
+function initReader() {		
 	// set up main loading indicator
 	$('#guiInitIndicator').activity({
 		segments: 12,
@@ -904,6 +1018,9 @@ function initReader() {
 					if ( location.hash.length > 0 ) loadItem(location.hash.substring(1).split('/')[0], false, true);
 					else location.hash = reader.start+"/";
 					
+					// init plugins
+					initPlugins();
+					$(reader.plugins.init).each(function(index, plugin) { plugin(); });
 					console.log(reader);
 				}, error: function(error) {reportError('Required file "'+reader.path+reader.project.id+'.xml" missing or load error.')} });
 			}, error: function(error) {reportError('Required file "'+reader.prefs['INITIAL_REF']+'" (pref key INITIAL_REF) missing or load error.')} });

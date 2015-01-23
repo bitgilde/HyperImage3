@@ -244,6 +244,7 @@ function parseItem(data, success, shouldSetGUI) {
 					newFile.height = parseInt(file.getAttribute("height"));
 					newFile.href = file.getAttribute("src");
 					if ( file.getAttribute("use") == 'thumb' ) item.files['thumb'] = newFile; 
+					else if ( file.getAttribute("use") == 'nav' ) item.files['nav'] = newFile; 
 					else item.files['images'].push(newFile);
 				});
 				// sort image files
@@ -826,7 +827,7 @@ function displayContentList(contentsList) {
 			classType = ' class="hasContentsContextMenu"';
 		// don't display image for external URLs
 		if ( contentsList[key].type == 'url' ) contentsList[key].image = null;
-		
+
 		var html = '<li id="cl-'+key+'"'+classType;
 		if ( contentsList[key].image != null ) html += '>'; else html+=' class="text">'; 
 		html += '<a onclick="javascript:checkExternalLink(this);" class="HIExternalLink" href="#'+contentsList[key].target+'/">';
@@ -1535,6 +1536,7 @@ function calcImageScales() {
 		reader.zoom.window = ($('#canvas').height()-reader.zoom.yOffset)*1.0/view.files['original'].height;
 	else
 		reader.zoom.window = 1.0*($('#canvas').width()-reader.zoom.xOffset)/view.files['original'].width;
+        reader.zoom.nav = ($('#canvas').height()-128-reader.zoom.yOffset)*1.0/view.files['original'].height;
 	reader.zoom.image = Math.min(1.0*($('#canvas').width()-$('#sidebar').width())/view.files['original'].width, ($('#canvas').height()-reader.zoom.yOffset)*1.0/view.files['original'].height);
 	reader.zoom.width = view.files['original'].width;
 	reader.zoom.height = view.files['original'].height;
@@ -1548,6 +1550,38 @@ function zoomIn() {
 function zoomOut() {
 	if ( ! $('#zoomOutLink').parent().is('.disabled') )
 		scaleImageTo(reader.zoom.cur / 2.0);
+}
+
+function setNavAvailable(available) {
+    if ( available ) {
+        setNavOpened(true);
+        $('#navImage').show();    
+        $('#navWidget').show();
+    } else {
+        setNavOpened(false);
+        $('#navWidget').hide();
+    }
+}
+function updateNavRect() {
+    $('#navRect').attr('x', ($('#canvas').scrollLeft()/reader.zoom.cur)/reader.zoom.width*reader.zoom.navwidth);
+    $('#navRect').attr('y', (($('#canvas').scrollTop()/reader.zoom.cur)/reader.zoom.height*reader.zoom.navheight)+5);
+    if ( parseInt($('#navRect').attr('x')) < $('#nav').scrollLeft() ) {
+        $('#nav').scrollLeft(parseInt($('#navRect').attr('x')));
+    }
+    if ( (parseInt($('#navRect').attr('x'))+parseInt($('#navRect').attr('width'))) > ($('#nav').scrollLeft()+$(window).width()) ) {        
+        $('#nav').scrollLeft(parseInt($('#navRect').attr('x'))+parseInt($('#navRect').attr('width'))-$(window).width());
+    }
+}
+
+function setNavOpened(opened) {
+    if (opened) {
+        $('#navWidget').removeClass('nav-closed');
+        $('#nav').show();
+    } else {
+        $('#navWidget').addClass('nav-closed');
+        $('#nav').hide();
+    }
+	
 }
 
 function scaleImageTo(scale) {
@@ -1577,6 +1611,15 @@ function scaleImageTo(scale) {
 	});
 
 	reader.zoom.cur = scale;
+        // adjust nav rectangle
+        reader.zoom.navheight = reader.zoom.height / ( reader.zoom.width / $(window).width() );
+        reader.zoom.navheight = Math.min(reader.zoom.navheight, 128);
+        reader.zoom.navwidth = reader.zoom.width / ( reader.zoom.height / reader.zoom.navheight );
+        $('#navWidget').css('bottom', (reader.zoom.navheight-1)+'px');
+        reader.canvas.navrect.setAttribute('width', $(window).width()/(reader.zoom.cur*reader.zoom.width) * reader.zoom.navwidth );
+        reader.canvas.navrect.setAttribute('height', ($(window).height()-24)/(reader.zoom.cur*reader.zoom.height) * reader.zoom.navheight );
+        updateNavRect();
+
 	loadHiResIfNeeded(); // load high res version of image if necessary
 }
 
@@ -1847,7 +1890,8 @@ function setMenuState() {
 }
 
 function setGUIMode(mode) {
-	var modeDIVs = ['#canvas', '#textView', '#groupView', '#lighttableView'];
+    setNavAvailable(false);
+    var modeDIVs = ['#canvas', '#textView', '#groupView', '#lighttableView'];
 	for (var i=0; i < modeDIVs.length; i++) $(modeDIVs[i]).hide();
 	$(modeDIVs[mode]).show();
 	if ( mode == 3 ) {
@@ -1872,7 +1916,26 @@ function setGUIMode(mode) {
 }
 
 function loadViewFileData(element, view, ref) {
-	element.attr('href', ref);
+    setNavAvailable(false);
+    element.load(function() {
+        // also load view nav image if needed
+        if ( (view.files.original.width / view.files.original.height) > 5 && view.files.nav != null ) {
+            console.log("loading nav...");
+        
+            $('#navImage').attr('href', view.files.nav.href);
+            reader.canvas.navsvg.change(reader.canvas.navimage, {x:0, y:4, width:reader.zoom.navwidth, height:reader.zoom.navheight});
+            reader.canvas.navsvg.change(reader.canvas.navsvg.root(), {x:0, y:0, width:reader.zoom.navwidth, height:reader.zoom.navheight});
+            setNavAvailable(true);
+            scaleImageTo(reader.zoom.nav); // set initial nav size for canvas
+            // DEBUG only for Hachiman / HDH --> start at righthand side of image
+            // remove --> move to plugin
+            $('#canvas').scrollLeft(reader.zoom.width*reader.zoom.cur);
+            updateNavRect();
+        } else {
+            setNavAvailable(false);
+        }    
+    }).attr('href', ref); // load view image file
+    
 }
 
 function setGUI(forceLoad) {
@@ -1988,10 +2051,10 @@ function setGUI(forceLoad) {
 		$('#canvasLayerGroup > g').remove(); // remove old layers
 		$("#canvasImage").attr('width', view.files['original'].width);
 		$("#canvasImage").attr('height', view.files['original'].height);
-		loadViewFileData($("#canvasImage"), view, view.files['images'][0].href); // set image preview file
 		// scroll back top to left
 		$('#canvas').scrollTop(0); $('#canvas').scrollLeft(0);
 		calcImageScales();
+		loadViewFileData($("#canvasImage"), view, view.files['images'][0].href); // set image preview file
 		scaleImageTo(reader.zoom.image);
 
 		// draw layers
@@ -2014,6 +2077,8 @@ function setGUI(forceLoad) {
 					$('#canvasTooltip .tooltipContent').html(tooltipDiv); // set tooltip content for layer
 					$(tt.target).tooltip().getConf().offset[1] = Math.round(reader.pageX-pos.left)+64;
 					$(tt.currentTarget.getTip()).css("cursor", "move");
+					// execute plugin hook					
+					$(reader.plugins.tooltip.canvas.before).each(function(index, plugin) { plugin(); });
 				},
 				onBeforeHide: function(tt, pos) {
 					tt.currentTarget.getConf().offset[1] = 0;
@@ -2024,6 +2089,8 @@ function setGUI(forceLoad) {
 					if ( ($(window).height() - ( $('#canvasTooltip').position().top+$('#canvasTooltip').height()+reader.zoom.yOffset )) < 0  )
 						$('#canvasTooltip').css('top', $(window).height()-$('#canvasTooltip').height()-reader.zoom.yOffset-5);
 					this.getTip().draggable({ containment: '#canvas' });
+					// execute plugin hook					
+					$(reader.plugins.tooltip.canvas.show).each(function(index, plugin) { plugin(); });
 				},
 				onHide: function(tt, pos) {
 					try { this.getTip().draggable("destroy"); } catch (e) {}

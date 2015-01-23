@@ -25,6 +25,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.model;
 
 import java.io.ByteArrayInputStream;
@@ -36,7 +56,7 @@ import org.w3c.dom.Document;
  * @author Jens-Martin Loebel
  */
 public class HIRichTextChunk {
-	public static enum chunkTypes {REGULAR, BOLD, ITALIC, UNDERLINE, LINK };
+	public static enum chunkTypes {REGULAR, BOLD, ITALIC, UNDERLINE, LINK, SUBSCRIPT, SUPERSCRIPT, LITERAL };
 	
 	private chunkTypes chunkType;
 	private String value, ref;
@@ -82,6 +102,9 @@ public class HIRichTextChunk {
 		if ( chunkType == chunkTypes.BOLD) key = "bold";
 		else if ( chunkType == chunkTypes.ITALIC) key = "italic";
 		else if ( chunkType == chunkTypes.UNDERLINE) key = "underline";
+		else if ( chunkType == chunkTypes.SUBSCRIPT) key = "subscript";
+		else if ( chunkType == chunkTypes.SUPERSCRIPT) key = "superscript";
+		else if ( chunkType == chunkTypes.LITERAL) key = "literal";
 		else if ( chunkType == chunkTypes.LINK) key = "link:"+ref;
 		
 		return "{#}"+key+"{#}"+value.replaceAll("\\{#\\}", "{\\\\#}");
@@ -94,10 +117,14 @@ public class HIRichTextChunk {
             if ( chunkType == chunkTypes.BOLD) key = "b";
             else if ( chunkType == chunkTypes.ITALIC) key = "i";
             else if ( chunkType == chunkTypes.UNDERLINE) key = "u";
+            else if ( chunkType == chunkTypes.SUBSCRIPT) key = "sub";
+            else if ( chunkType == chunkTypes.SUPERSCRIPT) key = "sup";
 		
             String text = value;
+            if ( chunkType != chunkTypes.LITERAL ) {
     		text = text.replaceAll("<", "&lt;");
     		text = text.replaceAll(">", "&gt;");    
+            }
             if ( key.length() > 0 )
                 text = "<"+key+">"+text+"</"+key+">";
             else if ( chunkType == chunkTypes.LINK)

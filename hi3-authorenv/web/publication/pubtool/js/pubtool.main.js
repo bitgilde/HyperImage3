@@ -1,17 +1,22 @@
 /*
- *	Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
- * 
+ * Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+ *
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt). All rights reserved.
+ * http://bitgilde.de/
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
  */
 
 /* @author Jens-Martin Loebel */
@@ -63,6 +68,8 @@ function initPubTool() {
 		pubtool.canvas = document.createElement('canvas');
 	    pubtool.stopwords = window.stopwords;
 	    pubtool.hiThemes = window.hiThemes;
+            
+            pubtool.version = 'v3.0.0.alpha-1';
 	
 		JSZipUtils.getBinaryContent('pubtool/reader-base.zip', function(err, data) {
 			if ( err ) {
@@ -307,8 +314,17 @@ function parseServiceMDField (field) {
 				case 'underline':
 					previewText += "<u>"+value.encodeXML()+"</u>";
 					break;
+				case 'subscript':
+					previewText += "<sub>"+value.encodeXML()+"</sub>";
+					break;
+				case 'superscript':
+					previewText += "<sup>"+value.encodeXML()+"</sup>";
+					break;
 				case 'link':
 					previewText += "<a href=\"#"+ref+"\">"+value.encodeXML()+"</a>";
+					break;
+				case 'literal':
+					previewText += value.replace(/<br>/g, '<br/>'); // fix break tag mismatch between html5 and xhtml syntax [HOTFIX]
 					break;
 				case 'regular':
 					previewText += value.encodeXML();
@@ -316,7 +332,7 @@ function parseServiceMDField (field) {
 			}	
 		}
 
-		previewText = previewText.replace(/\n/g, '<br/>');
+		if ( key != 'literal' ) previewText = previewText.replace(/\n/g, '<br/>');
 	
 	return previewText;
 }
@@ -393,6 +409,14 @@ function parseItem(data, relatedID) {
 				newFile.height = Math.round(data.getHeight()*Math.min(400/data.getWidth(), 400/data.getHeight()));
 				newFile.href = item.id+'_prev.jpg';
 				item.files['images'].push(newFile);
+                                // nav size if needed
+                                if ( (data.getWidth() / data.getHeight()) > 5 ) {
+                                    newFile = new Object();
+                                    newFile.width = Math.round(data.getWidth()*(128/data.getHeight()));
+                                    newFile.height = 128;
+                                    newFile.href = item.id+'_nav.jpg';
+                                    item.files['nav'] = newFile; 
+                                }
 				// thumbnail size
 				newFile = new Object();
 				newFile.width = Math.round(data.getWidth()*Math.min(128/data.getWidth(), 128/data.getHeight()));
@@ -558,6 +582,10 @@ function parseItem(data, relatedID) {
 			if ( pubtool.project.items[id] == null ) {
 				item = new HIGroup(id);
 				item.uuid = data.getUUID();
+				item.sortOrder = [];
+				$(data.getSortOrder().split(',')).each(function(index, memberID) {
+					if ( memberID.length > 0 ) item.sortOrder.push(memberID); // group member sort order
+				});
 				// parse group metadata
 				for (var i=0; i < data.getMetadata().length; i++) {
 					var lang = data.getMetadata()[i].getLanguage();
@@ -787,13 +815,16 @@ function generateImageFiles() {
 	}
 
 	function processImage(id, data) {		
-		var view = pubtool.project.items[id];
+            var view = pubtool.project.items[id];
 
-		imageToDataUri("img/"+id+"_thumb.jpg", data, view.files.thumb.width, view.files.thumb.height, true);
-		pubtool.zip.file("img/"+id+".jpg", data.substring(23), {base64: true});
+            imageToDataUri("img/"+id+"_thumb.jpg", data, view.files.thumb.width, view.files.thumb.height, true);
+            if ( view.files.nav != null )
+                imageToDataUri("img/"+id+"_nav.jpg", data, view.files.nav.width, view.files.nav.height, true);
 
-		for (var i=0; i < view.files.images.length-1; i++)
-			imageToDataUri("img/"+view.files.images[i].href, data, view.files.images[i].width, view.files.images[i].height);
+            pubtool.zip.file("img/"+id+".jpg", data.substring(23), {base64: true});
+
+            for (var i=0; i < view.files.images.length-1; i++)
+                imageToDataUri("img/"+view.files.images[i].href, data, view.files.images[i].width, view.files.images[i].height);
 	}
 	
 	if ( !pubtool.project.processCounter ) pubtool.project.processCounter = 0;
@@ -966,7 +997,7 @@ function loadProjectContents() {
 							var contentID = GetIDModifierFromContentType(member.getContentType())+member.getBaseID();
 							if ( member.getContentType() == 'HIObject' || member.getContentType() == 'HIURL' ) itemsToLoad[contentID] = {};
 							groupContents.push(contentID);
-					});
+					});					
 					pubtool.project.groups[groupID].members = groupContents;
 				
 					// load remaining project items when finished
@@ -1117,9 +1148,18 @@ function generatePeTALDocs() {
 					doc += serializeField('title', item.title[pubtool.project.langs[i]], pubtool.project.langs[i]);
 					doc += serializeField('annotation', item.annotation[pubtool.project.langs[i]], pubtool.project.langs[i]);
 				}
-				for ( var i=0; i < item.members.length; i++ ) {
-					doc += serializeContentPreview('member', pubtool.project.items[item.members[i]]);
+				// serialize sorted group contents
+				for ( var i=0; i < item.sortOrder.length; i++ ) {
+					var sortedItem = item.sortOrder[i];
+					var groupMember = null;
+					for ( var index=0; index < item.members.length; index++ )
+						if ( item.members[index].substring(1) == sortedItem ) groupMember = item.members[index];
+					
+					if ( groupMember != null )
+						doc += serializeContentPreview('member', pubtool.project.items[groupMember]);
 				}
+	//			for ( var i=0; i < item.members.length; i++ ) {
+	//			}
 				break;
 
 			case 'O':
@@ -1169,7 +1209,9 @@ function generatePeTALDocs() {
 						doc += serializeField('annotation', item.annotation[pubtool.project.langs[i]], pubtool.project.langs[i]);
 					}
 					for ( var i=0; i < item.files.images.length; i++ )
-						doc += '<img height="'+item.files.images[i].height+'" src="img/'+item.files.images[i].href+'" use="pict" width="'+item.files.images[i].width+'" />';
+                                            doc += '<img height="'+item.files.images[i].height+'" src="img/'+item.files.images[i].href+'" use="pict" width="'+item.files.images[i].width+'" />';
+                                        if ( item.files.nav != null )
+                                            doc += '<img height="'+item.files.nav.height+'" src="img/'+item.files.nav.href+'" use="nav" width="'+item.files.nav.width+'" />';
 					doc += '<img height="'+item.files.thumb.height+'" src="img/'+item.files.thumb.href+'" use="thumb" width="'+item.files.thumb.width+'" />';
 					
 					for ( var i=0; i < item.sortOrder.length; i++ )

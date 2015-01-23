@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.gui;
 
 import java.awt.Color;
@@ -130,6 +150,7 @@ import org.hyperimage.client.xmlimportexport.PeTAL2Importer;
 import org.hyperimage.client.xmlimportexport.PeTAL3Exporter;
 import org.hyperimage.client.xmlimportexport.PeTAL3Importer;
 import org.hyperimage.client.xmlimportexport.PeTALExporter;
+import org.hyperimage.client.xmlimportexport.VRACore4HeidelbergImporter;
 import org.hyperimage.client.xmlimportexport.XMLImporter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -406,6 +427,52 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
             }
             PeTAL3Importer petalImporter = new PeTAL3Importer(importFile, importer.getXMLDocument());
             petalImporter.importXMLToProject();
+        }       /*else if( importer.isVRA4() ){
+         if( !xmlImportDialog.isVRA4_Expected() ) {
+         displayInfoDialog("XML Import Error", "Expected file to be in PeTAL 2.0 format.");
+         return;
+         } else {
+         VRACore4Importer vraImporter = new VRACore4Importer(importFile, importer.getXMLDocument());
+         vraImporter.importXMLToProject();
+         }
+         }*/ else if (importer.isVRA4Hdlbg()) {
+            if (!xmlImportDialog.isVRA4Hdlbg_Expected()) {
+                displayInfoDialog(Messages.getString("HIClientGUI.154"), Messages.getString("HIClientGUI.petalExpected"));
+                return;
+            } else {
+                VRACore4HeidelbergImporter vrahdlbgImporter = new VRACore4HeidelbergImporter(importFile, importer.getXMLDocument());
+                vrahdlbgImporter.importXMLToProject();
+            }
+        } else if( importer.isTamboti() ){
+            if( !xmlImportDialog.isVRA4Hdlbg_Expected()) {
+                displayInfoDialog(Messages.getString("HIClientGUI.154"), Messages.getString("HIClientGUI.petalExpected"));
+                return;
+            } else {
+                // Tamboti VRA export is currently (as of 2014-06-06) wrapped in a <my-list-export> tag.
+                // Extract the document below this tag and pass it to the importer.
+                DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder = null;
+                try {
+                    docBuilder = docFactory.newDocumentBuilder();
+                } catch (ParserConfigurationException ex) {
+                    Logger.getLogger(HIClientGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Document vraDoc = docBuilder.newDocument();
+                Document tambotiDoc = importer.getXMLDocument();
+                Node tambotiDocRoot = tambotiDoc.getFirstChild(); // returns <my-list-export>
+                NodeList childNodes = tambotiDocRoot.getChildNodes();
+                
+                // Iterate through the nodes looking for the first (and only?) element, namely <vra>.
+                int i = 0;
+                Node vraNode = childNodes.item(i);
+                while( !(vraNode instanceof Element) )
+                    vraNode = childNodes.item(++i);
+                
+                Node node = vraDoc.importNode(vraNode, true);
+                vraDoc.appendChild(node);
+                VRACore4HeidelbergImporter vrahdlbgImporter = new VRACore4HeidelbergImporter(importFile, vraDoc);
+                vrahdlbgImporter.importXMLToProject();
+            }
         }
 
     }

@@ -1,5 +1,8 @@
 /*
- *	Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+ * Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+ *
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt). All rights reserved.
+ * http://bitgilde.de/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,11 +15,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
  */
 
-/*
-  @author Jens-Martin Loebel
-*/
+/* @author Jens-Martin Loebel */
 
 // Avoid `console` errors in browsers that lack a console.
 (function() {
@@ -126,7 +129,7 @@ function parseServiceMDField (field) {
 			chunkCount++;
 			var value = previewChunks[chunkCount];
 			if ( value == null ) value = '';
-			value = value.replace(/\n/g, '<br>');
+			if ( key != 'literal' ) value = value.replace(/\n/g, '<br>');
 			switch (key) {
 				case 'bold':
 					previewText += "<b>"+value+"</b>";
@@ -137,9 +140,16 @@ function parseServiceMDField (field) {
 				case 'underline':
 					previewText += "<u>"+value+"</u>";
 					break;
+				case 'subscript':
+					previewText += "<sub>"+value+"</sub>";
+					break;
+				case 'superscript':
+					previewText += "<sup>"+value+"</sup>";
+					break;
 				case 'link':
 					previewText += "<a onclick=\"javascript:checkExternalLink(this);\" class=\"HIExternalLink\" href=\"#"+ref+"\">"+value+"</a>";
 					break;
+				case 'literal':
 				case 'regular':
 					previewText += value;
 					break;
@@ -208,7 +218,7 @@ function HIExceptionHandler(status, exception) {
 	if ( exception.type == "HISessionExpiredException" ) reportError("Session Expired / Sitzung abgelaufen");
 }
 
-reader.version = "v3.0.alpha-1";
+reader.version = "v3.0.a1";
 reader.productID = 'Reader PreViewer';
 
 
@@ -261,19 +271,45 @@ function checkExternalLink(link) {
 
 // @override
 function loadViewFileData(element, view, ref) {
-	reader.service.HIEditor.synchronous = false;
-	element.attr('data-viewwidth', view.files['images'][0].width);
-	element.attr('data-viewheight', view.files['images'][0].height);
-	reader.service.HIEditor.getImage(
-		function (cb) { 
-			element.attr('href', 'data:image/jpeg;base64,'+cb.getReturn());
-			element.show(); 
-		}, 
-		function (cb,msg) { console.log("getImage error --> ", cb); HIExceptionHandler(cb, msg);},
-		view.id.substring(1),
-		ref
-	);
-	reader.service.HIEditor.synchronous = true;
+    reader.service.HIEditor.synchronous = false;
+    element.attr('data-viewwidth', view.files['images'][0].width);
+    element.attr('data-viewheight', view.files['images'][0].height);
+    reader.service.HIEditor.getImage(
+        function (cb) { 
+            element.attr('href', 'data:image/jpeg;base64,'+cb.getReturn());
+            element.show(); 
+        }, 
+	function (cb,msg) { console.log("getImage error --> ", cb); HIExceptionHandler(cb, msg);},
+            view.id.substring(1),
+            ref
+    );
+
+    // load view nav image if needed
+    if ( (view.files.original.width / view.files.original.height) > 5 ) {
+        console.log("loading nav...");
+        reader.service.HIEditor.getImage(
+            function (cb) { 
+                $('#navImage').attr('href', 'data:image/jpeg;base64,'+cb.getReturn());
+                reader.canvas.navsvg.change(reader.canvas.navimage, {x:0, y:4, width:reader.zoom.navwidth, height:reader.zoom.navheight});
+                reader.canvas.navsvg.change(reader.canvas.navsvg.root(), {x:0, y:0, width:reader.zoom.navwidth, height:reader.zoom.navheight});
+                setNavAvailable(true);
+                scaleImageTo(reader.zoom.nav); // set initial nav size for canvas
+                // DEBUG only for Hachiman / HDH --> start at righthand side of image
+                // remove --> move to plugin
+                $('#canvas').scrollLeft(reader.zoom.width*reader.zoom.cur);
+                updateNavRect();
+            }, 
+            function (cb,msg) { console.log("nav getImage error --> ", cb); HIExceptionHandler(cb, msg);},
+                view.id.substring(1),
+            'HI_NAV'
+        );        
+    
+    } else {
+        setNavAvailable(false);
+    }
+
+
+    reader.service.HIEditor.synchronous = true;
 }
 
 // @override
@@ -1175,6 +1211,8 @@ function parseItem(data, success, shouldSetGUI) {
 					content.type = GetQuickInfoType(member);
 					if ( content.type == "lita" ) content.type = "lightTable";
 					content.title[reader.project.defaultLang] = member.getTitle();
+                                        // fix for URLs, don't i18n title
+                                        if ( content.type == "url" ) content.title = member.getTitle(); 
 					content.size = member.getCount();
 					if ( member.getPreview() != null ) content.content[reader.project.defaultLang] = parseServiceMDField(member.getPreview());
 					else content.content[reader.project.defaultLang] = '';
@@ -1216,6 +1254,7 @@ function parseItem(data, success, shouldSetGUI) {
 
 				item.url = data.getUrl();
 				reader.project.items[id] = item;
+                                console.log(reader.project.items[id]);
 				if ( item.uuid != null ) reader.project.items[item.uuid] = item;
 			}
 			break;
@@ -1280,7 +1319,9 @@ function parseItem(data, success, shouldSetGUI) {
 	if ( unloaded != null && reader.project.items[unloaded] == null ) {
 		console.log("unloaded item: ", unloaded);
 		loadItem(unloaded, true, shouldSetGUI);
-	} else if ( shouldSetGUI ) setGUI();
+	} else if ( shouldSetGUI ) {
+		setGUI();
+	}
 }
 
 
@@ -1810,9 +1851,12 @@ function initReader() {
 						$(this).dialog( "close" );
 					}
 				}
-		  });
+		  	});
 
 			
+			// init plugins
+			initPlugins();
+			$(reader.plugins.init).each(function(index, plugin) { plugin(); });
 					
 		}, error: function(error) {reportError('Required file "resource/hi_strings.xml" missing or load error.')} });
 	}, error: function(error) {reportError('Required file "resource/hi_prefs.xml" missing or load error.<br><br><strong>Did you start the Reader from your harddrive?</strong><br>For this online publication to work you need to upload your project to a web server.<br>An offline version is available from our website.')} });

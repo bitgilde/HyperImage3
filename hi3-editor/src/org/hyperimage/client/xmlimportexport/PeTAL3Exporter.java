@@ -1,5 +1,8 @@
 /*
  * Copyright 2014 Leuphana Universität Lüneburg. All rights reserved.
+ *
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt). All rights reserved.
+ * http://bitgilde.de/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +15,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
  */
 
 package org.hyperimage.client.xmlimportexport;
@@ -1053,16 +1058,42 @@ public class PeTAL3Exporter {
                         if (chunk.getChunkType() == chunkTypes.UNDERLINE) {
                             tag = "html:u";
                         }
+                        if (chunk.getChunkType() == chunkTypes.SUBSCRIPT) {
+                            tag = "html:sub";
+                        }
+                        if (chunk.getChunkType() == chunkTypes.SUPERSCRIPT) {
+                            tag = "html:sup";
+                        }
+                        if ( chunk.getChunkType() == chunkTypes.LITERAL ) {
+                            tag = "html:div";
+                        /*
+                    Tidy myTidy = new Tidy();
+                    myTidy.setPrintBodyOnly(true);
+                    myTidy.setShowErrors(0);
+                    myTidy.setShowWarnings(false);
+                    myTidy.setTidyMark(false);
+                    myTidy.setQuiet(true);
+                    myTidy.setXHTML(true);
+                    myTidy.setOutputEncoding(StandardCharsets.UTF_8.name());
+                    System.out.println("-----");
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    myTidy.parse(new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8)), out);
+                    System.out.println("<!-- BEGIN LITERAL -->"+out.toString().trim().replaceAll("<","<html:")+"<!-- END LITERAL -->");
+*/
+                }
                         if (tag == null) {
                             chunkNode = multiLineElement;
-                        } else {
+                        } else if ( chunk.getChunkType() != chunkTypes.LITERAL ) {
                             chunkNode = creator.createElement(tag);
                             multiLineElement.appendChild(chunkNode);
+                        } else if ( chunk.getChunkType() == chunkTypes.LITERAL ) {
+                            multiLineElement.appendChild(creator.createCDATASection(chunk.getValue()));
                         }
                     }
                     chunkState = chunk.getChunkType();
                 }
 
+                if ( chunk.getChunkType() != chunkTypes.LITERAL ) {
                     // break down lines
                     Vector<String> lines = breakdownLines(chunk.getValue());
                     for (int i = 0; i < lines.size(); i++) {
@@ -1074,6 +1105,7 @@ public class PeTAL3Exporter {
                             chunkNode.appendChild(brElement);
                         }
                     }
+                }
 
             } else { // handle links
                 // break down lines
