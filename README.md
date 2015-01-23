@@ -1,4 +1,4 @@
-# HyperImage 3
+# [HyperImage 3](http://hyperimage.ws/)
 ## HyperImage Virtual Research Environment (About)
 
 The HyperImage platform supports the linking of (audio)-visual objects, texts and mixed-media documents. HyperImage allows any number of details, or subregions, within an image to be highlighted and described, and link annotations within a corpus to each other, making them accessible in indices. Interim results as well as final versions can be compiled at any time as an online/offline hypermedia publication. This makes HyperImage a suitable research environment for digital humanities and eScience projects, providing a common research and publication environment for groups as well as individuals.
