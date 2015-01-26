@@ -10,6 +10,9 @@
         <node name="service">
           <map>
             <entry key="historeLocation" value="/Users/Shared/HIStore/"/>
+	    <entry key="prometheusAPILocation" value="http://prometheus-test.uni-koeln.de/pandora-devel"/>
+	    <entry key="OAUTHConsumerKey" value=""/>
+	    <entry key="OAUTHConsumerSecret" value=""/>
           </map>
         </node>
       </node>

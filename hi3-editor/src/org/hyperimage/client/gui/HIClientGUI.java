@@ -262,6 +262,20 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         // try to login using supplied credentials
         try {
 
+            // handle login for OAUTH / Prometheus users
+            if (HIRuntime.OAUTHMode) {
+                boolean success = HIRuntime.getManager().loginPR(System.getProperty("jnlp.user"),
+                        System.getProperty("jnlp.oauth_token"),
+                        System.getProperty("jnlp.oauth_token_secret"),
+                        System.getProperty("jnlp.oauth_verifier"));
+
+                if (!success) {
+                    HIRuntime.displayFatalErrorAndExit("ERROR: Could not authenticate user using suplied OAUTH / Prometheus credentials!");
+                }
+
+                return success;
+            }
+
             // prompt for user name / password
             this.setTitle(APPNAME + " " + HIRuntime.getClientVersion()); //$NON-NLS-1$
             loginDialog.setInfoLabel(Messages.getString("HIClientGUI.0"), Color.blue); //$NON-NLS-1$
@@ -1679,8 +1693,13 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         if (HIRuntime.getManager().getState() != HIWebServiceManager.WSStates.RECONNECT) {
             HIRuntime.getManager().setReconnect();
             int answer = 0;
+            if (HIRuntime.OAUTHMode) {
+                // cannot reconnect OAUTH / Prometheus user as token is only valid for single login...
+                displayInfoDialog(Messages.getString("HIClientGUI.117"), Messages.getString("HIClientGUI.116"));
+                tryLogoutAndExit();
+            } else {
                 answer = JOptionPane.showConfirmDialog(this, Messages.getString("HIClientGUI.116"), Messages.getString("HIClientGUI.117"), JOptionPane.OK_CANCEL_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
-
+            }
             if (answer == JOptionPane.OK_OPTION) {
                 try {
                     if (HIRuntime.getManager().reconnect() == false) {

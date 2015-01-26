@@ -81,6 +81,8 @@ public abstract class HIRuntime {
 	public static final int MAX_GROUP_ITEMS = 100; // number of items in a group after which the group browser switches to list-display-style
 	public static final long MINIMUM_FREE_MEMORY = (1024*1024*5); 	// minimum free memory for GUI / layer editor in bytes --> currently 5 MB
         
+        public static boolean OAUTHMode = false; // set when Prometheus user logged in via OAUTH
+        
 	// available gui languages
 	public static final Locale[] supportedLanguages = {
 		new Locale("de"),

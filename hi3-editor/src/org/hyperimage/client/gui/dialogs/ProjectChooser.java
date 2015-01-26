@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.gui.dialogs;
 
 import java.awt.event.ActionEvent;
@@ -94,6 +114,16 @@ public class ProjectChooser implements MouseListener, ActionListener, ListSelect
 				projChooserDialog.getWidth(), 
 				projChooserDialog.getHeight());
 
+                if ( HIRuntime.OAUTHMode && System.getProperty("jnlp.collection") != null ) {
+                    // try and find matching HI project for Prometheus collection, if specified
+                    HiProject prProject = null;
+                    for (HiProject tempProject : projects) 
+                        if ( MetadataHelper.findPreferenceValue(tempProject, "PRCollectionID") != null 
+                             && MetadataHelper.findPreferenceValue(tempProject, "PRCollectionID").compareTo(System.getProperty("jnlp.collection")) == 0 )
+                            prProject = tempProject;
+                    
+                    if ( prProject != null ) return prProject;
+                }
 		// only show dialog, if user is registered in more than one project
 		if ( projects.size() > 1 ) projChooserDialog.setVisible(true);
 		else return projects.get(0);

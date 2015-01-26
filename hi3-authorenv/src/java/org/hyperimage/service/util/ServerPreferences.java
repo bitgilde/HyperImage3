@@ -30,6 +30,25 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
 
 package org.hyperimage.service.util;
 
@@ -60,10 +79,16 @@ public class ServerPreferences {
 	// Preference keys
 	private static final String HISTORE_LOC_KEY = "historeLocation";
 	private static final String PPG_LOC_KEY = "ppgLocation";
+	private static final String PROMETHEUS_API_LOC_KEY = "prometheusAPILocation";
+	private static final String PROMETHEUS_CONSUMER_KEY = "OAUTHConsumerKey";
+	private static final String PROMETHEUS_CONSUMER_SECRET = "OAUTHConsumerSecret";
 	
 	// Default preference values
 	private static final String DEF_HISTORE_LOC = "/Users/Shared/HIStore/";
 	private static final String DEF_PPG_LOC="http://hyperimage.ws/PostPetalGenerator/PostPetalGenerator.jnlp";
+        private static final String DEF_PROMETHEUS_API_LOC="http://prometheus-test.uni-koeln.de/pandora-devel";
+        private static final String DEF_PROMETHEUS_CONSUMER_KEY_VAL="";
+        private static final String DEF_PROMETHEUS_CONSUMER_SECRET_VAL="";
 
         
 	public ServerPreferences() {
@@ -85,6 +110,18 @@ public class ServerPreferences {
 		return m_prefs.get(PPG_LOC_KEY, DEF_PPG_LOC);
 	}
         
+        public String getPrometheusAPIPref() {
+            return m_prefs.get(PROMETHEUS_API_LOC_KEY, DEF_PROMETHEUS_API_LOC);
+        }
+        
+        public String getPrometheusOAUTHConsumerKey() {
+            return m_prefs.get(PROMETHEUS_CONSUMER_KEY, DEF_PROMETHEUS_CONSUMER_KEY_VAL);
+        }
+
+        public String getPrometheusOAUTHConsumerSecret() {
+            return m_prefs.get(PROMETHEUS_CONSUMER_SECRET, DEF_PROMETHEUS_CONSUMER_SECRET_VAL);
+        }
+
     private void loadPrefs() {
         if ( m_PrefStream == null ) return;
 

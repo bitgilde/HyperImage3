@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client;
 
 import java.io.File;
@@ -38,8 +58,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
-import java.sql.Timestamp;
-import java.util.Date;
 
 import org.hyperimage.client.gui.HIClientGUI;
 
@@ -137,6 +155,20 @@ public class Main {
         System.out.println("Client Version: " + HIRuntime.getClientVersion());
         System.out.println("Server URL: " + serverURL);
         System.out.println("Secure Connection: " + SECURE);
+
+        if (System.getProperty("jnlp.user") != null) {
+            HIRuntime.OAUTHMode = true;
+        }
+        System.out.println("OAUTH / Prometheus Mode: " + HIRuntime.OAUTHMode);
+
+        // DEBUG remove
+        if (HIRuntime.OAUTHMode) {
+            System.setProperty("HI.feature.importDisabled", "true");
+//            System.setProperty("HI.feature.trashDisabled", "true");
+            System.setProperty("HI.feature.templateEditorDisabled", "true");
+            System.setProperty("HI.feature.accountSettingsDisabled", "true");
+            System.setProperty("HI.feature.manageUsersDisabled", "true");
+        }
 
         try {
             // append trailing slash if necessary

@@ -124,12 +124,15 @@ import org.hyperimage.service.model.HIText;
 import org.hyperimage.service.model.HIURL;
 import org.hyperimage.service.model.HIUser;
 import org.hyperimage.service.model.HIView;
+import org.hyperimage.service.model.PRCollection;
+import org.hyperimage.service.model.PRImage;
 import org.hyperimage.service.model.render.HILayerRenderer;
 import org.hyperimage.service.model.render.RelativePolygon;
 import org.hyperimage.service.search.HIIndexer;
 import org.hyperimage.service.storage.FileStorageManager;
 import org.hyperimage.service.util.ImageHelper;
 import org.hyperimage.service.util.MetadataHelper;
+import org.hyperimage.service.util.PRrest;
 import org.hyperimage.service.util.ServerPreferences;
 
 /**
@@ -180,6 +183,7 @@ public class HIEditor {
 
     private HIUser curUser;
     private HIRole curRole = null;
+    private PRrest prometheusAPI = null; // Prometheus OAUTH API --> only set if user authenticated via OAUTH / Prometheus
     private HIProject curProject = null;
     private HIGroup importGroup = null;
     private HIGroup trashGroup = null;
@@ -193,6 +197,27 @@ public class HIEditor {
     };
 
     /**
+     * Constructor for OAUTH / Prometheus users - should only be instantiated by HILogin WebService
+     *
+     * @param curUser logged in user, authenticated and passed on by the HILogin
+     * @param prAPI prometheus API class containing all necessary OAUTH tokens
+     * WebService
+     * @throws InstantiationException
+     */
+    public HIEditor(HIUser curUser, PRrest prAPI) throws InstantiationException {
+        state = WSstates.AUTHENTICATED;
+        this.curUser = curUser;
+        this.prometheusAPI = prAPI; // Prometheus image archive API support
+
+        ServerPreferences prefs = new ServerPreferences();
+        this.repositoryLocation = prefs.getHIStorePref();
+        m_logger.info("HIStore Location: " + repositoryLocation);
+        this.storageManager = new FileStorageManager(repositoryLocation);
+        indexer = new HIIndexer(repositoryLocation);
+
+    }
+    
+    /**
      * Constructor - should only be instantiated by HILogin WebService
      *
      * @param curUser logged in user, authenticated and passed on by the HILogin
@@ -200,16 +225,9 @@ public class HIEditor {
      * @throws InstantiationException
      */
     public HIEditor(HIUser curUser) throws InstantiationException {
-        state = WSstates.AUTHENTICATED;
-        this.curUser = curUser;
-
-        ServerPreferences prefs = new ServerPreferences();
-        this.repositoryLocation = prefs.getHIStorePref();
-        m_logger.info("HIStore Location: " + repositoryLocation);
-        this.storageManager = new FileStorageManager(repositoryLocation);
-        indexer = new HIIndexer(repositoryLocation);
+        this(curUser, null);
     }
-    
+   
     public HIEditor() throws InstantiationException {
         throw new InstantiationException("HIEditorService initialized without user");
     }
@@ -227,6 +245,7 @@ public class HIEditor {
         return getServiceVersion();
     }
 
+    
     //-------------------------
     // User Methods
     //-------------------------
@@ -415,11 +434,139 @@ public class HIEditor {
         return null;
     }
 
+    
+    // create a new project in HI DB from Prometheus collection
+    private HIProject createPRProject(PRCollection collection) {
+        HIProject project = new HIProject();
+        
+        EntityManager em = emf.createEntityManager();
+        curUser = em.find(HIUser.class, curUser.getId());
+
+        // create import and trash groups
+        HIGroup importGroup = new HIGroup(HIGroup.GroupTypes.HIGROUP_IMPORT, false);
+        HIGroup trashGroup = new HIGroup(HIGroup.GroupTypes.HIGROUP_TRASH, false);
+
+        project = new HIProject();
+        HILanguage defLang = new HILanguage("de"); // German is the only supported language of Prometheus
+        project.setDefaultLanguage(defLang);
+        project.getLanguages().add(defLang);
+
+        importGroup.setProject(project);
+        trashGroup.setProject(project);
+        try {
+            utx.begin();
+            em.joinTransaction();
+            em.persist(importGroup);
+            em.flush();
+            em.persist(trashGroup);
+            em.flush();
+
+            em.persist(project);
+            em.flush();
+
+            // add collection title metadata in new language to project metadata
+            HIProjectMetadata projMetadata = new HIProjectMetadata(defLang.getLanguageId(), collection.getTitle(), project);
+            project.getMetadata().add(projMetadata);
+            em.persist(projMetadata);
+            em.flush();
+            em.persist(project);
+            em.flush();
+
+            // add groupSortOrder Preference
+            HIPreference newPref = new HIPreference("groupSortOrder", "", project);
+            em.persist(newPref);
+            em.persist(project);
+            em.flush();
+
+            // add Prometheus Collection ID Preference
+            HIPreference prPref = new HIPreference("PRCollectionID", collection.getID(), project);
+            em.persist(prPref);
+            em.persist(project);
+            em.flush();
+
+            // add Prometheus URN List Preference
+            HIPreference urnPref = new HIPreference("PRPIDList", "", project);
+            em.persist(urnPref);
+            em.persist(project);
+            em.flush();
+
+            // add Prometheus Status Preference
+            HIPreference isPRPref = new HIPreference("isPrometheus", "true", project);
+            em.persist(isPRPref);
+            em.persist(project);
+            em.flush();
+
+            utx.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // attach Prometheus specific metadata template
+        addPrometheusTemplate(project);
+        // attach base internal templates
+        addSystemTemplates(project);
+
+        setRole(curUser, project, HIRole.HI_Roles.ADMIN);
+
+        // update lucene index
+        indexer.initIndex(project);
+        
+        return em.find(HIProject.class, project.getId());
+    }
+    
+    /*
+     * List projects for Prometheus users. Only displays projects initially created via Prometheus
+     */
+    private List<HIProject> getProjectsPR()
+            throws HIMaintenanceModeException {
+        List<HIProject> projects;
+
+        String query = "SELECT r.project FROM HIRole r WHERE r.user=:user";
+        // the sysop user gets all projects currently in db
+        EntityManager em = emf.createEntityManager();
+        projects = (List<HIProject>) em.createQuery(query)
+            .setParameter("user", curUser)
+            .getResultList();
+        
+        // get list of Prometheus collections
+        List<PRCollection> prCollections = prometheusAPI.getCollections();
+
+        // check if new collections were created in Prometheus --> create corresponding HI projects
+        ArrayList<PRCollection> newCollections = new ArrayList<PRCollection>();
+        if ( projects.size() < prCollections.size() ) {
+            for (PRCollection collection : prCollections) {
+                boolean found = false;
+                for (HIProject project : projects)
+                    if ( findPreferenceValue(project.getPreferences(), "PRCollectionID") != null 
+                         && findPreferenceValue(project.getPreferences(), "PRCollectionID").compareTo(collection.getID()) == 0 ) 
+                        found = true;
+                if ( !found ) newCollections.add(collection);                
+            }
+        }
+        // create new HI projects (if any)
+        for ( PRCollection collection : newCollections ) {
+            HIProject newProject = createPRProject(collection);
+            if ( newProject != null ) projects.add(em.find(HIProject.class, newProject.getId()));
+        }
+        // TODO remove projects from HI if collection in Prometheus was deleted
+        
+        
+        for (HIProject project : projects) {
+            if (project.getStartObject() != null) {
+                project.setStartObjectInfo(createContentQuickInfo(project.getStartObject()));
+            }
+        }
+        
+        return projects;
+    }
+    
     // -- SYSOP METHOD, a user gets a list of all his projects, the sysop gets all projects in the database --
     @SuppressWarnings("unchecked")
     @WebMethod
     public List<HIProject> getProjects()
             throws HIMaintenanceModeException {
+        
+        if (( prometheusAPI != null )) return getProjectsPR(); // display projects for Prometheus/OAUTH user
         
         List<HIProject> projects;
 
@@ -2049,6 +2196,61 @@ public class HIEditor {
         return true;
     }
 
+    private void updatePRAssets() {
+        List<PRImage> prImages = prometheusAPI.getCollectionImageInfo(MetadataHelper.findPreferenceValue(curProject, "PRCollectionID"));
+        if ( prImages == null ) return;
+
+        HashSet<String> hiImages = new HashSet<>();
+        String hiPIDs = MetadataHelper.findPreferenceValue(curProject, "PRPIDList");
+        ArrayList<PRImage> newImages = new ArrayList<>();
+        
+        if ( hiPIDs.length() > 0 ) hiImages.addAll(Arrays.asList(hiPIDs.split("\\|"))); // gather project PIDs
+        // compile list of new prometheus images that need to be uploaded to HI
+        for ( PRImage image : prImages ) if ( !hiImages.contains(image.getPID()) ) newImages.add(image);
+        
+        // upload new images to HI project
+        for (PRImage image : newImages) {
+            try {
+                image.setData(prometheusAPI.getImageData(image.getPID(), "large")); // get image from prometheus
+                HIObject hiObject = createObject(null);
+                // attach Prometheus metadata
+                HIFlexMetadataRecord record = MetadataHelper.getDefaultMetadataRecord(hiObject, curProject.getDefaultLanguage().getLanguageId());
+                    for (String key : image.getMetadata().keySet())
+                        MetadataHelper.setValue("prometheus", key, image.getMetadata().get(key), record);
+
+                updateFlexMetadataRecord(record);
+                    
+                System.out.println("IMPORT asset PID: "+image.getPID());
+                System.out.println("bytes: "+image.getData().length);
+                
+                HIView hiView = createView(hiObject.getId(),image.getPID()+".jpg", "Prometheus [Collection "+MetadataHelper.findPreferenceValue(curProject, "PRCollectionID")+"]", image.getData(), UUID.nameUUIDFromBytes(image.getData()).toString());
+
+                if (hiView == null) {
+                    moveToTrash(hiObject.getId());
+                    deleteFromProject(hiObject.getId());
+                } else hiImages.add(image.getPID());
+            } catch (HIMaintenanceModeException ex) {
+                Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (HIParameterException | HIEntityException | HIPrivilegeException ex) {
+                Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        // TODO delete images from HI project that have been removed in Prometheus
+        
+        // serialize PIDs to HI Project
+        String pidString = "";
+        for (String pid : hiImages) pidString += "|"+pid;
+        if ( pidString.startsWith("|") ) pidString = pidString.substring(1);
+
+        // update preference
+        try {
+            updatePreference(MetadataHelper.findPreference(curProject, "PRPIDList").getId(), pidString);
+        } catch (HIParameterException | HIEntityNotFoundException | HIPrivilegeException ex) {
+            Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @WebMethod
     public synchronized HIGroup getImportGroup() throws HIMaintenanceModeException {
 
@@ -2056,6 +2258,8 @@ public class HIEditor {
         EntityManager em = emf.createEntityManager();
         importGroup = em.find(HIGroup.class, importGroup.getId());
                 
+        if (( prometheusAPI != null )) updatePRAssets(); // for OAUTH / Prometheus users import/update assets from Prometheus
+
         // legacy update: generate UUID for element if missing
         if (importGroup.getUUID() == null) {
             try {
@@ -5124,7 +5328,309 @@ public class HIEditor {
     //-------------------------
     // Metadata Methods
     //-------------------------
+    private void addPrometheusTemplate(HIProject project) {
         
+        EntityManager em = emf.createEntityManager();
+        project = em.find(HIProject.class, project.getId());
+        HIFlexMetadataTemplate prTemplate = new HIFlexMetadataTemplate();
+        prTemplate.setNamespacePrefix("prometheus");
+        prTemplate.setNamespaceURI("http://prometheus-bildarchiv.de/en/databases/metadata-contents");
+        prTemplate.setNamespaceURL("http://prometheus-bildarchiv.de/en/databases/metadata-contents");
+        prTemplate.setProject(project);
+
+        project.getTemplates().add(prTemplate);
+        try {
+            utx.begin();
+            em.joinTransaction();
+            em.persist(prTemplate);
+            em.flush();
+
+            // 1 artist
+            prTemplate.getEntries().add(new HIFlexMetadataSet("artist", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "KünstlerIn", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Artist", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 3 title
+            prTemplate.getEntries().add(new HIFlexMetadataSet("title", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Titel", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Title", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 3 location
+            prTemplate.getEntries().add(new HIFlexMetadataSet("location", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Standort", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Location", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 4 discoveryplace
+            prTemplate.getEntries().add(new HIFlexMetadataSet("discoveryplace", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Fundort", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Discoveryplace", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 5 genre
+            prTemplate.getEntries().add(new HIFlexMetadataSet("genre", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Gattung", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Genre", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 6 material
+            prTemplate.getEntries().add(new HIFlexMetadataSet("material", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Material", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Material", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 7 keyword
+            prTemplate.getEntries().add(new HIFlexMetadataSet("keyword", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Schlagwörter", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Keyword", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 8 description
+            prTemplate.getEntries().add(new HIFlexMetadataSet("description", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Beschreibung", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Description", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 9 date
+            prTemplate.getEntries().add(new HIFlexMetadataSet("date", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Datierung", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Date", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 10 credits
+            prTemplate.getEntries().add(new HIFlexMetadataSet("credits", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Bildnachweis", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Credits", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 13 addition
+            prTemplate.getEntries().add(new HIFlexMetadataSet("addition", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Zusatz", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Addition", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 14 annotation
+            prTemplate.getEntries().add(new HIFlexMetadataSet("annotation", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Bermerkung", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Annotation", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 16 classification
+            prTemplate.getEntries().add(new HIFlexMetadataSet("classification", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Einordnung", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Classification", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 19 depository
+            prTemplate.getEntries().add(new HIFlexMetadataSet("depository", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Aufbewahrungsort", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Depository", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 22 discoverycontext
+            prTemplate.getEntries().add(new HIFlexMetadataSet("discoverycontext", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Fundkontext", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Discoverycontext", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 23 epoch
+            prTemplate.getEntries().add(new HIFlexMetadataSet("epoch", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Epoche", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Epoch", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 25 inscription
+            prTemplate.getEntries().add(new HIFlexMetadataSet("inscription", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Inschrift", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Inscription", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 26 institution
+            prTemplate.getEntries().add(new HIFlexMetadataSet("institution", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Institution", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Institution", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 27 inventory_no
+            prTemplate.getEntries().add(new HIFlexMetadataSet("inventory_no", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Inventarnummer", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Inventory No", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 28 isbn
+            prTemplate.getEntries().add(new HIFlexMetadataSet("isbn", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "ISBN", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "ISBN", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 30 literature
+            prTemplate.getEntries().add(new HIFlexMetadataSet("literature", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Literatur", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Literature", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 31 location_building
+            prTemplate.getEntries().add(new HIFlexMetadataSet("location_building", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Ort Gebäude", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Location Building", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 32 manufacture_place
+            prTemplate.getEntries().add(new HIFlexMetadataSet("manufacture_place", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Herstellungsort", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Manufacture Place", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 33 origin
+            prTemplate.getEntries().add(new HIFlexMetadataSet("origin", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Herkunft", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Origin", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 34 photographer
+            prTemplate.getEntries().add(new HIFlexMetadataSet("photographer", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Fotograf", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Photographer", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 35 signature
+            prTemplate.getEntries().add(new HIFlexMetadataSet("signature", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Bildsignatur", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Signature", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // new1 rights_reproduction
+            prTemplate.getEntries().add(new HIFlexMetadataSet("rights_reproduction", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Bildrecht Foto", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Rights Reproduction", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // new2 rights_work
+            prTemplate.getEntries().add(new HIFlexMetadataSet("rights_work", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Bildrecht Werk", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Rights Work", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 37 source_url
+            prTemplate.getEntries().add(new HIFlexMetadataSet("source_url", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Datensatz in Quelldatenbank", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Source URL", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            // 38 subtitle
+            prTemplate.getEntries().add(new HIFlexMetadataSet("subtitle", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Untertitel", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Subtitle", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+             // 43 technique
+            prTemplate.getEntries().add(new HIFlexMetadataSet("technique", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Technik", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Technique", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+             // 49 detail
+            prTemplate.getEntries().add(new HIFlexMetadataSet("detail", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Detail", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Detail", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+             // 54 size
+            prTemplate.getEntries().add(new HIFlexMetadataSet("size", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "Maße", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "Size", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+             // 55 pid
+            prTemplate.getEntries().add(new HIFlexMetadataSet("pid", prTemplate, false));
+            prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("de", "PID", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+             prTemplate.getEntries().get(prTemplate.getEntries().size()-1).getDisplayNames().add(
+                    new HIFlexMetadataName("en", "PID", prTemplate.getEntries().get(prTemplate.getEntries().size()-1)));
+            em.persist(prTemplate);
+            em.flush();
+            
+            
+            // update sort order
+            prTemplate.getSortOrder();
+            em.persist(prTemplate);
+            em.flush();
+
+            utx.commit();
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
     private void addSystemTemplates(HIProject project) {
         // create the base template
         EntityManager em = emf.createEntityManager();

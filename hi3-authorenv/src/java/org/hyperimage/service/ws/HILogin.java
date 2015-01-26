@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2014, 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.service.ws;
 
 import java.util.Properties;
@@ -56,7 +76,10 @@ import org.hyperimage.service.aspect.MaintenanceModeAspect;
 import org.hyperimage.service.exception.HIMaintenanceModeException;
 import org.hyperimage.service.exception.HIParameterException;
 import org.hyperimage.service.model.HIUser;
+import org.hyperimage.service.util.PRrest;
 import org.hyperimage.service.util.ServerPreferences;
+import org.scribe.oauth.Scribe;
+import org.scribe.oauth.Token;
 
 /**
  * 
@@ -85,6 +108,7 @@ public class HILogin {
         m_strPPGLocation = prefs.getPPGPref();
         HIEditor.m_logger.log(Level.INFO, "PPG Location: {0}", m_strPPGLocation);
         HIEditor.m_logger.log(Level.INFO, "HIStore Location: {0}", prefs.getHIStorePref());
+        HIEditor.m_logger.log(Level.INFO, "Prometheus API URL: {0}", prefs.getPrometheusAPIPref());
     }
 
     /**
@@ -184,6 +208,101 @@ public class HILogin {
     }
     
     
+    /**
+     * Authenticate a Prometheus user against the HIEditor webservice using OAuth.
+     *
+     * @param token
+     * @param tokenSecret
+     * @param tokenVerifier
+     * @param userID
+     * @return 
+     */
+    @WebMethod
+    @SuppressWarnings("null")
+    public W3CEndpointReference authenticatePR (
+            @WebParam(name = "token") String token, 
+            @WebParam(name = "tokenSecret") String tokenSecret, 
+            @WebParam(name = "tokenVerifier") String tokenVerifier, 
+            @WebParam(name = "userID") String userID) {
+        
+        
+        HIUser user = null;
+        Properties props = new Properties();
+        props.setProperty("request.token.verb", "POST");
+        props.setProperty("request.token.url",  "http://prometheus-test.uni-koeln.de/pandora-devel/oauth/request_token");
+        props.setProperty("access.token.verb",  "POST");
+        props.setProperty("access.token.url",   "http://prometheus-test.uni-koeln.de/pandora-devel/oauth/access_token");
+        props.setProperty("callback.url",       "oob");
+        props.setProperty("consumer.key",       prefs.getPrometheusOAUTHConsumerKey());
+        props.setProperty("consumer.secret",    prefs.getPrometheusOAUTHConsumerSecret());
+            
+        Token accessToken;
+        PRrest pr = null;
+        try {
+            Scribe scribe = new Scribe(props);
+            Token requestToken = new Token(token, tokenSecret);
+            accessToken  = scribe.getAccessToken(requestToken, tokenVerifier);
+//            System.out.println("DEBUG sec: " + accessToken.getSecret() + " tok: " + accessToken.getToken() );
+            pr = new PRrest(prefs, scribe, accessToken);
+            System.out.println("user login @ Prometheus successful");
+            
+            // verify Prometheus user with HI
+            HIUser prUser = pr.getPRUserInfo(); // get user info from Prometheus API
+            // try to find user in HI database
+            EntityManager em = emf.createEntityManager();
+            try {
+                user = (HIUser) em.createQuery("SELECT u FROM HIUser u WHERE u.userName=:username")
+                    .setParameter("username", prUser.getUserName())
+                    .getSingleResult();
+                System.out.println("User '"+prUser.getUserName()+"' found!");
+            } catch (NoResultException e) {
+            // user not found in db, create HI user with Prometheus info
+                System.out.println("User '"+prUser.getUserName()+"' not found!");
+                try {
+                    user = prUser;
+                    UserTransaction utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+                    utx.begin();
+                    em.joinTransaction();
+                    em.persist(user);
+                    utx.commit();
+                } catch (NamingException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+                    Logger.getLogger(HILogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        System.out.println("HI User ID: "+user.getId());
+            
+        } catch (Exception e) {
+            System.out.println("OAUTH EXCEPTION FOR PROMETHEUS USER ID '"+userID+"': "+e.getMessage());
+            return null;
+        }
+        
+        /*
+                    project = MI_port.sysopCreateProject(user_str, "de");
+                    MI_port.setProject(project);
+
+                    MI_port.adminAddTemplateToProject(MetadataHelper.getPRTemplateBlueprint());
+                    title = "MI : " + user_str + " : " + user_name;
+                    MI_port.updateProjectMetadata("de", title);
+                    MI_port.adminAddLanguageToProject("en");
+
+        */
+        
+        
+        HIEditor editor = null;
+        if ( user == null || pr == null ) return null;
+        try {
+            editor = new HIEditor(user, pr);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(HILogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // set timeout to 60 minutes (1000*60*60)
+        HIEditor.manager.setTimeout((long) (1000 * 60 * 60), null);
+
+        // return endpoint reference to manager service
+        return HIEditor.manager.export(editor);
+     
+    }
     
 
     /**
