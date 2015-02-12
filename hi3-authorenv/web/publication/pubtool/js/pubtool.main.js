@@ -884,6 +884,14 @@ function setProjectMetadata(project) {
 
 	if (pubtool.project.defaultLang == null || pubtool.project.defaultLang.length == 0)
 		pubtool.project.defaultLang = pubtool.project.langs[0];		
+            
+        /* parse project preferences */
+        pubtool.project.prefs = {};
+        var projPrefs = project.getPreferences();
+        for ( i = 0; i < projPrefs.length; i++ ) {
+            var pref  = projPrefs[i];
+            pubtool.project.prefs[pref.getKey()] = pref.getValue();
+        }
 
 	/* extract project title */
 	pubtool.project.title = {};
@@ -1076,6 +1084,15 @@ function generatePeTALDocs() {
 				preview += serializeField('title', item.title[pubtool.project.langs[i]], pubtool.project.langs[i]);
 		if ( getPeTALType(item) == 'url' )
 			preview += serializeField('title', item.title);
+		if ( getPeTALType(item) == 'object' ) {
+                    var titleField = 'dc_title';
+                    if ( pubtool.project.prefs['ObjectInfoDisplayField'] != null ) 
+                        titleField = pubtool.project.prefs['ObjectInfoDisplayField'].replace(/\./g, '_');
+                    for ( var i=0; i < pubtool.project.langs.length; i++ )
+                        preview += serializeField('title', item.md[pubtool.project.langs[i]][titleField], pubtool.project.langs[i]);
+                            
+                
+                }
 
 		if ( getPeTALType(item) == 'inscription' || getPeTALType(item) == 'text' ) {
 			for ( var i=0; i < pubtool.project.langs.length; i++ )

@@ -30,7 +30,7 @@
 	"lightPinkOrangeTheme" : "Light with Dark Pink and Orange",
 	"whiteDarkPinkTheme" : "White with Dark Pink",
 	"whiteYellowGreenTheme" : "White with Yellow-Green and Cyan",
-	"metadataText" : "Sort the object metadata via drap&drop. The item a the top will be displayed as the title of the object.",
+	"metadataText" : "Sort the object metadata via drap&drop. The item a the top will be displayed as the annotation, the second item as the title of the object.",
 	"groupText" : "Sort your groups via drag&drop to the desired menu display order. Use the checkbox to set the group visibility.",
 	"textText" : "Sort your project texts via drag&drop to the desired menu display order. Use the checkbox to set the text visibility.",
 	"litaText" : "Sort your light tables via drag&drop to the desired menu display order. Use the checkbox to set the light table visibility.",

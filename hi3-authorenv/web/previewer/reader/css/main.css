@@ -694,6 +694,8 @@ ul.tabmenu li a {
 	max-width: 240px;
 	box-shadow: 3px 3px 5px #666;
 	display: none;
+        max-height: 100%;
+        overflow-y: auto;
 }
 .tooltipBackground {
 	position: absolute;

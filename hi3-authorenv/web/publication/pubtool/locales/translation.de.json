@@ -30,7 +30,7 @@
 	"lightPinkOrangeTheme" : "Hell mit Dunkelpink und Orange",
 	"whiteDarkPinkTheme" : "Weiß mit Dunkelpink",
 	"whiteYellowGreenTheme" : "Weiß mit Gelb-Grün und Cyan",
-	"metadataText" : "Sortieren Sie die Objektmetadaten per Drag&Drop nach der gewünschten Anzeige-Reihenfolge. Das Metadatum an erster Stelle erscheint als Titel des Objekts.",
+	"metadataText" : "Sortieren Sie die Objektmetadaten per Drag&Drop nach der gewünschten Anzeige-Reihenfolge. Das Metadatum an erster Stelle erscheint als Annotation, das an zweiter Stelle als Titel des Objekts.",
 	"groupText" : "Sortieren Sie die Gruppen per Drag&Drop nach der gewünschten Anzeige-Reihenfolge im Menü. Über die Checkbox lässt sich die Sichtbarkeit einstellen.",
 	"textText" : "Sortieren Sie die Texte per Drag&Drop nach der gewünschten Anzeige-Reihenfolge im Menü. Über die Checkbox lässt sich die Sichtbarkeit einstellen.",
 	"litaText" : "Sortieren Sie die Lichttische per Drag&Drop nach der gewünschten Anzeige-Reihenfolge im Menü. Über die Checkbox lässt sich die Sichtbarkeit einstellen.",
