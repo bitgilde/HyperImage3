@@ -218,7 +218,7 @@ function HIExceptionHandler(status, exception) {
 	if ( exception.type == "HISessionExpiredException" ) reportError("Session Expired / Sitzung abgelaufen");
 }
 
-reader.version = "v3.0.a1";
+reader.version = "v3.0.a2";
 reader.productID = 'Reader PreViewer';
 
 
