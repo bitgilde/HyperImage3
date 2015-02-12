@@ -1330,7 +1330,12 @@ function displayLightTable() {
 			setFramePos(id, reader.table.frameAnnotation.x, reader.table.frameAnnotation.y-16-reader.zoom.yOffset, reader.table.frameAnnotation.width, reader.table.frameAnnotation.height+16);
 			$('#'+id).addClass('ltAnnotation');
 			$('#'+id).bind('contextmenu', function(ev) { ev.preventDefault(); }); // disable browser context menu
-			$('#'+id+"_content").html('<div class="ltText" contenteditable="true">'+reader.table.frameAnnotation.annotation[reader.lang]+'</div>');
+			// DEBUG hotfix to support old "<line>" tags
+			var annoText = reader.table.frameAnnotation.annotation[reader.lang];
+			annoText = annoText.replace(/<line>/g, '');
+			annoText = annoText.replace(/<\/line>/g, '<br>');
+			annoText = annoText.replace(/<\line\/>/g, '<br>');
+			$('#'+id+"_content").html('<div class="ltText" contenteditable="true">'+annoText+'</div>');
 			$('#'+id+'_content .ltText').width($('#'+id).width()-14).height($('#'+id).height()-32);
 			$('#'+id+' .ltText').bind('blur keyup paste', function() { window.syncTableToModel(); });
 			
@@ -2089,7 +2094,11 @@ function setGUI(forceLoad) {
 					if ( ($(window).height() - ( $('#canvasTooltip').position().top+$('#canvasTooltip').height()+reader.zoom.yOffset )) < 0  )
 						$('#canvasTooltip').css('top', $(window).height()-$('#canvasTooltip').height()-reader.zoom.yOffset-5);
 					this.getTip().draggable({ containment: '#canvas' });
-					// execute plugin hook					
+                                        // make sure tooltip is within screen bounds
+                                        if ( $('#canvasTooltip').position().top < 0 ) 
+                                            $('#canvasTooltip').css('top', '0px');
+                                        
+					// execute plugin hook(s)
 					$(reader.plugins.tooltip.canvas.show).each(function(index, plugin) { plugin(); });
 				},
 				onHide: function(tt, pos) {

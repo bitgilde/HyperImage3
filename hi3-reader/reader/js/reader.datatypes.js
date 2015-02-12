@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 function HIReader() {
-	this.version = 'v3.0.a1';
+	this.version = 'v3.0.a2';
 	this.productID = 'Static Reader';
 	
 	this.xmlserializer = new XMLSerializer();
