@@ -36,6 +36,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.hyperimage.service.exception.HIMaintenanceModeException;
 import org.hyperimage.service.model.HIUser;
+import org.hyperimage.service.util.ServerPreferences;
 import org.hyperimage.service.ws.HIEditor;
 
 /**
@@ -44,7 +45,8 @@ import org.hyperimage.service.ws.HIEditor;
 @Aspect
 public class MaintenanceModeAspect {
 
-	
+        private static ServerPreferences prefs = new ServerPreferences();
+        
 	@Before("this(service) &&" +
 			"(execution(@javax.jws.WebMethod * org.hyperimage.service.ws.HIEditor.* (..))" +
 			"&& !execution(@javax.jws.WebMethod * org.hyperimage.service.ws.HIEditor.getVersionID (..)))" +
@@ -62,9 +64,16 @@ public class MaintenanceModeAspect {
 		 * check if service is in maintenance mode
 		 * if so, only allow the sysop user to login
 		 * *****************************************/
-		
-		// TODO: read file location from central pref file
-		File maintenance = new File("/Users/Shared/HIStore/hi3_maintenance.txt");
+		                
+                File maintenance;
+                if ( prefs == null ) maintenance = new File("/Users/Shared/HIStore/hi3_maintenance.txt");
+                else {
+                    String historeDir = prefs.getHIStorePref();
+                    if ( !historeDir.endsWith("/") ) {
+                        historeDir = historeDir+"/";
+                    }
+                    maintenance = new File(historeDir + "hi3_maintenance.txt");
+                }
 		if ( maintenance.exists() && maintenance.canRead() ) {
 			String explanation = "";
 			try {

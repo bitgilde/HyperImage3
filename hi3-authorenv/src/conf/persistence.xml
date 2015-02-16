@@ -25,7 +25,7 @@
     <class>org.hyperimage.service.model.HIRole</class>
     <class>org.hyperimage.service.model.HILanguage</class>
     <properties>
-      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
       <property name="eclipselink.ddl-generation.output-mode" value="database"/>
     </properties>
