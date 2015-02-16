@@ -61,7 +61,7 @@ public class AboutDialog extends JDialog {
 		this.setModal(true);
 				
 		initComponents();
-		this.versionLabel.setText("Version "+HIRuntime.getClientVersion());
+		this.logoLabel.setText("<html><b>HyperImage Editor 3.0<br>Community Edition</b><br>Version "+HIRuntime.getClientVersion()+"</html>");
 		this.setTitle(Messages.getString("AboutDialog.ABOUTHIEDITOR"));
 		
 		this.setBounds(
@@ -77,15 +77,15 @@ public class AboutDialog extends JDialog {
         logoLabel = new JLabel();
         versionLabel = new JLabel();
         authorLabel = new JLabel();
-
+ 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         logoLabel.setIcon(new ImageIcon(getClass().getResource("/resources/hyperimage-logo.png"))); // NOI18N
         logoLabel.setText("<html><b>HyperImage Editor 3.0<br>Community Edition</b><br>(SourceForge Release Version)</html>");
 
-        versionLabel.setText("Version 3.0.XXX");
+        versionLabel.setText("<html>SourceForge community release.<br>Website: <a href=\"http://sf.net/projects/hyperimage\">sf.net/projects/hyperimage</a><br><br>Copyright &copy; 2006-2015 HyperImage contributors.<br>Licensed&nbsp;under&nbsp;the&nbsp;Apache&nbsp;2.0&nbsp;License.&nbsp;(Portions&nbsp;CDDL&nbsp;1.0)</html>");
 
-        authorLabel.setText("<html>Jens-Martin Loebel, Heinz-Günter Kuper<br>Website: <a href=\"http://hyperimage.ws/\">hyperimage.ws</a></html>");
+        authorLabel.setText("<html>For&nbsp;more&nbsp;information&nbsp;on&nbsp;HyperImage&nbsp;visit&nbsp;<a href=\"http://hyperimage.ws/\">hyperimage.ws</a></html>");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

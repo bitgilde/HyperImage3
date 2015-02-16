@@ -307,7 +307,7 @@ ul.mainmenu ul ul {
 ul.mainmenu > li {
 	height: 21px;
 	margin: 0;
-	padding 0;
+	padding: 0;
 	padding-top: 3px;
 	vertical-align: middle;
 	float: left;
@@ -384,7 +384,7 @@ ul.tabmenu {
 }
 ul.tabmenu li {
 	margin: 0;
-	padding 0;
+	padding: 0;
 	padding-top: 3px;
 	vertical-align: middle;
 	list-style-type: none;
@@ -694,6 +694,8 @@ ul.tabmenu li a {
 	max-width: 240px;
 	box-shadow: 3px 3px 5px #666;
 	display: none;
+        max-height: 100%;
+        overflow-y: auto;
 }
 .tooltipBackground {
 	position: absolute;

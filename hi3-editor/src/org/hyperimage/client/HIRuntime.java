@@ -75,7 +75,9 @@ import org.hyperimage.client.gui.HIClientGUI;
 public abstract class HIRuntime {
 
 	private static final String clientVersion = "3.0";
-	private static final String minorRev = "a2";
+	private static final String minorRev = "beta1";
+        
+        public static boolean betaWarningDisplayed = false;
 	
 	// DEBUG replace with local preference file
 	public static final int MAX_GROUP_ITEMS = 100; // number of items in a group after which the group browser switches to list-display-style

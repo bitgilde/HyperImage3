@@ -218,7 +218,7 @@ function HIExceptionHandler(status, exception) {
 	if ( exception.type == "HISessionExpiredException" ) reportError("Session Expired / Sitzung abgelaufen");
 }
 
-reader.version = "v3.0.a2";
+reader.version = "v3.0.beta1";
 reader.productID = 'Reader PreViewer';
 
 
@@ -1842,7 +1842,7 @@ function initReader() {
 		    	draggable: false,
 				resizable: false,
 				closeOnEscape: true,
-				title: "HyperImage PreViewer - Alpha Version ("+reader.version+")",
+				title: "HyperImage PreViewer - Beta Version ("+reader.version+")",
 				width: 580,
 				height: 360,
 				modal: true,

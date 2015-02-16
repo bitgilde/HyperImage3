@@ -69,7 +69,7 @@ function initPubTool() {
 	    pubtool.stopwords = window.stopwords;
 	    pubtool.hiThemes = window.hiThemes;
             
-            pubtool.version = 'v3.0.0.alpha-1';
+            pubtool.version = 'v3.0.beta1';
 	
 		JSZipUtils.getBinaryContent('pubtool/reader-base.zip', function(err, data) {
 			if ( err ) {

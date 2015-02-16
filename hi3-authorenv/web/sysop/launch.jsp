@@ -11,7 +11,7 @@
         <vendor>HyperImage VRE</vendor>
         <homepage href="http://hyperimage.ws/"/>
         <description>Manager Client for HIAuthor_3.0</description>
-        <description kind="short">HIManager_3.0</description>
+        <description kind="short">HISystemManager_3.0</description>
     </information>
     <update check="always"/>
     <security>
@@ -19,7 +19,7 @@
 </security>
     <resources>
         <j2se version="1.7+" />
-        <jar href="HI3Manager_3.0.pre-alpha-1.jar" main="true"/>
+        <jar href="HI3SystemManager.jar" main="true"/>
     <jar href="lib/swing-layout-1.0.4.jar"/>
     <jar href="../editor/HI3Author-EditorClient_3.0.jar"/>
 </resources>

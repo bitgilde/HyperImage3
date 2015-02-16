@@ -90,6 +90,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
@@ -750,6 +751,12 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         // prompt for login credentials
         if (!handleLogin()) {
             tryLogoutAndExit();
+        }
+        
+        // display beta version warning on first startup if necessary
+        if ( HIRuntime.getClientVersion().contains("beta") && !HIRuntime.betaWarningDisplayed ) {
+            HIRuntime.betaWarningDisplayed = true;
+            JOptionPane.showMessageDialog(this, Messages.getString("HIClientGUI.BetaWarning"), Messages.getString("HIClientGUI.BetaWarningTitle"), JOptionPane.INFORMATION_MESSAGE);
         }
 
         // set active project
