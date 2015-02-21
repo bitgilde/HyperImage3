@@ -71,7 +71,7 @@ public class AuthDialog extends JDialog {
 
 		jLabel1.setText("Password:");
 
-		if(DEBUG) jPasswordField1.setText("geheim");
+		if(DEBUG) jPasswordField1.setText("secret");
 
 		jButton1.setText("Authenticate");
 
@@ -125,6 +125,7 @@ public class AuthDialog extends JDialog {
 					jPasswordField1.setText("");
 			}
 		});
+                jPasswordField1.addActionListener(jButton1.getActionListeners()[0]);
 		
 		jButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {

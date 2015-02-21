@@ -63,7 +63,7 @@ public class Main {
     // Constants
     private static final String SYSOP = "sysop";
     private static final boolean DEBUG = false;
-    private static final String VERSION = "0.91 Alpha";
+    private static final String VERSION = "0.92 Alpha";
 
     // Member fields
     private static SysopFrame m_frame = null;
@@ -138,7 +138,9 @@ public class Main {
         m_frame.setVisible(false);
 
         // Determine server
-        chooseServer();
+        if ( args.length > 0  && args[0] != null ) m_strServerURL = args[0];
+        else chooseServer();
+        
         if (DEBUG) {
             System.out.println("Connecting to " + m_strServerURL);
         }
