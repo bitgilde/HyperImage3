@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.gui.views;
 
 import java.awt.BorderLayout;
@@ -57,21 +77,27 @@ import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
 import com.sun.media.jai.widget.DisplayJAI;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URLConnection;
 import javax.swing.JScrollPane;
+import org.hyperimage.client.HIRuntime;
+import org.hyperimage.client.gui.TagsButton;
+import org.hyperimage.client.gui.dialogs.HIBaseTagsEditorDialog;
 import org.hyperimage.client.util.MetadataHelper;
 
 /**
  * @author Jens-Martin Loebel
  */
-public class ObjectContentEditView extends GUIView implements LoadableImage {
+public class ObjectContentEditView extends GUIView implements LoadableImage, ActionListener {
 
 	private static final long serialVersionUID = -2851582974143718095L;
 
 	
 	HiObjectContent content = null;
 
-	private JButton editLayersButton;
+    private JButton editLayersButton;
+    private TagsButton tagsButton;
     private JLabel layerCountLabel;
     private JPanel objectContentsPreviewPanel;
     private JPanel previewPanel;
@@ -97,11 +123,15 @@ public class ObjectContentEditView extends GUIView implements LoadableImage {
 		
 		initComponents();
 		updateLanguage();
+                
+                // attach listeners
+                tagsButton.addActionListener(this);
 		
 		setDisplayPanel(objectContentsPreviewPanel);
 	}
 	
 	
+        @Override
 	public void updateLanguage() {
         layerCountLabel.setText(Messages.getString("ObjectContentEditView.0")); //$NON-NLS-1$
 	updateStatusBar();
@@ -110,11 +140,13 @@ public class ObjectContentEditView extends GUIView implements LoadableImage {
         contentsTabPane.addTab(Messages.getString("ObjectContentEditView.2"), previewPanel); //$NON-NLS-1$
         contentsTabPane.addTab(Messages.getString("ObjectContentEditView.3"), new JScrollPane(editPanel)); //$NON-NLS-1$
         editLayersButton.setToolTipText(Messages.getString("ObjectContentEditView.4"));		 //$NON-NLS-1$
+        tagsButton.setToolTipText(Messages.getString("MetadataEditorControl.tagButtonTooltip"));
         if ( metadataEditor != null ) metadataEditor.updateLanguage();
         
         layerViewer.updateLanguage();
 	}
 	
+        @Override
 	public void updateContent() {
 		resetChanges();
 		if ( content instanceof HiView ) {
@@ -207,6 +239,8 @@ public class ObjectContentEditView extends GUIView implements LoadableImage {
 			return;
 		} else {
 			previewPanel.removeAll();
+                        tagsButton.setEnabled(true);
+                        tagsButton.setCount((int) (long) HIRuntime.getGui().getTagCountForElement(content.getId()));
 			if ( content instanceof HiView ) {
 				// update status bar
 				loadingIndicator.setVisible(true);
@@ -241,22 +275,25 @@ public class ObjectContentEditView extends GUIView implements LoadableImage {
 		previewPanel.repaint();
 	}
 	
-	private void setNoPreview() {
-		editPanel.removeAll();
-		editPanel.doLayout();
-		editPanel.repaint();
-		previewPanel.removeAll();
+    private void setNoPreview() {
+        tagsButton.setEnabled(false);
+        tagsButton.setCount(0);
+        editPanel.removeAll();
+        editPanel.doLayout();
+        editPanel.repaint();
+        previewPanel.removeAll();
         viewPanel.set(noPreview);
         previewPanel.add(viewPanel);
         layerCountLabel.setText(Messages.getString("ObjectContentEditView.25")); //$NON-NLS-1$
         loadingIndicator.setVisible(false);
-	}
+    }
 	
 	private void initComponents() {
 
         objectContentsPreviewPanel = new JPanel();
         previewPanel = new JPanel();
         editLayersButton = new JButton();
+        tagsButton = new TagsButton();
         layerCountLabel = new JLabel();
         contentsPanel = new JPanel();
         contentsTabPane = new JTabbedPane();
@@ -300,12 +337,15 @@ public class ObjectContentEditView extends GUIView implements LoadableImage {
             .add(controlPanelLayout.createSequentialGroup()
                 .add(editLayersButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .add(12, 12, 12)
-                .add(statusPanel, GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                .add(statusPanel, GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(tagsButton, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
             .add(GroupLayout.TRAILING, statusPanel, GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
             .add(GroupLayout.TRAILING, editLayersButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(GroupLayout.TRAILING, tagsButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
 
         GroupLayout objectContentsPreviewPanelLayout = new GroupLayout(objectContentsPreviewPanel);
@@ -332,6 +372,9 @@ public class ObjectContentEditView extends GUIView implements LoadableImage {
         
         // -----
         
+        if (System.getProperty("HI.feature.tagsDisabled") != null) {
+            tagsButton.setVisible(false);
+        }
         
         loadingIndicator.setIndeterminate(true);
         previewPanel.setLayout(new BorderLayout());
@@ -361,6 +404,15 @@ public class ObjectContentEditView extends GUIView implements LoadableImage {
 		loadingIndicator.setVisible(false);
 
 	}
+
+        
+    // ------------------------------------------------------------------------------------------
+        
+        
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if ( this.content != null ) tagsButton.setCount( new HIBaseTagsEditorDialog(HIRuntime.getGui(), this.content.getId()).chooseTags() );
+    }
 
 
 }

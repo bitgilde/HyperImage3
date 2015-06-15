@@ -107,6 +107,7 @@ import javax.swing.event.InternalFrameListener;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.ws.WebServiceException;
 import org.hyperimage.client.HIRuntime;
 import org.hyperimage.client.HIWebServiceManager;
 import org.hyperimage.client.Messages;
@@ -124,6 +125,7 @@ import org.hyperimage.client.components.ProjectSettings;
 import org.hyperimage.client.components.ProjectUsersManager;
 import org.hyperimage.client.components.RepositoryImport;
 import org.hyperimage.client.components.SearchModule;
+import org.hyperimage.client.components.TagManager;
 import org.hyperimage.client.components.TemplateEditor;
 import org.hyperimage.client.exception.HIWebServiceException;
 import org.hyperimage.client.gui.dialogs.AboutDialog;
@@ -218,6 +220,7 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
     private JMenuItem feedbackItem;
     private JMenuItem newGroupBrowserMenuItem;
     private JMenuItem searchMenuItem;
+    private JMenuItem tagManagerMenuItem;
     private JMenuItem importMenuItem;
     private JMenuItem nextWindowItem;
     private JMenuItem prevWindowItem;
@@ -235,6 +238,7 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
     private JMenuItem popupNewGroupBrowserMenuItem;
     private JMenuItem popupSearchMenuItem;
     private JMenuItem popupImportMenuItem;
+    private JMenuItem popupTagManagerMenuItem;
 
     public HIClientGUI() {
         // init
@@ -680,6 +684,31 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
             displayInfoDialog(Messages.getString("HIClientGUI.27"), Messages.getString("HIClientGUI.28")); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
+    
+    
+    public long getTagCountForElement(long baseID) {
+        if (baseID <= 0 ) {
+            return 0;
+        }
+        long count = 0;
+        try {
+            startIndicatingServiceActivity();
+            count = HIRuntime.getManager().getTagCountForElement(baseID);
+            stopIndicatingServiceActivity();
+        } catch (HIWebServiceException wse) {
+            stopIndicatingServiceActivity();
+            HIRuntime.getGui().reportError(wse, null);
+        }
+        
+        return count;
+    }
+
+    public long getTagCountForElement(HiBase base) {
+        if ( base == null ) return 0;
+        
+        return getTagCountForElement(base.getId());
+    }
+
 
     public void createAndShowGUI() {
         // scan and set appropriate on screen language
@@ -786,9 +815,10 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         projectTemplatesMenuItem = new JMenuItem();
         administrateProjectUsersMenuItem = new JMenuItem();
         toolsMenu = new JMenu();
-        newGroupBrowserMenuItem = new JMenuItem();
+        newGroupBrowserMenuItem = new JMenuItem();        
         searchMenuItem = new JMenuItem();
         importMenuItem = new JMenuItem();
+        tagManagerMenuItem = new JMenuItem();
         windowMenu = new JMenu();
         nextWindowItem = new JMenuItem();
         prevWindowItem = new JMenuItem();
@@ -881,9 +911,15 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         searchMenuItem.setIcon(new ImageIcon(getClass().getResource("/resources/icons/search-menu.png"))); //$NON-NLS-1$
         searchMenuItem.setActionCommand("newSearch"); //$NON-NLS-1$
         toolsMenu.add(searchMenuItem);
-//        toolsMenu.add(new JSeparator());
+        toolsMenu.add(new JSeparator());
 
-//        importMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, HIRuntime.getModifierKey()));
+        tagManagerMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, HIRuntime.getModifierKey()));
+        tagManagerMenuItem.setActionCommand("tagManager");
+        if (System.getProperty("HI.feature.tagsDisabled") == null) {
+            toolsMenu.add(tagManagerMenuItem);
+        }
+
+//        importMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, HIRuntime.getModifierKey()));
         importMenuItem.setIcon(new ImageIcon(getClass().getResource("/resources/icons/import-menu.png"))); //$NON-NLS-1$
         importMenuItem.setActionCommand("repositoryImport"); //$NON-NLS-1$
 //        toolsMenu.add(importMenuItem);
@@ -967,12 +1003,20 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         popupToolsMenu.add(popupSearchMenuItem);
         popupToolsMenu.add(new JSeparator());
 
+        popupTagManagerMenuItem = new JMenuItem();
+        popupTagManagerMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, HIRuntime.getModifierKey()));
+        popupTagManagerMenuItem.setActionCommand("tagManager"); //$NON-NLS-1$
+        if (System.getProperty("HI.feature.tagsDisabled") == null) {
+            popupToolsMenu.add(popupTagManagerMenuItem);
+        }
+
+/*
         popupImportMenuItem = new JMenuItem();
-        popupImportMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, HIRuntime.getModifierKey()));
+        popupImportMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, HIRuntime.getModifierKey()));
         popupImportMenuItem.setIcon(new ImageIcon(getClass().getResource("/resources/icons/import-menu.png"))); //$NON-NLS-1$
         popupImportMenuItem.setActionCommand("notImplemented"); //$NON-NLS-1$
         popupToolsMenu.add(popupImportMenuItem);
-
+*/
 		// -----
         // attach listeners
         aboutMenuItem.addActionListener(this);
@@ -984,6 +1028,7 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         newGroupBrowserMenuItem.addActionListener(this);
         searchMenuItem.addActionListener(this);
         importMenuItem.addActionListener(this);
+        tagManagerMenuItem.addActionListener(this);
         exportMenuItem.addActionListener(this);
         publicationMenuItem.addActionListener(this);
         xmlImportMenuItem.addActionListener(this);
@@ -999,7 +1044,8 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
 
         popupNewGroupBrowserMenuItem.addActionListener(this);
         popupSearchMenuItem.addActionListener(this);
-        popupImportMenuItem.addActionListener(this);
+//        popupImportMenuItem.addActionListener(this);
+        popupTagManagerMenuItem.addActionListener(this);
 
         // build on screen language menu
         for (int i = 0; i < HIRuntime.supportedLanguages.length; i++) {
@@ -1038,6 +1084,7 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         newGroupBrowserMenuItem.setText(Messages.getString("HIClientGUI.77")); //$NON-NLS-1$
         searchMenuItem.setText(Messages.getString("HIClientGUI.78")); //$NON-NLS-1$
         importMenuItem.setText(Messages.getString("HIClientGUI.79")); //$NON-NLS-1$
+        tagManagerMenuItem.setText(Messages.getString("HIClientGUI.tagManager")); //$NON-NLS-1$
         windowMenu.setText(Messages.getString("HIClientGUI.80")); //$NON-NLS-1$
         nextWindowItem.setText(Messages.getString("HIClientGUI.81")); //$NON-NLS-1$
         prevWindowItem.setText(Messages.getString("HIClientGUI.82")); //$NON-NLS-1$
@@ -1050,7 +1097,8 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
         // popup menu
         popupNewGroupBrowserMenuItem.setText(newGroupBrowserMenuItem.getText());
         popupSearchMenuItem.setText(searchMenuItem.getText());
-        popupImportMenuItem.setText(importMenuItem.getText());
+//        popupImportMenuItem.setText(importMenuItem.getText());
+        popupTagManagerMenuItem.setText(tagManagerMenuItem.getText());
 
         // build on screen language menu text
         for (int i = 0; i < HIRuntime.supportedLanguages.length; i++) {
@@ -2064,6 +2112,21 @@ public class HIClientGUI extends JFrame implements WindowListener, ActionListene
             } else {
                 // open new repository import
                 registerComponent(new RepositoryImport());
+            }
+        }
+        
+        if (e.getActionCommand().equalsIgnoreCase("tagManager")) { //$NON-NLS-1$
+            // check if tag manager is already open
+            if (getComponentTypeCount(TagManager.class) > 0) {
+                // extract and focus frame
+                for (HIComponentFrame frame : components) {
+                    if (frame.getHIComponent() instanceof TagManager) {
+                        focusComponent(frame);
+                    }
+                }
+            } else {
+                // open new tag Manager
+                registerComponent(new TagManager());
             }
         }
 

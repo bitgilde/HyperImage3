@@ -83,6 +83,7 @@ import javax.jws.WebService;
 import javax.media.jai.JAI;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
@@ -159,7 +160,7 @@ public class HIEditor {
 
     // HI Web Service Version
     private static final String serviceVersion = "3.0";
-    private static final String minorRev = "1";
+    private static final String minorRev = "3";
 
     public static String getServiceVersion() {
         return serviceVersion + "." + minorRev;
@@ -400,8 +401,9 @@ public class HIEditor {
          if ( !(content instanceof HILayer) && !(content instanceof HIView) && !(content instanceof HIInscription) && !(content instanceof HIGroup) ) {
 				
          // count groups for base
-         long size = (Long) em.createQuery("SELECT count(g) FROM HIGroup g WHERE g.contents=:base")
+         long size = (Long) em.createQuery("SELECT count(g) FROM HIGroup g WHERE g.contents=:base AND NOT g.type=:type")
          .setParameter("base", content)
+         .setParameter("type", HIGroup.GroupTypes.HIGROUP_TAG)
          .getSingleResult();
 				
          // found orphaned content
@@ -2463,7 +2465,7 @@ public class HIEditor {
                 em.remove(group);
                 em.flush();
             }
-
+            
             // find all project elements
             List<HIBase> elements = em.createQuery("SELECT b FROM HIBase b WHERE b.project=:project")
                     .setParameter("project", project)
@@ -2513,6 +2515,7 @@ public class HIEditor {
             em.remove(project);
             em.flush();
             utx.commit();
+
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -3965,7 +3968,135 @@ public class HIEditor {
 
         return true;
     }
+    
+    //-------------------------
+    // Tag Methods
+    //-------------------------
+    @SuppressWarnings("unchecked")
+    @WebMethod
+    public synchronized List<HIGroup> getTagGroups() throws HIMaintenanceModeException {
+        
+        List<HIGroup> tagGroups;
 
+        
+        EntityManager em = emf.createEntityManager();
+        curProject = em.find(HIProject.class, curProject.getId());
+
+        tagGroups = em.createQuery("SELECT g FROM HIGroup g WHERE g.project=:project AND g.type=:type")
+                .setParameter("project", curProject)
+                .setParameter("type", HIGroup.GroupTypes.HIGROUP_TAG)
+                .getResultList();
+        
+        // legacy update: generate UUID for element if missing
+        for (HIGroup group : tagGroups) {
+            if (group.getUUID() == null) {
+                try {
+                    utx.begin();
+                    em.joinTransaction();
+                    group.setUUID(UUID.randomUUID().toString());
+                    em.persist(group);
+                    em.flush();
+                    utx.commit();
+                } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+                    Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        return tagGroups;
+
+    }
+    
+    @WebMethod
+    public synchronized HIGroup createTagGroup(@WebParam(name = "uuid") String uuid) throws HIMaintenanceModeException, HIEntityException, HIParameterException {
+
+        if ( uuid != null && !isValidUUID(uuid) ) throw new HIParameterException("Invalid UUID format!");
+        
+        HIGroup tagGroup = new HIGroup(HIGroup.GroupTypes.HIGROUP_TAG, true, uuid);
+
+        EntityManager em = emf.createEntityManager();
+        curProject = em.find(HIProject.class, curProject.getId());
+        
+        // check if UUID already exists in project
+        if ( uuid != null ) {
+            if ( (Long)em.createQuery("SELECT count(b) FROM HIBase b WHERE b.project=:project AND b.uuid=:uuid")
+                .setParameter("project", curProject)
+                .setParameter("uuid", uuid)
+                .getSingleResult() != 0 ) throw new HIEntityException("Element with UUID already exists in project!");
+        }
+        
+        try {
+            utx.begin();
+            em.joinTransaction();
+            tagGroup.setProject(curProject);
+            em.persist(tagGroup);
+            em.flush();
+            attachMetadataRecords(em, tagGroup);
+            em.persist(tagGroup);
+            em.flush();
+            utx.commit();
+
+            indexer.storeElement(tagGroup, curProject); // update lucene index
+
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tagGroup = em.find(HIGroup.class, tagGroup.getId());
+        return tagGroup;
+    }
+    
+    @WebMethod
+    public synchronized List<Long> getTagIDsForBase(@WebParam(name = "baseID") long baseID) throws HIEntityNotFoundException, HIPrivilegeException {
+        List<Long> tagIDList;
+        HIBase base = getBaseElement(baseID); // check if base exists
+
+        EntityManager em = emf.createEntityManager();
+        curProject = em.find(HIProject.class, curProject.getId());
+        tagIDList = em.createQuery(
+                "SELECT DISTINCT g.id FROM HIGroup g WHERE g.project=:project AND g.type=:type AND g.contents=:base")
+                .setParameter("project", curProject)
+                .setParameter("type", HIGroup.GroupTypes.HIGROUP_TAG)
+                .setParameter("base", base)
+                .getResultList();
+        
+        
+        return tagIDList;
+
+    }
+    
+    @WebMethod
+    public synchronized List<Long> getTagIDsForBaseUUID(@WebParam(name = "uuid") String uuid) throws HIParameterException, HIEntityNotFoundException, HIPrivilegeException {
+        if ( uuid != null && !isValidUUID(uuid) ) throw new HIParameterException("Invalid UUID format!");
+        long baseID = getBaseElementByUUID(uuid).getId(); // check if base exists and get internal id
+        
+        return getTagIDsForBase(baseID);
+    }
+
+    
+    @WebMethod
+    public synchronized long getTagCountForBase(@WebParam(name = "baseID") long baseID) throws HIEntityNotFoundException, HIPrivilegeException {
+        HIBase base = getBaseElement(baseID); // check if base exists
+
+        EntityManager em = emf.createEntityManager();
+        curProject = em.find(HIProject.class, curProject.getId());
+        return (Long) em.createQuery(
+                "SELECT DISTINCT COUNT (g.id) FROM HIGroup g WHERE g.project=:project AND g.type=:type AND g.contents=:base")
+                .setParameter("project", curProject)
+                .setParameter("type", HIGroup.GroupTypes.HIGROUP_TAG)
+                .setParameter("base", base)
+                .getSingleResult();
+    }
+    
+    @WebMethod
+    public synchronized long getTagCountForBaseUUID(@WebParam(name = "uuid") String uuid) throws HIParameterException, HIEntityNotFoundException, HIPrivilegeException {
+        if ( uuid != null && !isValidUUID(uuid) ) throw new HIParameterException("Invalid UUID format!");
+        long baseID = getBaseElementByUUID(uuid).getId(); // check if base exists and get internal id
+        
+        return getTagCountForBase(baseID);
+    }
+
+
+    
     //-------------------------
     // Group Methods
     //-------------------------
@@ -4786,7 +4917,7 @@ public class HIEditor {
         }
 
         // cannot remove elements from import or trash group
-        if (group.getType() != HIGroup.GroupTypes.HIGROUP_REGULAR) {
+        if (group.getType() != HIGroup.GroupTypes.HIGROUP_REGULAR && group.getType() != HIGroup.GroupTypes.HIGROUP_TAG) {
             return false;
         }
         // try to remove element
@@ -4795,7 +4926,7 @@ public class HIEditor {
         }
 
         // check if element is in another group, if not add to import group
-        if (!(base instanceof HIGroup) && countGroups(base) < 1) {
+        if (!(base instanceof HIGroup) && countGroups(base) < 1 ) {
             addToImportGroup(base);
         }
         return true;
@@ -4871,7 +5002,7 @@ public class HIEditor {
             utx.commit();
 
             // remove content from import group
-            if (!group.equals(importGroup)) {
+            if ( !group.equals(importGroup) && group.getType() != HIGroup.GroupTypes.HIGROUP_TAG ) {
                 /*if (base instanceof HIObjectContent) {
                     removeFromGroup(((HIObjectContent) base).getObject(), importGroup);
                 } else if (base instanceof HILayer) {
@@ -4925,6 +5056,29 @@ public class HIEditor {
         EntityManager em = emf.createEntityManager();
         base = em.find(HIBase.class, base.getId());
         curProject = em.find(HIProject.class, curProject.getId());
+        
+        // remove all tags
+        try {
+                List<Long> tagIDList = getTagIDsForBase(base.getId());
+                utx.begin();
+                em.joinTransaction();
+                for (long tagID : tagIDList) {
+                    HIGroup tag = em.find(HIGroup.class, tagID);
+                    int index = -1;
+                    for ( int i = 0; i < tag.getContents().size(); i++) 
+                        if ( tag.getContents().get(i).getId() == base.getId() ) index = i;
+                    if ( index >= 0 ) {
+                        tag.getContents().remove(index);
+                        em.persist(tag);
+                    }
+                }
+                em.flush();
+                utx.commit();
+                base = em.find(HIBase.class, base.getId());
+            } catch (HIPrivilegeException | HIEntityNotFoundException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+                Logger.getLogger(HIEditor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
         
         // check if element is start element of project
         if ( curProject.getStartObject() != null && curProject.getStartObject().getId() == base.getId() ) {

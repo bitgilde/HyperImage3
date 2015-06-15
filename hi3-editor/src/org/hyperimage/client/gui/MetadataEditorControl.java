@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.gui;
 
 import java.awt.Color;
@@ -46,9 +66,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import org.hyperimage.client.HIRuntime;
 
 import org.hyperimage.client.Messages;
+import org.hyperimage.client.gui.dialogs.HIBaseTagsEditorDialog;
 import org.hyperimage.client.util.MetadataHelper;
+import org.hyperimage.client.ws.HiBase;
 import org.hyperimage.client.ws.HiFlexMetadataRecord;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
@@ -76,6 +99,7 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
     private JPanel controlPanel;
     private ResetButton resetButton;
     private SaveButton saveButton;
+    private TagsButton tagsButton;
     private JLabel idLabel;
     
     private String titleKey, sourceKey, contentKey;
@@ -85,6 +109,7 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
     private List<HiFlexMetadataRecord> metadata;
     private String defLang;
     private Vector<String> languageKeys;
+    private long baseID;
     
     private Vector<String> titleMetadata = new Vector<String>();
     private Vector<String> sourceMetadata = new Vector<String>();
@@ -115,22 +140,34 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
 		sourcePanel.setVisible(sourceEnabled);
 		
 	}
-	
-	
-	public void updateLanguage(String titleName, String sourceName, String contentName ) {
-		metadataBorder.setTitle(Messages.getString("MetadataEditorControl.16")); //$NON-NLS-1$
-		metadataPanel.repaint();
+
+        public void updateLanguage(String titleName, String sourceName, String contentName) {
+        metadataBorder.setTitle(Messages.getString("MetadataEditorControl.16")); //$NON-NLS-1$
+        metadataPanel.repaint();
         languageLabel.setText(Messages.getString("MetadataEditorControl.18")); //$NON-NLS-1$
 
-        if ( titleEnabled ) titleBorder.setTitle(titleName);
-        if ( sourceEnabled ) sourceBorder.setTitle(sourceName);
+        if (titleEnabled) {
+            titleBorder.setTitle(titleName);
+        }
+        if (sourceEnabled) {
+            sourceBorder.setTitle(sourceName);
+        }
         annotationRichTextControl.updateTitle(contentName);
         annotationRichTextControl.updateLanguage();
-		saveButton.setToolTipText(Messages.getString("MetadataEditorControl.1")); //$NON-NLS-1$
+        saveButton.setToolTipText(Messages.getString("MetadataEditorControl.1")); //$NON-NLS-1$
         resetButton.setToolTipText(Messages.getString("MetadataEditorControl.2"));         //$NON-NLS-1$
-		buildLanguages();
-	}
-	
+        tagsButton.setToolTipText(Messages.getString("MetadataEditorControl.tagButtonTooltip"));
+        buildLanguages();
+    }
+        
+    public void setBaseID(long baseID) {
+        this.baseID = baseID;
+    }
+    
+    public void setTagCount(long count) {
+        tagsButton.setCount((int) (long) count);
+    }
+
 	public void setMetadata(List<HiFlexMetadataRecord> metadata, String defLang) {
 		this.metadata = metadata;
 		this.defLang = defLang;
@@ -269,6 +306,10 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
     public JButton getResetButton() {
         return this.resetButton;
     }
+    
+    public JButton getTagsButton() {
+        return this.tagsButton;
+    }
 
     public JPanel getMetadataPanel() {
         return metadataPanel;
@@ -315,6 +356,7 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
 		annotationRichTextControl.setEditable(editable);
 		saveButton.setEnabled(editable);
 		resetButton.setEnabled(editable);
+                tagsButton.setEnabled(editable);
 		if ( !editable ) {
 			titleField.setText(""); //$NON-NLS-1$
 			sourceField.setText(""); //$NON-NLS-1$
@@ -380,6 +422,7 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
         idLabel = new JLabel();
         resetButton = new ResetButton();
         saveButton = new SaveButton();
+        tagsButton = new TagsButton();
 
         metadataBorder = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), Messages.getString("MetadataEditorControl.16"), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Lucida Grande", 0, 13), Color.blue);  //$NON-NLS-1$ //$NON-NLS-2$
         metadataPanel.setBorder(metadataBorder);
@@ -453,22 +496,26 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
 
         GroupLayout controlPanelLayout = new GroupLayout(controlPanel);
         controlPanel.setLayout(controlPanelLayout);
-        controlPanelLayout.setHorizontalGroup(
-                controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
-                .add(controlPanelLayout.createSequentialGroup()
-                        .add(resetButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.RELATED)
-                        .add(saveButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.UNRELATED)
-                        .add(idLabel, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-                        .addContainerGap())
+        controlPanelLayout.setHorizontalGroup(controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(controlPanelLayout.createSequentialGroup()
+                .add(resetButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(saveButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.UNRELATED)
+                .add(idLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(tagsButton, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
         );
-        controlPanelLayout.setVerticalGroup(
-                controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
-                .add(controlPanelLayout.createParallelGroup(GroupLayout.BASELINE)
+        controlPanelLayout.setVerticalGroup(controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(controlPanelLayout.createSequentialGroup()
+                .add(0, 0, Short.MAX_VALUE)
+                .add(controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(GroupLayout.TRAILING, controlPanelLayout.createParallelGroup(GroupLayout.BASELINE)
                         .add(resetButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(saveButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(idLabel, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
+                    .add(GroupLayout.TRAILING, tagsButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .add(0, 0, 0))
         );
 
         GroupLayout layout = new GroupLayout(this);
@@ -482,12 +529,17 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
                 layout.createParallelGroup(GroupLayout.LEADING)
                 .add(GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(metadataPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(LayoutStyle.RELATED)
+                        .addPreferredGap(LayoutStyle.RELATED, 6, 6)
                         .add(controlPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
 
         // -----
         languageComboBox.addActionListener(this);
+        tagsButton.addActionListener(this);
+        tagsButton.setCount(1);
+        if (System.getProperty("HI.feature.tagsDisabled") != null) {
+            tagsButton.setVisible(false);
+        }
     }
 
 
@@ -495,6 +547,11 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
 	// ---------------------------------------------------------------
 	
 	public void actionPerformed(ActionEvent e) {
+            if ( e.getSource() == tagsButton ) {
+                
+                if ( baseID > 0 ) tagsButton.setCount(new HIBaseTagsEditorDialog(HIRuntime.getGui(), baseID).chooseTags());
+                
+            } else {
 		if ( metadata != null ) if ( languageKeys.size() > 0 ) {
 			
 			// trigger change state update
@@ -508,6 +565,7 @@ public class MetadataEditorControl extends JPanel implements ActionListener {
 			// DEBUG
 			setMetadataFields();
 		}
+            }
 	}
 
 }

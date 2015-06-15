@@ -212,6 +212,94 @@ function ws_service_hyperimage_org__updateViewSortOrder_deserialize (cxfjsutils,
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagIDsForBaseResponse
+//
+function ws_service_hyperimage_org__getTagIDsForBaseResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagIDsForBaseResponse';
+    this._return = [];
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagIDsForBaseResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}long
+// - required element
+// - array
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__getTagIDsForBaseResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__getTagIDsForBaseResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__getTagIDsForBaseResponse.prototype.getReturn = ws_service_hyperimage_org__getTagIDsForBaseResponse_getReturn;
+
+function ws_service_hyperimage_org__getTagIDsForBaseResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__getTagIDsForBaseResponse.prototype.setReturn = ws_service_hyperimage_org__getTagIDsForBaseResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagIDsForBaseResponse
+//
+function ws_service_hyperimage_org__getTagIDsForBaseResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._return != null) {
+      for (var ax = 0;ax < this._return.length;ax ++) {
+       if (this._return[ax] == null) {
+        xml = xml + '<return/>';
+       } else {
+        xml = xml + '<return>';
+        xml = xml + cxfjsutils.escapeXmlEntities(this._return[ax]);
+        xml = xml + '</return>';
+       }
+      }
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagIDsForBaseResponse.prototype.serialize = ws_service_hyperimage_org__getTagIDsForBaseResponse_serialize;
+
+function ws_service_hyperimage_org__getTagIDsForBaseResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagIDsForBaseResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     item = [];
+     do  {
+      var arrayItem = null;
+      var value = null;
+      if (!cxfjsutils.isElementNil(curElement)) {
+       value = cxfjsutils.getNodeText(curElement);
+       arrayItem = parseInt(value);
+      }
+      item.push(arrayItem);
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+       while(curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return'));
+     newobject.setReturn(item);
+     var item = null;
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateLightTableResponse
 //
 function ws_service_hyperimage_org__updateLightTableResponse () {
@@ -1197,79 +1285,6 @@ function ws_service_hyperimage_org__createURL_deserialize (cxfjsutils, element) 
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminRemoveLanguageFromProjectResponse
-//
-function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse';
-    this._return = '';
-}
-
-//
-// accessor is ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.getReturn
-// element get for return
-// - element type is {http://www.w3.org/2001/XMLSchema}boolean
-// - required element
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.getReturn = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_getReturn;
-
-function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.setReturn = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}adminRemoveLanguageFromProjectResponse
-//
-function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<return>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
-     xml = xml + '</return>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.serialize = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_serialize;
-
-function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = (value == 'true');
-    }
-    newobject.setReturn(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminRemoveLanguageFromProject
 //
 function ws_service_hyperimage_org__adminRemoveLanguageFromProject () {
@@ -1347,6 +1362,117 @@ function ws_service_hyperimage_org__adminRemoveLanguageFromProject_deserialize (
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminRemoveLanguageFromProjectResponse
+//
+function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse';
+    this._return = '';
+}
+
+//
+// accessor is ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}boolean
+// - required element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.getReturn = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_getReturn;
+
+function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.setReturn = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}adminRemoveLanguageFromProjectResponse
+//
+function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse.prototype.serialize = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_serialize;
+
+function ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = (value == 'true');
+    }
+    newobject.setReturn(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}isSysop
+//
+function ws_service_hyperimage_org__isSysop () {
+    this.typeMarker = 'ws_service_hyperimage_org__isSysop';
+}
+
+//
+// Serialize {http://ws.service.hyperimage.org/}isSysop
+//
+function ws_service_hyperimage_org__isSysop_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__isSysop.prototype.serialize = ws_service_hyperimage_org__isSysop_serialize;
+
+function ws_service_hyperimage_org__isSysop_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__isSysop();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopDeleteProject
 //
 function ws_service_hyperimage_org__sysopDeleteProject () {
@@ -1416,44 +1542,6 @@ function ws_service_hyperimage_org__sysopDeleteProject_deserialize (cxfjsutils, 
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
     }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}isSysop
-//
-function ws_service_hyperimage_org__isSysop () {
-    this.typeMarker = 'ws_service_hyperimage_org__isSysop';
-}
-
-//
-// Serialize {http://ws.service.hyperimage.org/}isSysop
-//
-function ws_service_hyperimage_org__isSysop_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__isSysop.prototype.serialize = ws_service_hyperimage_org__isSysop_serialize;
-
-function ws_service_hyperimage_org__isSysop_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__isSysop();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
     return newobject;
 }
 
@@ -1722,6 +1810,44 @@ function ws_service_hyperimage_org__createFlexMetadataRecordResponse_deserialize
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getVersionID
+//
+function ws_service_hyperimage_org__getVersionID () {
+    this.typeMarker = 'ws_service_hyperimage_org__getVersionID';
+}
+
+//
+// Serialize {http://ws.service.hyperimage.org/}getVersionID
+//
+function ws_service_hyperimage_org__getVersionID_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getVersionID.prototype.serialize = ws_service_hyperimage_org__getVersionID_serialize;
+
+function ws_service_hyperimage_org__getVersionID_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getVersionID();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}createPreference
 //
 function ws_service_hyperimage_org__createPreference () {
@@ -1834,44 +1960,6 @@ function ws_service_hyperimage_org__createPreference_deserialize (cxfjsutils, el
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
     }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getVersionID
-//
-function ws_service_hyperimage_org__getVersionID () {
-    this.typeMarker = 'ws_service_hyperimage_org__getVersionID';
-}
-
-//
-// Serialize {http://ws.service.hyperimage.org/}getVersionID
-//
-function ws_service_hyperimage_org__getVersionID_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__getVersionID.prototype.serialize = ws_service_hyperimage_org__getVersionID_serialize;
-
-function ws_service_hyperimage_org__getVersionID_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__getVersionID();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
     return newobject;
 }
 
@@ -2903,157 +2991,6 @@ function ws_service_hyperimage_org__deleteFromProjectResponse_deserialize (cxfjs
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminCreateSetDisplayName
-//
-function ws_service_hyperimage_org__adminCreateSetDisplayName () {
-    this.typeMarker = 'ws_service_hyperimage_org__adminCreateSetDisplayName';
-    this._setID = 0;
-    this._languageID = null;
-    this._displayName = null;
-}
-
-//
-// accessor is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getSetID
-// element get for setID
-// - element type is {http://www.w3.org/2001/XMLSchema}long
-// - required element
-//
-// element set for setID
-// setter function is is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setSetID
-//
-function ws_service_hyperimage_org__adminCreateSetDisplayName_getSetID() { return this._setID;}
-
-ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getSetID = ws_service_hyperimage_org__adminCreateSetDisplayName_getSetID;
-
-function ws_service_hyperimage_org__adminCreateSetDisplayName_setSetID(value) { this._setID = value;}
-
-ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setSetID = ws_service_hyperimage_org__adminCreateSetDisplayName_setSetID;
-//
-// accessor is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getLanguageID
-// element get for languageID
-// - element type is {http://www.w3.org/2001/XMLSchema}string
-// - optional element
-//
-// element set for languageID
-// setter function is is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setLanguageID
-//
-function ws_service_hyperimage_org__adminCreateSetDisplayName_getLanguageID() { return this._languageID;}
-
-ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getLanguageID = ws_service_hyperimage_org__adminCreateSetDisplayName_getLanguageID;
-
-function ws_service_hyperimage_org__adminCreateSetDisplayName_setLanguageID(value) { this._languageID = value;}
-
-ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setLanguageID = ws_service_hyperimage_org__adminCreateSetDisplayName_setLanguageID;
-//
-// accessor is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getDisplayName
-// element get for displayName
-// - element type is {http://www.w3.org/2001/XMLSchema}string
-// - optional element
-//
-// element set for displayName
-// setter function is is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setDisplayName
-//
-function ws_service_hyperimage_org__adminCreateSetDisplayName_getDisplayName() { return this._displayName;}
-
-ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getDisplayName = ws_service_hyperimage_org__adminCreateSetDisplayName_getDisplayName;
-
-function ws_service_hyperimage_org__adminCreateSetDisplayName_setDisplayName(value) { this._displayName = value;}
-
-ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setDisplayName = ws_service_hyperimage_org__adminCreateSetDisplayName_setDisplayName;
-//
-// Serialize {http://ws.service.hyperimage.org/}adminCreateSetDisplayName
-//
-function ws_service_hyperimage_org__adminCreateSetDisplayName_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<setID>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._setID);
-     xml = xml + '</setID>';
-    }
-    // block for local variables
-    {
-     if (this._languageID != null) {
-      xml = xml + '<languageID>';
-      xml = xml + cxfjsutils.escapeXmlEntities(this._languageID);
-      xml = xml + '</languageID>';
-     }
-    }
-    // block for local variables
-    {
-     if (this._displayName != null) {
-      xml = xml + '<displayName>';
-      xml = xml + cxfjsutils.escapeXmlEntities(this._displayName);
-      xml = xml + '</displayName>';
-     }
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.serialize = ws_service_hyperimage_org__adminCreateSetDisplayName_serialize;
-
-function ws_service_hyperimage_org__adminCreateSetDisplayName_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__adminCreateSetDisplayName();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing setID');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = parseInt(value);
-    }
-    newobject.setSetID(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing languageID');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'languageID')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      value = cxfjsutils.getNodeText(curElement);
-      item = value;
-     }
-     newobject.setLanguageID(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing displayName');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'displayName')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      value = cxfjsutils.getNodeText(curElement);
-      item = value;
-     }
-     newobject.setDisplayName(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}hiFlexMetadataSet
 //
 function ws_service_hyperimage_org__hiFlexMetadataSet () {
@@ -3240,6 +3177,157 @@ function ws_service_hyperimage_org__hiFlexMetadataSet_deserialize (cxfjsutils, e
       item = value;
      }
      newobject.setTagname(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminCreateSetDisplayName
+//
+function ws_service_hyperimage_org__adminCreateSetDisplayName () {
+    this.typeMarker = 'ws_service_hyperimage_org__adminCreateSetDisplayName';
+    this._setID = 0;
+    this._languageID = null;
+    this._displayName = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getSetID
+// element get for setID
+// - element type is {http://www.w3.org/2001/XMLSchema}long
+// - required element
+//
+// element set for setID
+// setter function is is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setSetID
+//
+function ws_service_hyperimage_org__adminCreateSetDisplayName_getSetID() { return this._setID;}
+
+ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getSetID = ws_service_hyperimage_org__adminCreateSetDisplayName_getSetID;
+
+function ws_service_hyperimage_org__adminCreateSetDisplayName_setSetID(value) { this._setID = value;}
+
+ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setSetID = ws_service_hyperimage_org__adminCreateSetDisplayName_setSetID;
+//
+// accessor is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getLanguageID
+// element get for languageID
+// - element type is {http://www.w3.org/2001/XMLSchema}string
+// - optional element
+//
+// element set for languageID
+// setter function is is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setLanguageID
+//
+function ws_service_hyperimage_org__adminCreateSetDisplayName_getLanguageID() { return this._languageID;}
+
+ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getLanguageID = ws_service_hyperimage_org__adminCreateSetDisplayName_getLanguageID;
+
+function ws_service_hyperimage_org__adminCreateSetDisplayName_setLanguageID(value) { this._languageID = value;}
+
+ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setLanguageID = ws_service_hyperimage_org__adminCreateSetDisplayName_setLanguageID;
+//
+// accessor is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getDisplayName
+// element get for displayName
+// - element type is {http://www.w3.org/2001/XMLSchema}string
+// - optional element
+//
+// element set for displayName
+// setter function is is ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setDisplayName
+//
+function ws_service_hyperimage_org__adminCreateSetDisplayName_getDisplayName() { return this._displayName;}
+
+ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.getDisplayName = ws_service_hyperimage_org__adminCreateSetDisplayName_getDisplayName;
+
+function ws_service_hyperimage_org__adminCreateSetDisplayName_setDisplayName(value) { this._displayName = value;}
+
+ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.setDisplayName = ws_service_hyperimage_org__adminCreateSetDisplayName_setDisplayName;
+//
+// Serialize {http://ws.service.hyperimage.org/}adminCreateSetDisplayName
+//
+function ws_service_hyperimage_org__adminCreateSetDisplayName_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<setID>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._setID);
+     xml = xml + '</setID>';
+    }
+    // block for local variables
+    {
+     if (this._languageID != null) {
+      xml = xml + '<languageID>';
+      xml = xml + cxfjsutils.escapeXmlEntities(this._languageID);
+      xml = xml + '</languageID>';
+     }
+    }
+    // block for local variables
+    {
+     if (this._displayName != null) {
+      xml = xml + '<displayName>';
+      xml = xml + cxfjsutils.escapeXmlEntities(this._displayName);
+      xml = xml + '</displayName>';
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__adminCreateSetDisplayName.prototype.serialize = ws_service_hyperimage_org__adminCreateSetDisplayName_serialize;
+
+function ws_service_hyperimage_org__adminCreateSetDisplayName_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__adminCreateSetDisplayName();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing setID');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = parseInt(value);
+    }
+    newobject.setSetID(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing languageID');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'languageID')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      value = cxfjsutils.getNodeText(curElement);
+      item = value;
+     }
+     newobject.setLanguageID(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing displayName');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'displayName')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      value = cxfjsutils.getNodeText(curElement);
+      item = value;
+     }
+     newobject.setDisplayName(item);
      var item = null;
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -3717,6 +3805,79 @@ function ws_service_hyperimage_org__sysopRemoveUserFromProjectResponse_deseriali
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}deletePreferenceResponse
+//
+function ws_service_hyperimage_org__deletePreferenceResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__deletePreferenceResponse';
+    this._return = '';
+}
+
+//
+// accessor is ws_service_hyperimage_org__deletePreferenceResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}boolean
+// - required element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__deletePreferenceResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__deletePreferenceResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__deletePreferenceResponse.prototype.getReturn = ws_service_hyperimage_org__deletePreferenceResponse_getReturn;
+
+function ws_service_hyperimage_org__deletePreferenceResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__deletePreferenceResponse.prototype.setReturn = ws_service_hyperimage_org__deletePreferenceResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}deletePreferenceResponse
+//
+function ws_service_hyperimage_org__deletePreferenceResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__deletePreferenceResponse.prototype.serialize = ws_service_hyperimage_org__deletePreferenceResponse_serialize;
+
+function ws_service_hyperimage_org__deletePreferenceResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__deletePreferenceResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = (value == 'true');
+    }
+    newobject.setReturn(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}getBaseElement
 //
 function ws_service_hyperimage_org__getBaseElement () {
@@ -3790,33 +3951,16 @@ function ws_service_hyperimage_org__getBaseElement_deserialize (cxfjsutils, elem
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}deletePreferenceResponse
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getProject
 //
-function ws_service_hyperimage_org__deletePreferenceResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__deletePreferenceResponse';
-    this._return = '';
+function ws_service_hyperimage_org__getProject () {
+    this.typeMarker = 'ws_service_hyperimage_org__getProject';
 }
 
 //
-// accessor is ws_service_hyperimage_org__deletePreferenceResponse.prototype.getReturn
-// element get for return
-// - element type is {http://www.w3.org/2001/XMLSchema}boolean
-// - required element
+// Serialize {http://ws.service.hyperimage.org/}getProject
 //
-// element set for return
-// setter function is is ws_service_hyperimage_org__deletePreferenceResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__deletePreferenceResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__deletePreferenceResponse.prototype.getReturn = ws_service_hyperimage_org__deletePreferenceResponse_getReturn;
-
-function ws_service_hyperimage_org__deletePreferenceResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__deletePreferenceResponse.prototype.setReturn = ws_service_hyperimage_org__deletePreferenceResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}deletePreferenceResponse
-//
-function ws_service_hyperimage_org__deletePreferenceResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+function ws_service_hyperimage_org__getProject_serialize(cxfjsutils, elementName, extraNamespaces) {
     var xml = '';
     if (elementName != null) {
      xml = xml + '<';
@@ -3826,12 +3970,6 @@ function ws_service_hyperimage_org__deletePreferenceResponse_serialize(cxfjsutil
      }
      xml = xml + '>';
     }
-    // block for local variables
-    {
-     xml = xml + '<return>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
-     xml = xml + '</return>';
-    }
     if (elementName != null) {
      xml = xml + '</';
      xml = xml + elementName;
@@ -3840,25 +3978,13 @@ function ws_service_hyperimage_org__deletePreferenceResponse_serialize(cxfjsutil
     return xml;
 }
 
-ws_service_hyperimage_org__deletePreferenceResponse.prototype.serialize = ws_service_hyperimage_org__deletePreferenceResponse_serialize;
+ws_service_hyperimage_org__getProject.prototype.serialize = ws_service_hyperimage_org__getProject_serialize;
 
-function ws_service_hyperimage_org__deletePreferenceResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__deletePreferenceResponse();
+function ws_service_hyperimage_org__getProject_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getProject();
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = (value == 'true');
-    }
-    newobject.setReturn(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
     return newobject;
 }
 
@@ -3933,44 +4059,6 @@ function ws_service_hyperimage_org__createGroupResponse_deserialize (cxfjsutils,
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
     }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getProject
-//
-function ws_service_hyperimage_org__getProject () {
-    this.typeMarker = 'ws_service_hyperimage_org__getProject';
-}
-
-//
-// Serialize {http://ws.service.hyperimage.org/}getProject
-//
-function ws_service_hyperimage_org__getProject_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__getProject.prototype.serialize = ws_service_hyperimage_org__getProject_serialize;
-
-function ws_service_hyperimage_org__getProject_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__getProject();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
     return newobject;
 }
 
@@ -4277,6 +4365,80 @@ function ws_service_hyperimage_org__updateProjectStartElement_deserialize (cxfjs
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopCreateUserResponse
+//
+function ws_service_hyperimage_org__sysopCreateUserResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__sysopCreateUserResponse';
+    this._return = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__sysopCreateUserResponse.prototype.getReturn
+// element get for return
+// - element type is {http://ws.service.hyperimage.org/}hiUser
+// - optional element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__sysopCreateUserResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__sysopCreateUserResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__sysopCreateUserResponse.prototype.getReturn = ws_service_hyperimage_org__sysopCreateUserResponse_getReturn;
+
+function ws_service_hyperimage_org__sysopCreateUserResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__sysopCreateUserResponse.prototype.setReturn = ws_service_hyperimage_org__sysopCreateUserResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}sysopCreateUserResponse
+//
+function ws_service_hyperimage_org__sysopCreateUserResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._return != null) {
+      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__sysopCreateUserResponse.prototype.serialize = ws_service_hyperimage_org__sysopCreateUserResponse_serialize;
+
+function ws_service_hyperimage_org__sysopCreateUserResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__sysopCreateUserResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      item = ws_service_hyperimage_org__hiUser_deserialize(cxfjsutils, curElement);
+     }
+     newobject.setReturn(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopAddUserToProject
 //
 function ws_service_hyperimage_org__sysopAddUserToProject () {
@@ -4415,80 +4577,6 @@ function ws_service_hyperimage_org__sysopAddUserToProject_deserialize (cxfjsutil
       item = value;
      }
      newobject.setRole(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopCreateUserResponse
-//
-function ws_service_hyperimage_org__sysopCreateUserResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__sysopCreateUserResponse';
-    this._return = null;
-}
-
-//
-// accessor is ws_service_hyperimage_org__sysopCreateUserResponse.prototype.getReturn
-// element get for return
-// - element type is {http://ws.service.hyperimage.org/}hiUser
-// - optional element
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__sysopCreateUserResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__sysopCreateUserResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__sysopCreateUserResponse.prototype.getReturn = ws_service_hyperimage_org__sysopCreateUserResponse_getReturn;
-
-function ws_service_hyperimage_org__sysopCreateUserResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__sysopCreateUserResponse.prototype.setReturn = ws_service_hyperimage_org__sysopCreateUserResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}sysopCreateUserResponse
-//
-function ws_service_hyperimage_org__sysopCreateUserResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._return != null) {
-      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
-     }
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__sysopCreateUserResponse.prototype.serialize = ws_service_hyperimage_org__sysopCreateUserResponse_serialize;
-
-function ws_service_hyperimage_org__sysopCreateUserResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__sysopCreateUserResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = ws_service_hyperimage_org__hiUser_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setReturn(item);
      var item = null;
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -4723,44 +4811,6 @@ function ws_service_hyperimage_org__removeLayerResponse_deserialize (cxfjsutils,
 // - CREATOR_ADMINS
 // - CREATOR_ONLY
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateObjectSortOrderResponse
-//
-function ws_service_hyperimage_org__updateObjectSortOrderResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__updateObjectSortOrderResponse';
-}
-
-//
-// Serialize {http://ws.service.hyperimage.org/}updateObjectSortOrderResponse
-//
-function ws_service_hyperimage_org__updateObjectSortOrderResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__updateObjectSortOrderResponse.prototype.serialize = ws_service_hyperimage_org__updateObjectSortOrderResponse_serialize;
-
-function ws_service_hyperimage_org__updateObjectSortOrderResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__updateObjectSortOrderResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopCreateProjectResponse
 //
 function ws_service_hyperimage_org__sysopCreateProjectResponse () {
@@ -4831,6 +4881,44 @@ function ws_service_hyperimage_org__sysopCreateProjectResponse_deserialize (cxfj
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
     }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateObjectSortOrderResponse
+//
+function ws_service_hyperimage_org__updateObjectSortOrderResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__updateObjectSortOrderResponse';
+}
+
+//
+// Serialize {http://ws.service.hyperimage.org/}updateObjectSortOrderResponse
+//
+function ws_service_hyperimage_org__updateObjectSortOrderResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__updateObjectSortOrderResponse.prototype.serialize = ws_service_hyperimage_org__updateObjectSortOrderResponse_serialize;
+
+function ws_service_hyperimage_org__updateObjectSortOrderResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__updateObjectSortOrderResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
     return newobject;
 }
 
@@ -5016,6 +5104,80 @@ function ws_service_hyperimage_org__sysopCreateProject_deserialize (cxfjsutils, 
       item = value;
      }
      newobject.setDefaultLanguage(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}createTagGroupResponse
+//
+function ws_service_hyperimage_org__createTagGroupResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__createTagGroupResponse';
+    this._return = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__createTagGroupResponse.prototype.getReturn
+// element get for return
+// - element type is {http://ws.service.hyperimage.org/}hiGroup
+// - optional element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__createTagGroupResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__createTagGroupResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__createTagGroupResponse.prototype.getReturn = ws_service_hyperimage_org__createTagGroupResponse_getReturn;
+
+function ws_service_hyperimage_org__createTagGroupResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__createTagGroupResponse.prototype.setReturn = ws_service_hyperimage_org__createTagGroupResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}createTagGroupResponse
+//
+function ws_service_hyperimage_org__createTagGroupResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._return != null) {
+      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__createTagGroupResponse.prototype.serialize = ws_service_hyperimage_org__createTagGroupResponse_serialize;
+
+function ws_service_hyperimage_org__createTagGroupResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__createTagGroupResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      item = ws_service_hyperimage_org__hiGroup_deserialize(cxfjsutils, curElement);
+     }
+     newobject.setReturn(item);
      var item = null;
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -5522,6 +5684,7 @@ function ws_service_hyperimage_org__isSysopResponse_deserialize (cxfjsutils, ele
 // - HI_PREVIEW
 // - HI_FULL
 // - HI_ORIGINAL
+// - HI_NAV
 //
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}getFlexMetadataRecordsResponse
 //
@@ -6459,6 +6622,44 @@ function ws_service_hyperimage_org__removeLayerLink_deserialize (cxfjsutils, ele
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagGroups
+//
+function ws_service_hyperimage_org__getTagGroups () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagGroups';
+}
+
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagGroups
+//
+function ws_service_hyperimage_org__getTagGroups_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagGroups.prototype.serialize = ws_service_hyperimage_org__getTagGroups_serialize;
+
+function ws_service_hyperimage_org__getTagGroups_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagGroups();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}createFlexMetadataRecord
 //
 function ws_service_hyperimage_org__createFlexMetadataRecord () {
@@ -6644,33 +6845,16 @@ function ws_service_hyperimage_org__adminRemoveTemplateFromProjectResponse_deser
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminSetProjectRoleResponse
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopGetUsers
 //
-function ws_service_hyperimage_org__adminSetProjectRoleResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__adminSetProjectRoleResponse';
-    this._return = '';
+function ws_service_hyperimage_org__sysopGetUsers () {
+    this.typeMarker = 'ws_service_hyperimage_org__sysopGetUsers';
 }
 
 //
-// accessor is ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.getReturn
-// element get for return
-// - element type is {http://www.w3.org/2001/XMLSchema}boolean
-// - required element
+// Serialize {http://ws.service.hyperimage.org/}sysopGetUsers
 //
-// element set for return
-// setter function is is ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__adminSetProjectRoleResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.getReturn = ws_service_hyperimage_org__adminSetProjectRoleResponse_getReturn;
-
-function ws_service_hyperimage_org__adminSetProjectRoleResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.setReturn = ws_service_hyperimage_org__adminSetProjectRoleResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}adminSetProjectRoleResponse
-//
-function ws_service_hyperimage_org__adminSetProjectRoleResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+function ws_service_hyperimage_org__sysopGetUsers_serialize(cxfjsutils, elementName, extraNamespaces) {
     var xml = '';
     if (elementName != null) {
      xml = xml + '<';
@@ -6680,12 +6864,6 @@ function ws_service_hyperimage_org__adminSetProjectRoleResponse_serialize(cxfjsu
      }
      xml = xml + '>';
     }
-    // block for local variables
-    {
-     xml = xml + '<return>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
-     xml = xml + '</return>';
-    }
     if (elementName != null) {
      xml = xml + '</';
      xml = xml + elementName;
@@ -6694,25 +6872,13 @@ function ws_service_hyperimage_org__adminSetProjectRoleResponse_serialize(cxfjsu
     return xml;
 }
 
-ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.serialize = ws_service_hyperimage_org__adminSetProjectRoleResponse_serialize;
+ws_service_hyperimage_org__sysopGetUsers.prototype.serialize = ws_service_hyperimage_org__sysopGetUsers_serialize;
 
-function ws_service_hyperimage_org__adminSetProjectRoleResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__adminSetProjectRoleResponse();
+function ws_service_hyperimage_org__sysopGetUsers_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__sysopGetUsers();
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = (value == 'true');
-    }
-    newobject.setReturn(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
     return newobject;
 }
 
@@ -6825,16 +6991,33 @@ function ws_service_hyperimage_org__adminGetRoleInProject_deserialize (cxfjsutil
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopGetUsers
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminSetProjectRoleResponse
 //
-function ws_service_hyperimage_org__sysopGetUsers () {
-    this.typeMarker = 'ws_service_hyperimage_org__sysopGetUsers';
+function ws_service_hyperimage_org__adminSetProjectRoleResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__adminSetProjectRoleResponse';
+    this._return = '';
 }
 
 //
-// Serialize {http://ws.service.hyperimage.org/}sysopGetUsers
+// accessor is ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}boolean
+// - required element
 //
-function ws_service_hyperimage_org__sysopGetUsers_serialize(cxfjsutils, elementName, extraNamespaces) {
+// element set for return
+// setter function is is ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__adminSetProjectRoleResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.getReturn = ws_service_hyperimage_org__adminSetProjectRoleResponse_getReturn;
+
+function ws_service_hyperimage_org__adminSetProjectRoleResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.setReturn = ws_service_hyperimage_org__adminSetProjectRoleResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}adminSetProjectRoleResponse
+//
+function ws_service_hyperimage_org__adminSetProjectRoleResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
     var xml = '';
     if (elementName != null) {
      xml = xml + '<';
@@ -6844,6 +7027,12 @@ function ws_service_hyperimage_org__sysopGetUsers_serialize(cxfjsutils, elementN
      }
      xml = xml + '>';
     }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
     if (elementName != null) {
      xml = xml + '</';
      xml = xml + elementName;
@@ -6852,13 +7041,25 @@ function ws_service_hyperimage_org__sysopGetUsers_serialize(cxfjsutils, elementN
     return xml;
 }
 
-ws_service_hyperimage_org__sysopGetUsers.prototype.serialize = ws_service_hyperimage_org__sysopGetUsers_serialize;
+ws_service_hyperimage_org__adminSetProjectRoleResponse.prototype.serialize = ws_service_hyperimage_org__adminSetProjectRoleResponse_serialize;
 
-function ws_service_hyperimage_org__sysopGetUsers_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__sysopGetUsers();
+function ws_service_hyperimage_org__adminSetProjectRoleResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__adminSetProjectRoleResponse();
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = (value == 'true');
+    }
+    newobject.setReturn(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
     return newobject;
 }
 
@@ -6897,6 +7098,80 @@ function ws_service_hyperimage_org__getGroups_deserialize (cxfjsutils, element) 
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}setProject
+//
+function ws_service_hyperimage_org__setProject () {
+    this.typeMarker = 'ws_service_hyperimage_org__setProject';
+    this._project = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__setProject.prototype.getProject
+// element get for project
+// - element type is {http://ws.service.hyperimage.org/}hiProject
+// - optional element
+//
+// element set for project
+// setter function is is ws_service_hyperimage_org__setProject.prototype.setProject
+//
+function ws_service_hyperimage_org__setProject_getProject() { return this._project;}
+
+ws_service_hyperimage_org__setProject.prototype.getProject = ws_service_hyperimage_org__setProject_getProject;
+
+function ws_service_hyperimage_org__setProject_setProject(value) { this._project = value;}
+
+ws_service_hyperimage_org__setProject.prototype.setProject = ws_service_hyperimage_org__setProject_setProject;
+//
+// Serialize {http://ws.service.hyperimage.org/}setProject
+//
+function ws_service_hyperimage_org__setProject_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._project != null) {
+      xml = xml + this._project.serialize(cxfjsutils, 'project', null);
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__setProject.prototype.serialize = ws_service_hyperimage_org__setProject_serialize;
+
+function ws_service_hyperimage_org__setProject_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__setProject();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing project');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'project')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      item = ws_service_hyperimage_org__hiProject_deserialize(cxfjsutils, curElement);
+     }
+     newobject.setProject(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
     return newobject;
 }
 
@@ -7013,80 +7288,6 @@ function ws_service_hyperimage_org__updateGroupSortOrder_deserialize (cxfjsutils
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}setProject
-//
-function ws_service_hyperimage_org__setProject () {
-    this.typeMarker = 'ws_service_hyperimage_org__setProject';
-    this._project = null;
-}
-
-//
-// accessor is ws_service_hyperimage_org__setProject.prototype.getProject
-// element get for project
-// - element type is {http://ws.service.hyperimage.org/}hiProject
-// - optional element
-//
-// element set for project
-// setter function is is ws_service_hyperimage_org__setProject.prototype.setProject
-//
-function ws_service_hyperimage_org__setProject_getProject() { return this._project;}
-
-ws_service_hyperimage_org__setProject.prototype.getProject = ws_service_hyperimage_org__setProject_getProject;
-
-function ws_service_hyperimage_org__setProject_setProject(value) { this._project = value;}
-
-ws_service_hyperimage_org__setProject.prototype.setProject = ws_service_hyperimage_org__setProject_setProject;
-//
-// Serialize {http://ws.service.hyperimage.org/}setProject
-//
-function ws_service_hyperimage_org__setProject_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._project != null) {
-      xml = xml + this._project.serialize(cxfjsutils, 'project', null);
-     }
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__setProject.prototype.serialize = ws_service_hyperimage_org__setProject_serialize;
-
-function ws_service_hyperimage_org__setProject_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__setProject();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing project');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'project')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = ws_service_hyperimage_org__hiProject_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setProject(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
 // Simple type (enumeration) {http://ws.service.hyperimage.org/}hiBaseTypes
 //
 // - HIGroup
@@ -7098,6 +7299,83 @@ function ws_service_hyperimage_org__setProject_deserialize (cxfjsutils, element)
 // - HILightTable
 // - HIView
 // - HIRepositoryItem
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagCountForBaseUUID
+//
+function ws_service_hyperimage_org__getTagCountForBaseUUID () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagCountForBaseUUID';
+    this._uuid = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagCountForBaseUUID.prototype.getUuid
+// element get for uuid
+// - element type is {http://www.w3.org/2001/XMLSchema}string
+// - optional element
+//
+// element set for uuid
+// setter function is is ws_service_hyperimage_org__getTagCountForBaseUUID.prototype.setUuid
+//
+function ws_service_hyperimage_org__getTagCountForBaseUUID_getUuid() { return this._uuid;}
+
+ws_service_hyperimage_org__getTagCountForBaseUUID.prototype.getUuid = ws_service_hyperimage_org__getTagCountForBaseUUID_getUuid;
+
+function ws_service_hyperimage_org__getTagCountForBaseUUID_setUuid(value) { this._uuid = value;}
+
+ws_service_hyperimage_org__getTagCountForBaseUUID.prototype.setUuid = ws_service_hyperimage_org__getTagCountForBaseUUID_setUuid;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagCountForBaseUUID
+//
+function ws_service_hyperimage_org__getTagCountForBaseUUID_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._uuid != null) {
+      xml = xml + '<uuid>';
+      xml = xml + cxfjsutils.escapeXmlEntities(this._uuid);
+      xml = xml + '</uuid>';
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagCountForBaseUUID.prototype.serialize = ws_service_hyperimage_org__getTagCountForBaseUUID_serialize;
+
+function ws_service_hyperimage_org__getTagCountForBaseUUID_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagCountForBaseUUID();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing uuid');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'uuid')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      value = cxfjsutils.getNodeText(curElement);
+      item = value;
+     }
+     newobject.setUuid(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
 //
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateFlexMetadataRecords
 //
@@ -7257,6 +7535,91 @@ function ws_service_hyperimage_org__adminRemoveUserFromProject_deserialize (cxfj
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopGetProjectsForUserResponse
+//
+function ws_service_hyperimage_org__sysopGetProjectsForUserResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__sysopGetProjectsForUserResponse';
+    this._return = [];
+}
+
+//
+// accessor is ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.getReturn
+// element get for return
+// - element type is {http://ws.service.hyperimage.org/}hiProject
+// - required element
+// - array
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__sysopGetProjectsForUserResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.getReturn = ws_service_hyperimage_org__sysopGetProjectsForUserResponse_getReturn;
+
+function ws_service_hyperimage_org__sysopGetProjectsForUserResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.setReturn = ws_service_hyperimage_org__sysopGetProjectsForUserResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}sysopGetProjectsForUserResponse
+//
+function ws_service_hyperimage_org__sysopGetProjectsForUserResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._return != null) {
+      for (var ax = 0;ax < this._return.length;ax ++) {
+       if (this._return[ax] == null) {
+        xml = xml + '<return/>';
+       } else {
+        xml = xml + this._return[ax].serialize(cxfjsutils, 'return', null);
+       }
+      }
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.serialize = ws_service_hyperimage_org__sysopGetProjectsForUserResponse_serialize;
+
+function ws_service_hyperimage_org__sysopGetProjectsForUserResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__sysopGetProjectsForUserResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     item = [];
+     do  {
+      var arrayItem = null;
+      var value = null;
+      if (!cxfjsutils.isElementNil(curElement)) {
+       arrayItem = ws_service_hyperimage_org__hiProject_deserialize(cxfjsutils, curElement);
+      }
+      item.push(arrayItem);
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+       while(curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return'));
+     newobject.setReturn(item);
+     var item = null;
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}hiFlexMetadataName
 //
 function ws_service_hyperimage_org__hiFlexMetadataName () {
@@ -7403,91 +7766,6 @@ function ws_service_hyperimage_org__hiFlexMetadataName_deserialize (cxfjsutils, 
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopGetProjectsForUserResponse
-//
-function ws_service_hyperimage_org__sysopGetProjectsForUserResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__sysopGetProjectsForUserResponse';
-    this._return = [];
-}
-
-//
-// accessor is ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.getReturn
-// element get for return
-// - element type is {http://ws.service.hyperimage.org/}hiProject
-// - required element
-// - array
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__sysopGetProjectsForUserResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.getReturn = ws_service_hyperimage_org__sysopGetProjectsForUserResponse_getReturn;
-
-function ws_service_hyperimage_org__sysopGetProjectsForUserResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.setReturn = ws_service_hyperimage_org__sysopGetProjectsForUserResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}sysopGetProjectsForUserResponse
-//
-function ws_service_hyperimage_org__sysopGetProjectsForUserResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._return != null) {
-      for (var ax = 0;ax < this._return.length;ax ++) {
-       if (this._return[ax] == null) {
-        xml = xml + '<return/>';
-       } else {
-        xml = xml + this._return[ax].serialize(cxfjsutils, 'return', null);
-       }
-      }
-     }
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__sysopGetProjectsForUserResponse.prototype.serialize = ws_service_hyperimage_org__sysopGetProjectsForUserResponse_serialize;
-
-function ws_service_hyperimage_org__sysopGetProjectsForUserResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__sysopGetProjectsForUserResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
-     item = [];
-     do  {
-      var arrayItem = null;
-      var value = null;
-      if (!cxfjsutils.isElementNil(curElement)) {
-       arrayItem = ws_service_hyperimage_org__hiProject_deserialize(cxfjsutils, curElement);
-      }
-      item.push(arrayItem);
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-       while(curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return'));
-     newobject.setReturn(item);
-     var item = null;
     }
     return newobject;
 }
@@ -8393,79 +8671,6 @@ function ws_service_hyperimage_org__adminGetRoleInProjectResponse_deserialize (c
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopDeleteUserResponse
-//
-function ws_service_hyperimage_org__sysopDeleteUserResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__sysopDeleteUserResponse';
-    this._return = '';
-}
-
-//
-// accessor is ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.getReturn
-// element get for return
-// - element type is {http://www.w3.org/2001/XMLSchema}boolean
-// - required element
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__sysopDeleteUserResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.getReturn = ws_service_hyperimage_org__sysopDeleteUserResponse_getReturn;
-
-function ws_service_hyperimage_org__sysopDeleteUserResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.setReturn = ws_service_hyperimage_org__sysopDeleteUserResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}sysopDeleteUserResponse
-//
-function ws_service_hyperimage_org__sysopDeleteUserResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<return>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
-     xml = xml + '</return>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.serialize = ws_service_hyperimage_org__sysopDeleteUserResponse_serialize;
-
-function ws_service_hyperimage_org__sysopDeleteUserResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__sysopDeleteUserResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = (value == 'true');
-    }
-    newobject.setReturn(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopGetProjectsForUser
 //
 function ws_service_hyperimage_org__sysopGetProjectsForUser () {
@@ -8531,6 +8736,79 @@ function ws_service_hyperimage_org__sysopGetProjectsForUser_deserialize (cxfjsut
      item = parseInt(value);
     }
     newobject.setUserID(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}sysopDeleteUserResponse
+//
+function ws_service_hyperimage_org__sysopDeleteUserResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__sysopDeleteUserResponse';
+    this._return = '';
+}
+
+//
+// accessor is ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}boolean
+// - required element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__sysopDeleteUserResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.getReturn = ws_service_hyperimage_org__sysopDeleteUserResponse_getReturn;
+
+function ws_service_hyperimage_org__sysopDeleteUserResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.setReturn = ws_service_hyperimage_org__sysopDeleteUserResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}sysopDeleteUserResponse
+//
+function ws_service_hyperimage_org__sysopDeleteUserResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__sysopDeleteUserResponse.prototype.serialize = ws_service_hyperimage_org__sysopDeleteUserResponse_serialize;
+
+function ws_service_hyperimage_org__sysopDeleteUserResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__sysopDeleteUserResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = (value == 'true');
+    }
+    newobject.setReturn(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -9943,6 +10221,167 @@ function ws_service_hyperimage_org__sysopRemoveUserFromProject_deserialize (cxfj
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagIDsForBaseUUIDResponse
+//
+function ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse';
+    this._return = [];
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}long
+// - required element
+// - array
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse.prototype.getReturn = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_getReturn;
+
+function ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse.prototype.setReturn = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagIDsForBaseUUIDResponse
+//
+function ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._return != null) {
+      for (var ax = 0;ax < this._return.length;ax ++) {
+       if (this._return[ax] == null) {
+        xml = xml + '<return/>';
+       } else {
+        xml = xml + '<return>';
+        xml = xml + cxfjsutils.escapeXmlEntities(this._return[ax]);
+        xml = xml + '</return>';
+       }
+      }
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse.prototype.serialize = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_serialize;
+
+function ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     item = [];
+     do  {
+      var arrayItem = null;
+      var value = null;
+      if (!cxfjsutils.isElementNil(curElement)) {
+       value = cxfjsutils.getNodeText(curElement);
+       arrayItem = parseInt(value);
+      }
+      item.push(arrayItem);
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+       while(curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return'));
+     newobject.setReturn(item);
+     var item = null;
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagIDsForBase
+//
+function ws_service_hyperimage_org__getTagIDsForBase () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagIDsForBase';
+    this._baseID = 0;
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagIDsForBase.prototype.getBaseID
+// element get for baseID
+// - element type is {http://www.w3.org/2001/XMLSchema}long
+// - required element
+//
+// element set for baseID
+// setter function is is ws_service_hyperimage_org__getTagIDsForBase.prototype.setBaseID
+//
+function ws_service_hyperimage_org__getTagIDsForBase_getBaseID() { return this._baseID;}
+
+ws_service_hyperimage_org__getTagIDsForBase.prototype.getBaseID = ws_service_hyperimage_org__getTagIDsForBase_getBaseID;
+
+function ws_service_hyperimage_org__getTagIDsForBase_setBaseID(value) { this._baseID = value;}
+
+ws_service_hyperimage_org__getTagIDsForBase.prototype.setBaseID = ws_service_hyperimage_org__getTagIDsForBase_setBaseID;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagIDsForBase
+//
+function ws_service_hyperimage_org__getTagIDsForBase_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<baseID>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._baseID);
+     xml = xml + '</baseID>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagIDsForBase.prototype.serialize = ws_service_hyperimage_org__getTagIDsForBase_serialize;
+
+function ws_service_hyperimage_org__getTagIDsForBase_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagIDsForBase();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing baseID');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = parseInt(value);
+    }
+    newobject.setBaseID(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminRemoveSetFromTemplateResponse
 //
 function ws_service_hyperimage_org__adminRemoveSetFromTemplateResponse () {
@@ -10139,79 +10578,6 @@ function ws_service_hyperimage_org__getGroupContentQuickInfoResponse_deserialize
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminAddLanguageToProjectResponse
-//
-function ws_service_hyperimage_org__adminAddLanguageToProjectResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__adminAddLanguageToProjectResponse';
-    this._return = '';
-}
-
-//
-// accessor is ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.getReturn
-// element get for return
-// - element type is {http://www.w3.org/2001/XMLSchema}boolean
-// - required element
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__adminAddLanguageToProjectResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.getReturn = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_getReturn;
-
-function ws_service_hyperimage_org__adminAddLanguageToProjectResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.setReturn = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}adminAddLanguageToProjectResponse
-//
-function ws_service_hyperimage_org__adminAddLanguageToProjectResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<return>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
-     xml = xml + '</return>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.serialize = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_serialize;
-
-function ws_service_hyperimage_org__adminAddLanguageToProjectResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__adminAddLanguageToProjectResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = (value == 'true');
-    }
-    newobject.setReturn(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}deletePreference
 //
 function ws_service_hyperimage_org__deletePreference () {
@@ -10277,6 +10643,79 @@ function ws_service_hyperimage_org__deletePreference_deserialize (cxfjsutils, el
      item = parseInt(value);
     }
     newobject.setPrefID(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminAddLanguageToProjectResponse
+//
+function ws_service_hyperimage_org__adminAddLanguageToProjectResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__adminAddLanguageToProjectResponse';
+    this._return = '';
+}
+
+//
+// accessor is ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}boolean
+// - required element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__adminAddLanguageToProjectResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.getReturn = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_getReturn;
+
+function ws_service_hyperimage_org__adminAddLanguageToProjectResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.setReturn = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}adminAddLanguageToProjectResponse
+//
+function ws_service_hyperimage_org__adminAddLanguageToProjectResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__adminAddLanguageToProjectResponse.prototype.serialize = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_serialize;
+
+function ws_service_hyperimage_org__adminAddLanguageToProjectResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__adminAddLanguageToProjectResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = (value == 'true');
+    }
+    newobject.setReturn(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -11000,6 +11439,83 @@ function ws_service_hyperimage_org__deleteFromProject_deserialize (cxfjsutils, e
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagIDsForBaseUUID
+//
+function ws_service_hyperimage_org__getTagIDsForBaseUUID () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagIDsForBaseUUID';
+    this._uuid = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagIDsForBaseUUID.prototype.getUuid
+// element get for uuid
+// - element type is {http://www.w3.org/2001/XMLSchema}string
+// - optional element
+//
+// element set for uuid
+// setter function is is ws_service_hyperimage_org__getTagIDsForBaseUUID.prototype.setUuid
+//
+function ws_service_hyperimage_org__getTagIDsForBaseUUID_getUuid() { return this._uuid;}
+
+ws_service_hyperimage_org__getTagIDsForBaseUUID.prototype.getUuid = ws_service_hyperimage_org__getTagIDsForBaseUUID_getUuid;
+
+function ws_service_hyperimage_org__getTagIDsForBaseUUID_setUuid(value) { this._uuid = value;}
+
+ws_service_hyperimage_org__getTagIDsForBaseUUID.prototype.setUuid = ws_service_hyperimage_org__getTagIDsForBaseUUID_setUuid;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagIDsForBaseUUID
+//
+function ws_service_hyperimage_org__getTagIDsForBaseUUID_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._uuid != null) {
+      xml = xml + '<uuid>';
+      xml = xml + cxfjsutils.escapeXmlEntities(this._uuid);
+      xml = xml + '</uuid>';
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagIDsForBaseUUID.prototype.serialize = ws_service_hyperimage_org__getTagIDsForBaseUUID_serialize;
+
+function ws_service_hyperimage_org__getTagIDsForBaseUUID_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagIDsForBaseUUID();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing uuid');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'uuid')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      value = cxfjsutils.getNodeText(curElement);
+      item = value;
+     }
+     newobject.setUuid(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}removeFromGroupResponse
 //
 function ws_service_hyperimage_org__removeFromGroupResponse () {
@@ -11335,6 +11851,79 @@ function ws_service_hyperimage_org__adminCreateSetDisplayNameResponse_deserializ
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagCountForBase
+//
+function ws_service_hyperimage_org__getTagCountForBase () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagCountForBase';
+    this._baseID = 0;
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagCountForBase.prototype.getBaseID
+// element get for baseID
+// - element type is {http://www.w3.org/2001/XMLSchema}long
+// - required element
+//
+// element set for baseID
+// setter function is is ws_service_hyperimage_org__getTagCountForBase.prototype.setBaseID
+//
+function ws_service_hyperimage_org__getTagCountForBase_getBaseID() { return this._baseID;}
+
+ws_service_hyperimage_org__getTagCountForBase.prototype.getBaseID = ws_service_hyperimage_org__getTagCountForBase_getBaseID;
+
+function ws_service_hyperimage_org__getTagCountForBase_setBaseID(value) { this._baseID = value;}
+
+ws_service_hyperimage_org__getTagCountForBase.prototype.setBaseID = ws_service_hyperimage_org__getTagCountForBase_setBaseID;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagCountForBase
+//
+function ws_service_hyperimage_org__getTagCountForBase_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<baseID>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._baseID);
+     xml = xml + '</baseID>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagCountForBase.prototype.serialize = ws_service_hyperimage_org__getTagCountForBase_serialize;
+
+function ws_service_hyperimage_org__getTagCountForBase_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagCountForBase();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing baseID');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = parseInt(value);
+    }
+    newobject.setBaseID(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminUpdateTemplateSortOrder
 //
 function ws_service_hyperimage_org__adminUpdateTemplateSortOrder () {
@@ -11447,6 +12036,80 @@ function ws_service_hyperimage_org__adminUpdateTemplateSortOrder_deserialize (cx
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getBaseElementByUUIDResponse
+//
+function ws_service_hyperimage_org__getBaseElementByUUIDResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__getBaseElementByUUIDResponse';
+    this._return = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.getReturn
+// element get for return
+// - element type is {http://ws.service.hyperimage.org/}hiBase
+// - optional element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__getBaseElementByUUIDResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.getReturn = ws_service_hyperimage_org__getBaseElementByUUIDResponse_getReturn;
+
+function ws_service_hyperimage_org__getBaseElementByUUIDResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.setReturn = ws_service_hyperimage_org__getBaseElementByUUIDResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}getBaseElementByUUIDResponse
+//
+function ws_service_hyperimage_org__getBaseElementByUUIDResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._return != null) {
+      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.serialize = ws_service_hyperimage_org__getBaseElementByUUIDResponse_serialize;
+
+function ws_service_hyperimage_org__getBaseElementByUUIDResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getBaseElementByUUIDResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      item = ws_service_hyperimage_org__hiBase_deserialize(cxfjsutils, curElement);
+     }
+     newobject.setReturn(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminGetUserByUserName
 //
 function ws_service_hyperimage_org__adminGetUserByUserName () {
@@ -11515,80 +12178,6 @@ function ws_service_hyperimage_org__adminGetUserByUserName_deserialize (cxfjsuti
       item = value;
      }
      newobject.setUserName(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getBaseElementByUUIDResponse
-//
-function ws_service_hyperimage_org__getBaseElementByUUIDResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__getBaseElementByUUIDResponse';
-    this._return = null;
-}
-
-//
-// accessor is ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.getReturn
-// element get for return
-// - element type is {http://ws.service.hyperimage.org/}hiBase
-// - optional element
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__getBaseElementByUUIDResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.getReturn = ws_service_hyperimage_org__getBaseElementByUUIDResponse_getReturn;
-
-function ws_service_hyperimage_org__getBaseElementByUUIDResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.setReturn = ws_service_hyperimage_org__getBaseElementByUUIDResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}getBaseElementByUUIDResponse
-//
-function ws_service_hyperimage_org__getBaseElementByUUIDResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._return != null) {
-      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
-     }
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__getBaseElementByUUIDResponse.prototype.serialize = ws_service_hyperimage_org__getBaseElementByUUIDResponse_serialize;
-
-function ws_service_hyperimage_org__getBaseElementByUUIDResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__getBaseElementByUUIDResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = ws_service_hyperimage_org__hiBase_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setReturn(item);
      var item = null;
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -11756,83 +12345,6 @@ function ws_service_hyperimage_org__adminGetProjectUsersResponse_deserialize (cx
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}HIServiceException
-//
-function ws_service_hyperimage_org__HIServiceException () {
-    this.typeMarker = 'ws_service_hyperimage_org__HIServiceException';
-    this._message = null;
-}
-
-//
-// accessor is ws_service_hyperimage_org__HIServiceException.prototype.getMessage
-// element get for message
-// - element type is {http://www.w3.org/2001/XMLSchema}string
-// - optional element
-//
-// element set for message
-// setter function is is ws_service_hyperimage_org__HIServiceException.prototype.setMessage
-//
-function ws_service_hyperimage_org__HIServiceException_getMessage() { return this._message;}
-
-ws_service_hyperimage_org__HIServiceException.prototype.getMessage = ws_service_hyperimage_org__HIServiceException_getMessage;
-
-function ws_service_hyperimage_org__HIServiceException_setMessage(value) { this._message = value;}
-
-ws_service_hyperimage_org__HIServiceException.prototype.setMessage = ws_service_hyperimage_org__HIServiceException_setMessage;
-//
-// Serialize {http://ws.service.hyperimage.org/}HIServiceException
-//
-function ws_service_hyperimage_org__HIServiceException_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._message != null) {
-      xml = xml + '<message>';
-      xml = xml + cxfjsutils.escapeXmlEntities(this._message);
-      xml = xml + '</message>';
-     }
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__HIServiceException.prototype.serialize = ws_service_hyperimage_org__HIServiceException_serialize;
-
-function ws_service_hyperimage_org__HIServiceException_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__HIServiceException();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing message');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'message')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      value = cxfjsutils.getNodeText(curElement);
-      item = value;
-     }
-     newobject.setMessage(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}HIParameterException
 //
 function ws_service_hyperimage_org__HIParameterException () {
@@ -11889,6 +12401,83 @@ ws_service_hyperimage_org__HIParameterException.prototype.serialize = ws_service
 
 function ws_service_hyperimage_org__HIParameterException_deserialize (cxfjsutils, element) {
     var newobject = new ws_service_hyperimage_org__HIParameterException();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing message');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'message')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      value = cxfjsutils.getNodeText(curElement);
+      item = value;
+     }
+     newobject.setMessage(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}HIServiceException
+//
+function ws_service_hyperimage_org__HIServiceException () {
+    this.typeMarker = 'ws_service_hyperimage_org__HIServiceException';
+    this._message = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__HIServiceException.prototype.getMessage
+// element get for message
+// - element type is {http://www.w3.org/2001/XMLSchema}string
+// - optional element
+//
+// element set for message
+// setter function is is ws_service_hyperimage_org__HIServiceException.prototype.setMessage
+//
+function ws_service_hyperimage_org__HIServiceException_getMessage() { return this._message;}
+
+ws_service_hyperimage_org__HIServiceException.prototype.getMessage = ws_service_hyperimage_org__HIServiceException_getMessage;
+
+function ws_service_hyperimage_org__HIServiceException_setMessage(value) { this._message = value;}
+
+ws_service_hyperimage_org__HIServiceException.prototype.setMessage = ws_service_hyperimage_org__HIServiceException_setMessage;
+//
+// Serialize {http://ws.service.hyperimage.org/}HIServiceException
+//
+function ws_service_hyperimage_org__HIServiceException_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._message != null) {
+      xml = xml + '<message>';
+      xml = xml + cxfjsutils.escapeXmlEntities(this._message);
+      xml = xml + '</message>';
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__HIServiceException.prototype.serialize = ws_service_hyperimage_org__HIServiceException_serialize;
+
+function ws_service_hyperimage_org__HIServiceException_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__HIServiceException();
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
@@ -12373,6 +12962,80 @@ function ws_service_hyperimage_org__createContentQuickInfoResponse_deserialize (
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}createContentQuickInfo
+//
+function ws_service_hyperimage_org__createContentQuickInfo () {
+    this.typeMarker = 'ws_service_hyperimage_org__createContentQuickInfo';
+    this._arg0 = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__createContentQuickInfo.prototype.getArg0
+// element get for arg0
+// - element type is {http://ws.service.hyperimage.org/}hiBase
+// - optional element
+//
+// element set for arg0
+// setter function is is ws_service_hyperimage_org__createContentQuickInfo.prototype.setArg0
+//
+function ws_service_hyperimage_org__createContentQuickInfo_getArg0() { return this._arg0;}
+
+ws_service_hyperimage_org__createContentQuickInfo.prototype.getArg0 = ws_service_hyperimage_org__createContentQuickInfo_getArg0;
+
+function ws_service_hyperimage_org__createContentQuickInfo_setArg0(value) { this._arg0 = value;}
+
+ws_service_hyperimage_org__createContentQuickInfo.prototype.setArg0 = ws_service_hyperimage_org__createContentQuickInfo_setArg0;
+//
+// Serialize {http://ws.service.hyperimage.org/}createContentQuickInfo
+//
+function ws_service_hyperimage_org__createContentQuickInfo_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._arg0 != null) {
+      xml = xml + this._arg0.serialize(cxfjsutils, 'arg0', null);
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__createContentQuickInfo.prototype.serialize = ws_service_hyperimage_org__createContentQuickInfo_serialize;
+
+function ws_service_hyperimage_org__createContentQuickInfo_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__createContentQuickInfo();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing arg0');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'arg0')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      item = ws_service_hyperimage_org__hiBase_deserialize(cxfjsutils, curElement);
+     }
+     newobject.setArg0(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}getProjectsResponse
 //
 function ws_service_hyperimage_org__getProjectsResponse () {
@@ -12453,80 +13116,6 @@ function ws_service_hyperimage_org__getProjectsResponse_deserialize (cxfjsutils,
        while(curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return'));
      newobject.setReturn(item);
      var item = null;
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}createContentQuickInfo
-//
-function ws_service_hyperimage_org__createContentQuickInfo () {
-    this.typeMarker = 'ws_service_hyperimage_org__createContentQuickInfo';
-    this._arg0 = null;
-}
-
-//
-// accessor is ws_service_hyperimage_org__createContentQuickInfo.prototype.getArg0
-// element get for arg0
-// - element type is {http://ws.service.hyperimage.org/}hiBase
-// - optional element
-//
-// element set for arg0
-// setter function is is ws_service_hyperimage_org__createContentQuickInfo.prototype.setArg0
-//
-function ws_service_hyperimage_org__createContentQuickInfo_getArg0() { return this._arg0;}
-
-ws_service_hyperimage_org__createContentQuickInfo.prototype.getArg0 = ws_service_hyperimage_org__createContentQuickInfo_getArg0;
-
-function ws_service_hyperimage_org__createContentQuickInfo_setArg0(value) { this._arg0 = value;}
-
-ws_service_hyperimage_org__createContentQuickInfo.prototype.setArg0 = ws_service_hyperimage_org__createContentQuickInfo_setArg0;
-//
-// Serialize {http://ws.service.hyperimage.org/}createContentQuickInfo
-//
-function ws_service_hyperimage_org__createContentQuickInfo_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._arg0 != null) {
-      xml = xml + this._arg0.serialize(cxfjsutils, 'arg0', null);
-     }
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__createContentQuickInfo.prototype.serialize = ws_service_hyperimage_org__createContentQuickInfo_serialize;
-
-function ws_service_hyperimage_org__createContentQuickInfo_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__createContentQuickInfo();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing arg0');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'arg0')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = ws_service_hyperimage_org__hiBase_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setArg0(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
     }
     return newobject;
 }
@@ -14632,79 +15221,6 @@ function ws_service_hyperimage_org__removeFromGroup_deserialize (cxfjsutils, ele
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminRemoveTemplateFromProject
-//
-function ws_service_hyperimage_org__adminRemoveTemplateFromProject () {
-    this.typeMarker = 'ws_service_hyperimage_org__adminRemoveTemplateFromProject';
-    this._templateID = 0;
-}
-
-//
-// accessor is ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.getTemplateID
-// element get for templateID
-// - element type is {http://www.w3.org/2001/XMLSchema}long
-// - required element
-//
-// element set for templateID
-// setter function is is ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.setTemplateID
-//
-function ws_service_hyperimage_org__adminRemoveTemplateFromProject_getTemplateID() { return this._templateID;}
-
-ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.getTemplateID = ws_service_hyperimage_org__adminRemoveTemplateFromProject_getTemplateID;
-
-function ws_service_hyperimage_org__adminRemoveTemplateFromProject_setTemplateID(value) { this._templateID = value;}
-
-ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.setTemplateID = ws_service_hyperimage_org__adminRemoveTemplateFromProject_setTemplateID;
-//
-// Serialize {http://ws.service.hyperimage.org/}adminRemoveTemplateFromProject
-//
-function ws_service_hyperimage_org__adminRemoveTemplateFromProject_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<templateID>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._templateID);
-     xml = xml + '</templateID>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.serialize = ws_service_hyperimage_org__adminRemoveTemplateFromProject_serialize;
-
-function ws_service_hyperimage_org__adminRemoveTemplateFromProject_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__adminRemoveTemplateFromProject();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing templateID');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = parseInt(value);
-    }
-    newobject.setTemplateID(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}hiKeyValue
 //
 function ws_service_hyperimage_org__hiKeyValue () {
@@ -14851,6 +15367,79 @@ function ws_service_hyperimage_org__hiKeyValue_deserialize (cxfjsutils, element)
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminRemoveTemplateFromProject
+//
+function ws_service_hyperimage_org__adminRemoveTemplateFromProject () {
+    this.typeMarker = 'ws_service_hyperimage_org__adminRemoveTemplateFromProject';
+    this._templateID = 0;
+}
+
+//
+// accessor is ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.getTemplateID
+// element get for templateID
+// - element type is {http://www.w3.org/2001/XMLSchema}long
+// - required element
+//
+// element set for templateID
+// setter function is is ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.setTemplateID
+//
+function ws_service_hyperimage_org__adminRemoveTemplateFromProject_getTemplateID() { return this._templateID;}
+
+ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.getTemplateID = ws_service_hyperimage_org__adminRemoveTemplateFromProject_getTemplateID;
+
+function ws_service_hyperimage_org__adminRemoveTemplateFromProject_setTemplateID(value) { this._templateID = value;}
+
+ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.setTemplateID = ws_service_hyperimage_org__adminRemoveTemplateFromProject_setTemplateID;
+//
+// Serialize {http://ws.service.hyperimage.org/}adminRemoveTemplateFromProject
+//
+function ws_service_hyperimage_org__adminRemoveTemplateFromProject_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<templateID>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._templateID);
+     xml = xml + '</templateID>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__adminRemoveTemplateFromProject.prototype.serialize = ws_service_hyperimage_org__adminRemoveTemplateFromProject_serialize;
+
+function ws_service_hyperimage_org__adminRemoveTemplateFromProject_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__adminRemoveTemplateFromProject();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing templateID');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = parseInt(value);
+    }
+    newobject.setTemplateID(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
     }
     return newobject;
 }
@@ -15524,33 +16113,33 @@ function ws_service_hyperimage_org__getProjectLightTableElementsResponse_deseria
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTrashGroupResponse
 //
-function ws_service_hyperimage_org__adminDeleteRepositoryResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__adminDeleteRepositoryResponse';
-    this._return = '';
+function ws_service_hyperimage_org__getTrashGroupResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTrashGroupResponse';
+    this._return = null;
 }
 
 //
-// accessor is ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.getReturn
+// accessor is ws_service_hyperimage_org__getTrashGroupResponse.prototype.getReturn
 // element get for return
-// - element type is {http://www.w3.org/2001/XMLSchema}boolean
-// - required element
+// - element type is {http://ws.service.hyperimage.org/}hiGroup
+// - optional element
 //
 // element set for return
-// setter function is is ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.setReturn
+// setter function is is ws_service_hyperimage_org__getTrashGroupResponse.prototype.setReturn
 //
-function ws_service_hyperimage_org__adminDeleteRepositoryResponse_getReturn() { return this._return;}
+function ws_service_hyperimage_org__getTrashGroupResponse_getReturn() { return this._return;}
 
-ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.getReturn = ws_service_hyperimage_org__adminDeleteRepositoryResponse_getReturn;
+ws_service_hyperimage_org__getTrashGroupResponse.prototype.getReturn = ws_service_hyperimage_org__getTrashGroupResponse_getReturn;
 
-function ws_service_hyperimage_org__adminDeleteRepositoryResponse_setReturn(value) { this._return = value;}
+function ws_service_hyperimage_org__getTrashGroupResponse_setReturn(value) { this._return = value;}
 
-ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.setReturn = ws_service_hyperimage_org__adminDeleteRepositoryResponse_setReturn;
+ws_service_hyperimage_org__getTrashGroupResponse.prototype.setReturn = ws_service_hyperimage_org__getTrashGroupResponse_setReturn;
 //
-// Serialize {http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse
+// Serialize {http://ws.service.hyperimage.org/}getTrashGroupResponse
 //
-function ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+function ws_service_hyperimage_org__getTrashGroupResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
     var xml = '';
     if (elementName != null) {
      xml = xml + '<';
@@ -15562,9 +16151,9 @@ function ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize(cxfj
     }
     // block for local variables
     {
-     xml = xml + '<return>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
-     xml = xml + '</return>';
+     if (this._return != null) {
+      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
+     }
     }
     if (elementName != null) {
      xml = xml + '</';
@@ -15574,24 +16163,25 @@ function ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize(cxfj
     return xml;
 }
 
-ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.serialize = ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize;
+ws_service_hyperimage_org__getTrashGroupResponse.prototype.serialize = ws_service_hyperimage_org__getTrashGroupResponse_serialize;
 
-function ws_service_hyperimage_org__adminDeleteRepositoryResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__adminDeleteRepositoryResponse();
+function ws_service_hyperimage_org__getTrashGroupResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTrashGroupResponse();
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
     cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
     cxfjsutils.trace('processing return');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = (value == 'true');
-    }
-    newobject.setReturn(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      item = ws_service_hyperimage_org__hiGroup_deserialize(cxfjsutils, curElement);
+     }
+     newobject.setReturn(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
     }
     return newobject;
 }
@@ -15670,33 +16260,33 @@ function ws_service_hyperimage_org__updatePreferenceResponse_deserialize (cxfjsu
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTrashGroupResponse
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse
 //
-function ws_service_hyperimage_org__getTrashGroupResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__getTrashGroupResponse';
-    this._return = null;
+function ws_service_hyperimage_org__adminDeleteRepositoryResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__adminDeleteRepositoryResponse';
+    this._return = '';
 }
 
 //
-// accessor is ws_service_hyperimage_org__getTrashGroupResponse.prototype.getReturn
+// accessor is ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.getReturn
 // element get for return
-// - element type is {http://ws.service.hyperimage.org/}hiGroup
-// - optional element
+// - element type is {http://www.w3.org/2001/XMLSchema}boolean
+// - required element
 //
 // element set for return
-// setter function is is ws_service_hyperimage_org__getTrashGroupResponse.prototype.setReturn
+// setter function is is ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.setReturn
 //
-function ws_service_hyperimage_org__getTrashGroupResponse_getReturn() { return this._return;}
+function ws_service_hyperimage_org__adminDeleteRepositoryResponse_getReturn() { return this._return;}
 
-ws_service_hyperimage_org__getTrashGroupResponse.prototype.getReturn = ws_service_hyperimage_org__getTrashGroupResponse_getReturn;
+ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.getReturn = ws_service_hyperimage_org__adminDeleteRepositoryResponse_getReturn;
 
-function ws_service_hyperimage_org__getTrashGroupResponse_setReturn(value) { this._return = value;}
+function ws_service_hyperimage_org__adminDeleteRepositoryResponse_setReturn(value) { this._return = value;}
 
-ws_service_hyperimage_org__getTrashGroupResponse.prototype.setReturn = ws_service_hyperimage_org__getTrashGroupResponse_setReturn;
+ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.setReturn = ws_service_hyperimage_org__adminDeleteRepositoryResponse_setReturn;
 //
-// Serialize {http://ws.service.hyperimage.org/}getTrashGroupResponse
+// Serialize {http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse
 //
-function ws_service_hyperimage_org__getTrashGroupResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+function ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
     var xml = '';
     if (elementName != null) {
      xml = xml + '<';
@@ -15708,9 +16298,9 @@ function ws_service_hyperimage_org__getTrashGroupResponse_serialize(cxfjsutils, 
     }
     // block for local variables
     {
-     if (this._return != null) {
-      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
-     }
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
     }
     if (elementName != null) {
      xml = xml + '</';
@@ -15720,25 +16310,24 @@ function ws_service_hyperimage_org__getTrashGroupResponse_serialize(cxfjsutils, 
     return xml;
 }
 
-ws_service_hyperimage_org__getTrashGroupResponse.prototype.serialize = ws_service_hyperimage_org__getTrashGroupResponse_serialize;
+ws_service_hyperimage_org__adminDeleteRepositoryResponse.prototype.serialize = ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize;
 
-function ws_service_hyperimage_org__getTrashGroupResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__getTrashGroupResponse();
+function ws_service_hyperimage_org__adminDeleteRepositoryResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__adminDeleteRepositoryResponse();
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
     cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
     cxfjsutils.trace('processing return');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = ws_service_hyperimage_org__hiGroup_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setReturn(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = (value == 'true');
+    }
+    newobject.setReturn(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
     }
     return newobject;
 }
@@ -16045,80 +16634,6 @@ function ws_service_hyperimage_org__getRoleResponse_deserialize (cxfjsutils, ele
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}createInscriptionResponse
-//
-function ws_service_hyperimage_org__createInscriptionResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__createInscriptionResponse';
-    this._return = null;
-}
-
-//
-// accessor is ws_service_hyperimage_org__createInscriptionResponse.prototype.getReturn
-// element get for return
-// - element type is {http://ws.service.hyperimage.org/}hiInscription
-// - optional element
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__createInscriptionResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__createInscriptionResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__createInscriptionResponse.prototype.getReturn = ws_service_hyperimage_org__createInscriptionResponse_getReturn;
-
-function ws_service_hyperimage_org__createInscriptionResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__createInscriptionResponse.prototype.setReturn = ws_service_hyperimage_org__createInscriptionResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}createInscriptionResponse
-//
-function ws_service_hyperimage_org__createInscriptionResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._return != null) {
-      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
-     }
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__createInscriptionResponse.prototype.serialize = ws_service_hyperimage_org__createInscriptionResponse_serialize;
-
-function ws_service_hyperimage_org__createInscriptionResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__createInscriptionResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = ws_service_hyperimage_org__hiInscription_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setReturn(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}hiLanguage
 //
 function ws_service_hyperimage_org__hiLanguage () {
@@ -16231,6 +16746,80 @@ function ws_service_hyperimage_org__hiLanguage_deserialize (cxfjsutils, element)
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}createInscriptionResponse
+//
+function ws_service_hyperimage_org__createInscriptionResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__createInscriptionResponse';
+    this._return = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__createInscriptionResponse.prototype.getReturn
+// element get for return
+// - element type is {http://ws.service.hyperimage.org/}hiInscription
+// - optional element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__createInscriptionResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__createInscriptionResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__createInscriptionResponse.prototype.getReturn = ws_service_hyperimage_org__createInscriptionResponse_getReturn;
+
+function ws_service_hyperimage_org__createInscriptionResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__createInscriptionResponse.prototype.setReturn = ws_service_hyperimage_org__createInscriptionResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}createInscriptionResponse
+//
+function ws_service_hyperimage_org__createInscriptionResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._return != null) {
+      xml = xml + this._return.serialize(cxfjsutils, 'return', null);
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__createInscriptionResponse.prototype.serialize = ws_service_hyperimage_org__createInscriptionResponse_serialize;
+
+function ws_service_hyperimage_org__createInscriptionResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__createInscriptionResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      item = ws_service_hyperimage_org__hiInscription_deserialize(cxfjsutils, curElement);
+     }
+     newobject.setReturn(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminGetUsers
 //
 function ws_service_hyperimage_org__adminGetUsers () {
@@ -16265,6 +16854,79 @@ function ws_service_hyperimage_org__adminGetUsers_deserialize (cxfjsutils, eleme
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagCountForBaseResponse
+//
+function ws_service_hyperimage_org__getTagCountForBaseResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagCountForBaseResponse';
+    this._return = 0;
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagCountForBaseResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}long
+// - required element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__getTagCountForBaseResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__getTagCountForBaseResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__getTagCountForBaseResponse.prototype.getReturn = ws_service_hyperimage_org__getTagCountForBaseResponse_getReturn;
+
+function ws_service_hyperimage_org__getTagCountForBaseResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__getTagCountForBaseResponse.prototype.setReturn = ws_service_hyperimage_org__getTagCountForBaseResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagCountForBaseResponse
+//
+function ws_service_hyperimage_org__getTagCountForBaseResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagCountForBaseResponse.prototype.serialize = ws_service_hyperimage_org__getTagCountForBaseResponse_serialize;
+
+function ws_service_hyperimage_org__getTagCountForBaseResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagCountForBaseResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = parseInt(value);
+    }
+    newobject.setReturn(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
     return newobject;
 }
 
@@ -16759,6 +17421,91 @@ function ws_service_hyperimage_org__adminUpdateSetDisplayName_deserialize (cxfjs
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagGroupsResponse
+//
+function ws_service_hyperimage_org__getTagGroupsResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagGroupsResponse';
+    this._return = [];
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagGroupsResponse.prototype.getReturn
+// element get for return
+// - element type is {http://ws.service.hyperimage.org/}hiGroup
+// - required element
+// - array
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__getTagGroupsResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__getTagGroupsResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__getTagGroupsResponse.prototype.getReturn = ws_service_hyperimage_org__getTagGroupsResponse_getReturn;
+
+function ws_service_hyperimage_org__getTagGroupsResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__getTagGroupsResponse.prototype.setReturn = ws_service_hyperimage_org__getTagGroupsResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagGroupsResponse
+//
+function ws_service_hyperimage_org__getTagGroupsResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._return != null) {
+      for (var ax = 0;ax < this._return.length;ax ++) {
+       if (this._return[ax] == null) {
+        xml = xml + '<return/>';
+       } else {
+        xml = xml + this._return[ax].serialize(cxfjsutils, 'return', null);
+       }
+      }
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagGroupsResponse.prototype.serialize = ws_service_hyperimage_org__getTagGroupsResponse_serialize;
+
+function ws_service_hyperimage_org__getTagGroupsResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagGroupsResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return')) {
+     item = [];
+     do  {
+      var arrayItem = null;
+      var value = null;
+      if (!cxfjsutils.isElementNil(curElement)) {
+       arrayItem = ws_service_hyperimage_org__hiGroup_deserialize(cxfjsutils, curElement);
+      }
+      item.push(arrayItem);
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+       while(curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'return'));
+     newobject.setReturn(item);
+     var item = null;
     }
     return newobject;
 }
@@ -18378,6 +19125,83 @@ function ws_service_hyperimage_org__createTextResponse_deserialize (cxfjsutils, 
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}createTagGroup
+//
+function ws_service_hyperimage_org__createTagGroup () {
+    this.typeMarker = 'ws_service_hyperimage_org__createTagGroup';
+    this._uuid = null;
+}
+
+//
+// accessor is ws_service_hyperimage_org__createTagGroup.prototype.getUuid
+// element get for uuid
+// - element type is {http://www.w3.org/2001/XMLSchema}string
+// - optional element
+//
+// element set for uuid
+// setter function is is ws_service_hyperimage_org__createTagGroup.prototype.setUuid
+//
+function ws_service_hyperimage_org__createTagGroup_getUuid() { return this._uuid;}
+
+ws_service_hyperimage_org__createTagGroup.prototype.getUuid = ws_service_hyperimage_org__createTagGroup_getUuid;
+
+function ws_service_hyperimage_org__createTagGroup_setUuid(value) { this._uuid = value;}
+
+ws_service_hyperimage_org__createTagGroup.prototype.setUuid = ws_service_hyperimage_org__createTagGroup_setUuid;
+//
+// Serialize {http://ws.service.hyperimage.org/}createTagGroup
+//
+function ws_service_hyperimage_org__createTagGroup_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     if (this._uuid != null) {
+      xml = xml + '<uuid>';
+      xml = xml + cxfjsutils.escapeXmlEntities(this._uuid);
+      xml = xml + '</uuid>';
+     }
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__createTagGroup.prototype.serialize = ws_service_hyperimage_org__createTagGroup_serialize;
+
+function ws_service_hyperimage_org__createTagGroup_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__createTagGroup();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing uuid');
+    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, '', 'uuid')) {
+     var value = null;
+     if (!cxfjsutils.isElementNil(curElement)) {
+      value = cxfjsutils.getNodeText(curElement);
+      item = value;
+     }
+     newobject.setUuid(item);
+     var item = null;
+     if (curElement != null) {
+      curElement = cxfjsutils.getNextElementSibling(curElement);
+     }
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateProjectDefaultLanguageResponse
 //
 function ws_service_hyperimage_org__updateProjectDefaultLanguageResponse () {
@@ -18524,44 +19348,6 @@ function ws_service_hyperimage_org__moveToTrashResponse_deserialize (cxfjsutils,
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getRepositories
-//
-function ws_service_hyperimage_org__getRepositories () {
-    this.typeMarker = 'ws_service_hyperimage_org__getRepositories';
-}
-
-//
-// Serialize {http://ws.service.hyperimage.org/}getRepositories
-//
-function ws_service_hyperimage_org__getRepositories_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__getRepositories.prototype.serialize = ws_service_hyperimage_org__getRepositories_serialize;
-
-function ws_service_hyperimage_org__getRepositories_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__getRepositories();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}setLayerLinkResponse
 //
 function ws_service_hyperimage_org__setLayerLinkResponse () {
@@ -18635,16 +19421,16 @@ function ws_service_hyperimage_org__setLayerLinkResponse_deserialize (cxfjsutils
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getProjects
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getRepositories
 //
-function ws_service_hyperimage_org__getProjects () {
-    this.typeMarker = 'ws_service_hyperimage_org__getProjects';
+function ws_service_hyperimage_org__getRepositories () {
+    this.typeMarker = 'ws_service_hyperimage_org__getRepositories';
 }
 
 //
-// Serialize {http://ws.service.hyperimage.org/}getProjects
+// Serialize {http://ws.service.hyperimage.org/}getRepositories
 //
-function ws_service_hyperimage_org__getProjects_serialize(cxfjsutils, elementName, extraNamespaces) {
+function ws_service_hyperimage_org__getRepositories_serialize(cxfjsutils, elementName, extraNamespaces) {
     var xml = '';
     if (elementName != null) {
      xml = xml + '<';
@@ -18662,10 +19448,10 @@ function ws_service_hyperimage_org__getProjects_serialize(cxfjsutils, elementNam
     return xml;
 }
 
-ws_service_hyperimage_org__getProjects.prototype.serialize = ws_service_hyperimage_org__getProjects_serialize;
+ws_service_hyperimage_org__getRepositories.prototype.serialize = ws_service_hyperimage_org__getRepositories_serialize;
 
-function ws_service_hyperimage_org__getProjects_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__getProjects();
+function ws_service_hyperimage_org__getRepositories_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getRepositories();
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
@@ -18942,6 +19728,44 @@ function ws_service_hyperimage_org__hiLightTable_deserialize (cxfjsutils, elemen
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
     }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getProjects
+//
+function ws_service_hyperimage_org__getProjects () {
+    this.typeMarker = 'ws_service_hyperimage_org__getProjects';
+}
+
+//
+// Serialize {http://ws.service.hyperimage.org/}getProjects
+//
+function ws_service_hyperimage_org__getProjects_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getProjects.prototype.serialize = ws_service_hyperimage_org__getProjects_serialize;
+
+function ws_service_hyperimage_org__getProjects_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getProjects();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
     return newobject;
 }
 
@@ -19283,6 +20107,7 @@ function ws_service_hyperimage_org__sysopDeleteUser_deserialize (cxfjsutils, ele
 // - HIGROUP_REGULAR
 // - HIGROUP_IMPORT
 // - HIGROUP_TRASH
+// - HIGROUP_TAG
 //
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}hiBase
 //
@@ -19479,79 +20304,6 @@ function ws_service_hyperimage_org__hiBase_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminAddUserToProjectResponse
-//
-function ws_service_hyperimage_org__adminAddUserToProjectResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__adminAddUserToProjectResponse';
-    this._return = '';
-}
-
-//
-// accessor is ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.getReturn
-// element get for return
-// - element type is {http://www.w3.org/2001/XMLSchema}boolean
-// - required element
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__adminAddUserToProjectResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.getReturn = ws_service_hyperimage_org__adminAddUserToProjectResponse_getReturn;
-
-function ws_service_hyperimage_org__adminAddUserToProjectResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.setReturn = ws_service_hyperimage_org__adminAddUserToProjectResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}adminAddUserToProjectResponse
-//
-function ws_service_hyperimage_org__adminAddUserToProjectResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<return>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
-     xml = xml + '</return>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.serialize = ws_service_hyperimage_org__adminAddUserToProjectResponse_serialize;
-
-function ws_service_hyperimage_org__adminAddUserToProjectResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__adminAddUserToProjectResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = (value == 'true');
-    }
-    newobject.setReturn(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateContentOwner
 //
 function ws_service_hyperimage_org__updateContentOwner () {
@@ -19652,6 +20404,79 @@ function ws_service_hyperimage_org__updateContentOwner_deserialize (cxfjsutils, 
      item = parseInt(value);
     }
     newobject.setContentID(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminAddUserToProjectResponse
+//
+function ws_service_hyperimage_org__adminAddUserToProjectResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__adminAddUserToProjectResponse';
+    this._return = '';
+}
+
+//
+// accessor is ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}boolean
+// - required element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__adminAddUserToProjectResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.getReturn = ws_service_hyperimage_org__adminAddUserToProjectResponse_getReturn;
+
+function ws_service_hyperimage_org__adminAddUserToProjectResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.setReturn = ws_service_hyperimage_org__adminAddUserToProjectResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}adminAddUserToProjectResponse
+//
+function ws_service_hyperimage_org__adminAddUserToProjectResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__adminAddUserToProjectResponse.prototype.serialize = ws_service_hyperimage_org__adminAddUserToProjectResponse_serialize;
+
+function ws_service_hyperimage_org__adminAddUserToProjectResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__adminAddUserToProjectResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = (value == 'true');
+    }
+    newobject.setReturn(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -20101,44 +20926,6 @@ function ws_service_hyperimage_org__getProjectLightTableElements_deserialize (cx
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateViewSortOrderResponse
-//
-function ws_service_hyperimage_org__updateViewSortOrderResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__updateViewSortOrderResponse';
-}
-
-//
-// Serialize {http://ws.service.hyperimage.org/}updateViewSortOrderResponse
-//
-function ws_service_hyperimage_org__updateViewSortOrderResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__updateViewSortOrderResponse.prototype.serialize = ws_service_hyperimage_org__updateViewSortOrderResponse_serialize;
-
-function ws_service_hyperimage_org__updateViewSortOrderResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__updateViewSortOrderResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}getProjectTextElementsResponse
 //
 function ws_service_hyperimage_org__getProjectTextElementsResponse () {
@@ -20220,6 +21007,44 @@ function ws_service_hyperimage_org__getProjectTextElementsResponse_deserialize (
      newobject.setReturn(item);
      var item = null;
     }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateViewSortOrderResponse
+//
+function ws_service_hyperimage_org__updateViewSortOrderResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__updateViewSortOrderResponse';
+}
+
+//
+// Serialize {http://ws.service.hyperimage.org/}updateViewSortOrderResponse
+//
+function ws_service_hyperimage_org__updateViewSortOrderResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__updateViewSortOrderResponse.prototype.serialize = ws_service_hyperimage_org__updateViewSortOrderResponse_serialize;
+
+function ws_service_hyperimage_org__updateViewSortOrderResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__updateViewSortOrderResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
     return newobject;
 }
 
@@ -20997,6 +21822,79 @@ function ws_service_hyperimage_org__HIEntityNotFoundException_deserialize (cxfjs
 }
 
 //
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}getTagCountForBaseUUIDResponse
+//
+function ws_service_hyperimage_org__getTagCountForBaseUUIDResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__getTagCountForBaseUUIDResponse';
+    this._return = 0;
+}
+
+//
+// accessor is ws_service_hyperimage_org__getTagCountForBaseUUIDResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}long
+// - required element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__getTagCountForBaseUUIDResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__getTagCountForBaseUUIDResponse.prototype.getReturn = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_getReturn;
+
+function ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__getTagCountForBaseUUIDResponse.prototype.setReturn = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}getTagCountForBaseUUIDResponse
+//
+function ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__getTagCountForBaseUUIDResponse.prototype.serialize = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_serialize;
+
+function ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__getTagCountForBaseUUIDResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = parseInt(value);
+    }
+    newobject.setReturn(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}adminCreateRepositoryResponse
 //
 function ws_service_hyperimage_org__adminCreateRepositoryResponse () {
@@ -21333,79 +22231,6 @@ function ws_service_hyperimage_org__getImage_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateLayerPropertiesResponse
-//
-function ws_service_hyperimage_org__updateLayerPropertiesResponse () {
-    this.typeMarker = 'ws_service_hyperimage_org__updateLayerPropertiesResponse';
-    this._return = '';
-}
-
-//
-// accessor is ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.getReturn
-// element get for return
-// - element type is {http://www.w3.org/2001/XMLSchema}boolean
-// - required element
-//
-// element set for return
-// setter function is is ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.setReturn
-//
-function ws_service_hyperimage_org__updateLayerPropertiesResponse_getReturn() { return this._return;}
-
-ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.getReturn = ws_service_hyperimage_org__updateLayerPropertiesResponse_getReturn;
-
-function ws_service_hyperimage_org__updateLayerPropertiesResponse_setReturn(value) { this._return = value;}
-
-ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.setReturn = ws_service_hyperimage_org__updateLayerPropertiesResponse_setReturn;
-//
-// Serialize {http://ws.service.hyperimage.org/}updateLayerPropertiesResponse
-//
-function ws_service_hyperimage_org__updateLayerPropertiesResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName != null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<return>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
-     xml = xml + '</return>';
-    }
-    if (elementName != null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.serialize = ws_service_hyperimage_org__updateLayerPropertiesResponse_serialize;
-
-function ws_service_hyperimage_org__updateLayerPropertiesResponse_deserialize (cxfjsutils, element) {
-    var newobject = new ws_service_hyperimage_org__updateLayerPropertiesResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing return');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = (value == 'true');
-    }
-    newobject.setReturn(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {http://ws.service.hyperimage.org/}setProjectResponse
 //
 function ws_service_hyperimage_org__setProjectResponse () {
@@ -21460,6 +22285,79 @@ ws_service_hyperimage_org__setProjectResponse.prototype.serialize = ws_service_h
 
 function ws_service_hyperimage_org__setProjectResponse_deserialize (cxfjsutils, element) {
     var newobject = new ws_service_hyperimage_org__setProjectResponse();
+    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
+    var curElement = cxfjsutils.getFirstElementChild(element);
+    var item;
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing return');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = (value == 'true');
+    }
+    newobject.setReturn(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    return newobject;
+}
+
+//
+// Constructor for XML Schema item {http://ws.service.hyperimage.org/}updateLayerPropertiesResponse
+//
+function ws_service_hyperimage_org__updateLayerPropertiesResponse () {
+    this.typeMarker = 'ws_service_hyperimage_org__updateLayerPropertiesResponse';
+    this._return = '';
+}
+
+//
+// accessor is ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.getReturn
+// element get for return
+// - element type is {http://www.w3.org/2001/XMLSchema}boolean
+// - required element
+//
+// element set for return
+// setter function is is ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.setReturn
+//
+function ws_service_hyperimage_org__updateLayerPropertiesResponse_getReturn() { return this._return;}
+
+ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.getReturn = ws_service_hyperimage_org__updateLayerPropertiesResponse_getReturn;
+
+function ws_service_hyperimage_org__updateLayerPropertiesResponse_setReturn(value) { this._return = value;}
+
+ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.setReturn = ws_service_hyperimage_org__updateLayerPropertiesResponse_setReturn;
+//
+// Serialize {http://ws.service.hyperimage.org/}updateLayerPropertiesResponse
+//
+function ws_service_hyperimage_org__updateLayerPropertiesResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
+    var xml = '';
+    if (elementName != null) {
+     xml = xml + '<';
+     xml = xml + elementName;
+     if (extraNamespaces) {
+      xml = xml + ' ' + extraNamespaces;
+     }
+     xml = xml + '>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<return>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._return);
+     xml = xml + '</return>';
+    }
+    if (elementName != null) {
+     xml = xml + '</';
+     xml = xml + elementName;
+     xml = xml + '>';
+    }
+    return xml;
+}
+
+ws_service_hyperimage_org__updateLayerPropertiesResponse.prototype.serialize = ws_service_hyperimage_org__updateLayerPropertiesResponse_serialize;
+
+function ws_service_hyperimage_org__updateLayerPropertiesResponse_deserialize (cxfjsutils, element) {
+    var newobject = new ws_service_hyperimage_org__updateLayerPropertiesResponse();
     cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
     var curElement = cxfjsutils.getFirstElementChild(element);
     var item;
@@ -21890,7 +22788,7 @@ function ws_service_hyperimage_org__sysopDeleteProjectResponse_deserialize (cxfj
 
 //
 // Definitions for schema: null
-//  http://127.0.0.1:8080/HI3Author/HIEditorService?wsdl#types1
+//  http://localhost:8080/HI3Author/HIEditorService?wsdl#types1
 //
 //
 // Definitions for service: {http://ws.service.hyperimage.org/}HIEditorService
@@ -21911,6 +22809,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetUserByIDResponse'] = ws_service_hyperimage_org__adminGetUserByIDResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateViewSortOrder'] = ws_service_hyperimage_org__updateViewSortOrder_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateViewSortOrder'] = ws_service_hyperimage_org__updateViewSortOrder_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseResponse'] = ws_service_hyperimage_org__getTagIDsForBaseResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseResponse'] = ws_service_hyperimage_org__getTagIDsForBaseResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateLightTableResponse'] = ws_service_hyperimage_org__updateLightTableResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateLightTableResponse'] = ws_service_hyperimage_org__updateLightTableResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminAddTemplateToProjectResponse'] = ws_service_hyperimage_org__adminAddTemplateToProjectResponse_serialize;
@@ -22007,6 +22907,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getImportGroupResponse'] = ws_service_hyperimage_org__getImportGroupResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopCreateProject'] = ws_service_hyperimage_org__sysopCreateProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopCreateProject'] = ws_service_hyperimage_org__sysopCreateProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createTagGroupResponse'] = ws_service_hyperimage_org__createTagGroupResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createTagGroupResponse'] = ws_service_hyperimage_org__createTagGroupResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeLayerLinkResponse'] = ws_service_hyperimage_org__removeLayerLinkResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeLayerLinkResponse'] = ws_service_hyperimage_org__removeLayerLinkResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createGroup'] = ws_service_hyperimage_org__createGroup_serialize;
@@ -22025,6 +22927,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetUsersResponse'] = ws_service_hyperimage_org__adminGetUsersResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeLayerLink'] = ws_service_hyperimage_org__removeLayerLink_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeLayerLink'] = ws_service_hyperimage_org__removeLayerLink_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagGroups'] = ws_service_hyperimage_org__getTagGroups_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagGroups'] = ws_service_hyperimage_org__getTagGroups_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createFlexMetadataRecord'] = ws_service_hyperimage_org__createFlexMetadataRecord_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createFlexMetadataRecord'] = ws_service_hyperimage_org__createFlexMetadataRecord_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveTemplateFromProjectResponse'] = ws_service_hyperimage_org__adminRemoveTemplateFromProjectResponse_serialize;
@@ -22041,6 +22945,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}setProject'] = ws_service_hyperimage_org__setProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateGroupSortOrder'] = ws_service_hyperimage_org__updateGroupSortOrder_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateGroupSortOrder'] = ws_service_hyperimage_org__updateGroupSortOrder_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagCountForBaseUUID'] = ws_service_hyperimage_org__getTagCountForBaseUUID_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagCountForBaseUUID'] = ws_service_hyperimage_org__getTagCountForBaseUUID_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateFlexMetadataRecords'] = ws_service_hyperimage_org__updateFlexMetadataRecords_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateFlexMetadataRecords'] = ws_service_hyperimage_org__updateFlexMetadataRecords_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveUserFromProject'] = ws_service_hyperimage_org__adminRemoveUserFromProject_serialize;
@@ -22073,10 +22979,14 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopUpdateProjectQuotaResponse'] = ws_service_hyperimage_org__sysopUpdateProjectQuotaResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateLightTable'] = ws_service_hyperimage_org__updateLightTable_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateLightTable'] = ws_service_hyperimage_org__updateLightTable_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createPreferenceResponse'] = ws_service_hyperimage_org__createPreferenceResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createPreferenceResponse'] = ws_service_hyperimage_org__createPreferenceResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateProjectDefaultLanguage'] = ws_service_hyperimage_org__updateProjectDefaultLanguage_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateProjectDefaultLanguage'] = ws_service_hyperimage_org__updateProjectDefaultLanguage_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createPreferenceResponse'] = ws_service_hyperimage_org__createPreferenceResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createPreferenceResponse'] = ws_service_hyperimage_org__createPreferenceResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagIDsForBase'] = ws_service_hyperimage_org__getTagIDsForBase_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagIDsForBase'] = ws_service_hyperimage_org__getTagIDsForBase_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseUUIDResponse'] = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseUUIDResponse'] = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopRemoveUserFromProject'] = ws_service_hyperimage_org__sysopRemoveUserFromProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopRemoveUserFromProject'] = ws_service_hyperimage_org__sysopRemoveUserFromProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveSetFromTemplateResponse'] = ws_service_hyperimage_org__adminRemoveSetFromTemplateResponse_serialize;
@@ -22105,6 +23015,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getFlexMetadataRecords'] = ws_service_hyperimage_org__getFlexMetadataRecords_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}deleteFromProject'] = ws_service_hyperimage_org__deleteFromProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}deleteFromProject'] = ws_service_hyperimage_org__deleteFromProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseUUID'] = ws_service_hyperimage_org__getTagIDsForBaseUUID_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseUUID'] = ws_service_hyperimage_org__getTagIDsForBaseUUID_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeFromGroupResponse'] = ws_service_hyperimage_org__removeFromGroupResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeFromGroupResponse'] = ws_service_hyperimage_org__removeFromGroupResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createObject'] = ws_service_hyperimage_org__createObject_serialize;
@@ -22115,6 +23027,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getImportGroup'] = ws_service_hyperimage_org__getImportGroup_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminCreateSetDisplayNameResponse'] = ws_service_hyperimage_org__adminCreateSetDisplayNameResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminCreateSetDisplayNameResponse'] = ws_service_hyperimage_org__adminCreateSetDisplayNameResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagCountForBase'] = ws_service_hyperimage_org__getTagCountForBase_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagCountForBase'] = ws_service_hyperimage_org__getTagCountForBase_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminUpdateTemplateSortOrder'] = ws_service_hyperimage_org__adminUpdateTemplateSortOrder_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminUpdateTemplateSortOrder'] = ws_service_hyperimage_org__adminUpdateTemplateSortOrder_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseElementByUUIDResponse'] = ws_service_hyperimage_org__getBaseElementByUUIDResponse_serialize;
@@ -22181,12 +23095,12 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getStateResponse'] = ws_service_hyperimage_org__getStateResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjectLightTableElementsResponse'] = ws_service_hyperimage_org__getProjectLightTableElementsResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjectLightTableElementsResponse'] = ws_service_hyperimage_org__getProjectLightTableElementsResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updatePreferenceResponse'] = ws_service_hyperimage_org__updatePreferenceResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updatePreferenceResponse'] = ws_service_hyperimage_org__updatePreferenceResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse'] = ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse'] = ws_service_hyperimage_org__adminDeleteRepositoryResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTrashGroupResponse'] = ws_service_hyperimage_org__getTrashGroupResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTrashGroupResponse'] = ws_service_hyperimage_org__getTrashGroupResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updatePreferenceResponse'] = ws_service_hyperimage_org__updatePreferenceResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updatePreferenceResponse'] = ws_service_hyperimage_org__updatePreferenceResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeLayer'] = ws_service_hyperimage_org__removeLayer_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeLayer'] = ws_service_hyperimage_org__removeLayer_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getRoleResponse'] = ws_service_hyperimage_org__getRoleResponse_serialize;
@@ -22195,12 +23109,16 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createInscriptionResponse'] = ws_service_hyperimage_org__createInscriptionResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetUsers'] = ws_service_hyperimage_org__adminGetUsers_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetUsers'] = ws_service_hyperimage_org__adminGetUsers_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagCountForBaseResponse'] = ws_service_hyperimage_org__getTagCountForBaseResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagCountForBaseResponse'] = ws_service_hyperimage_org__getTagCountForBaseResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createLayer'] = ws_service_hyperimage_org__createLayer_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createLayer'] = ws_service_hyperimage_org__createLayer_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getScaledImageResponse'] = ws_service_hyperimage_org__getScaledImageResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getScaledImageResponse'] = ws_service_hyperimage_org__getScaledImageResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminUpdateSetDisplayName'] = ws_service_hyperimage_org__adminUpdateSetDisplayName_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminUpdateSetDisplayName'] = ws_service_hyperimage_org__adminUpdateSetDisplayName_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagGroupsResponse'] = ws_service_hyperimage_org__getTagGroupsResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagGroupsResponse'] = ws_service_hyperimage_org__getTagGroupsResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateProjectStartElementResponse'] = ws_service_hyperimage_org__updateProjectStartElementResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateProjectStartElementResponse'] = ws_service_hyperimage_org__updateProjectStartElementResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getCurrentUserResponse'] = ws_service_hyperimage_org__getCurrentUserResponse_serialize;
@@ -22227,16 +23145,18 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createTextResponse'] = ws_service_hyperimage_org__createTextResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateProjectDefaultLanguageResponse'] = ws_service_hyperimage_org__updateProjectDefaultLanguageResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateProjectDefaultLanguageResponse'] = ws_service_hyperimage_org__updateProjectDefaultLanguageResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createTagGroup'] = ws_service_hyperimage_org__createTagGroup_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createTagGroup'] = ws_service_hyperimage_org__createTagGroup_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}moveToTrashResponse'] = ws_service_hyperimage_org__moveToTrashResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}moveToTrashResponse'] = ws_service_hyperimage_org__moveToTrashResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getRepositories'] = ws_service_hyperimage_org__getRepositories_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getRepositories'] = ws_service_hyperimage_org__getRepositories_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}setLayerLinkResponse'] = ws_service_hyperimage_org__setLayerLinkResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}setLayerLinkResponse'] = ws_service_hyperimage_org__setLayerLinkResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjects'] = ws_service_hyperimage_org__getProjects_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjects'] = ws_service_hyperimage_org__getProjects_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateUserPasswordResponse'] = ws_service_hyperimage_org__updateUserPasswordResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateUserPasswordResponse'] = ws_service_hyperimage_org__updateUserPasswordResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjects'] = ws_service_hyperimage_org__getProjects_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjects'] = ws_service_hyperimage_org__getProjects_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseQuickInfoByUUIDResponse'] = ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getBaseQuickInfoByUUIDResponse'] = ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminSetProjectRole'] = ws_service_hyperimage_org__adminSetProjectRole_serialize;
@@ -22277,6 +23197,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createLayerResponse'] = ws_service_hyperimage_org__createLayerResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}HIEntityNotFoundException'] = ws_service_hyperimage_org__HIEntityNotFoundException_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}HIEntityNotFoundException'] = ws_service_hyperimage_org__HIEntityNotFoundException_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagCountForBaseUUIDResponse'] = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagCountForBaseUUIDResponse'] = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseQuickInfoByUUID'] = ws_service_hyperimage_org__getBaseQuickInfoByUUID_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getBaseQuickInfoByUUID'] = ws_service_hyperimage_org__getBaseQuickInfoByUUID_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminCreateRepositoryResponse'] = ws_service_hyperimage_org__adminCreateRepositoryResponse_serialize;
@@ -22303,6 +23225,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetUserByIDResponse'] = ws_service_hyperimage_org__adminGetUserByIDResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateViewSortOrder'] = ws_service_hyperimage_org__updateViewSortOrder_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateViewSortOrder'] = ws_service_hyperimage_org__updateViewSortOrder_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseResponse'] = ws_service_hyperimage_org__getTagIDsForBaseResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseResponse'] = ws_service_hyperimage_org__getTagIDsForBaseResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateLightTableResponse'] = ws_service_hyperimage_org__updateLightTableResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateLightTableResponse'] = ws_service_hyperimage_org__updateLightTableResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminAddTemplateToProjectResponse'] = ws_service_hyperimage_org__adminAddTemplateToProjectResponse_serialize;
@@ -22323,22 +23247,22 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeDefaultViewResponse'] = ws_service_hyperimage_org__removeDefaultViewResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createURL'] = ws_service_hyperimage_org__createURL_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createURL'] = ws_service_hyperimage_org__createURL_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveLanguageFromProjectResponse'] = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminRemoveLanguageFromProjectResponse'] = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveLanguageFromProject'] = ws_service_hyperimage_org__adminRemoveLanguageFromProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminRemoveLanguageFromProject'] = ws_service_hyperimage_org__adminRemoveLanguageFromProject_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopDeleteProject'] = ws_service_hyperimage_org__sysopDeleteProject_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopDeleteProject'] = ws_service_hyperimage_org__sysopDeleteProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveLanguageFromProjectResponse'] = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminRemoveLanguageFromProjectResponse'] = ws_service_hyperimage_org__adminRemoveLanguageFromProjectResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}isSysop'] = ws_service_hyperimage_org__isSysop_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}isSysop'] = ws_service_hyperimage_org__isSysop_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopDeleteProject'] = ws_service_hyperimage_org__sysopDeleteProject_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopDeleteProject'] = ws_service_hyperimage_org__sysopDeleteProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateUser'] = ws_service_hyperimage_org__updateUser_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateUser'] = ws_service_hyperimage_org__updateUser_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createFlexMetadataRecordResponse'] = ws_service_hyperimage_org__createFlexMetadataRecordResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createFlexMetadataRecordResponse'] = ws_service_hyperimage_org__createFlexMetadataRecordResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createPreference'] = ws_service_hyperimage_org__createPreference_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createPreference'] = ws_service_hyperimage_org__createPreference_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getVersionID'] = ws_service_hyperimage_org__getVersionID_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getVersionID'] = ws_service_hyperimage_org__getVersionID_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createPreference'] = ws_service_hyperimage_org__createPreference_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createPreference'] = ws_service_hyperimage_org__createPreference_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopGetUsersForProject'] = ws_service_hyperimage_org__sysopGetUsersForProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopGetUsersForProject'] = ws_service_hyperimage_org__sysopGetUsersForProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopGetUsersForProjectResponse'] = ws_service_hyperimage_org__sysopGetUsersForProjectResponse_serialize;
@@ -22361,10 +23285,10 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminAddSetToTemplate'] = ws_service_hyperimage_org__adminAddSetToTemplate_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}deleteFromProjectResponse'] = ws_service_hyperimage_org__deleteFromProjectResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}deleteFromProjectResponse'] = ws_service_hyperimage_org__deleteFromProjectResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminCreateSetDisplayName'] = ws_service_hyperimage_org__adminCreateSetDisplayName_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminCreateSetDisplayName'] = ws_service_hyperimage_org__adminCreateSetDisplayName_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiFlexMetadataSet'] = ws_service_hyperimage_org__hiFlexMetadataSet_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiFlexMetadataSet'] = ws_service_hyperimage_org__hiFlexMetadataSet_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminCreateSetDisplayName'] = ws_service_hyperimage_org__adminCreateSetDisplayName_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminCreateSetDisplayName'] = ws_service_hyperimage_org__adminCreateSetDisplayName_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}fieldSearchResponse'] = ws_service_hyperimage_org__fieldSearchResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}fieldSearchResponse'] = ws_service_hyperimage_org__fieldSearchResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getCurrentRoleResponse'] = ws_service_hyperimage_org__getCurrentRoleResponse_serialize;
@@ -22377,36 +23301,38 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getBaseQuickInfoResponse'] = ws_service_hyperimage_org__getBaseQuickInfoResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopRemoveUserFromProjectResponse'] = ws_service_hyperimage_org__sysopRemoveUserFromProjectResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopRemoveUserFromProjectResponse'] = ws_service_hyperimage_org__sysopRemoveUserFromProjectResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseElement'] = ws_service_hyperimage_org__getBaseElement_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getBaseElement'] = ws_service_hyperimage_org__getBaseElement_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}deletePreferenceResponse'] = ws_service_hyperimage_org__deletePreferenceResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}deletePreferenceResponse'] = ws_service_hyperimage_org__deletePreferenceResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createGroupResponse'] = ws_service_hyperimage_org__createGroupResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createGroupResponse'] = ws_service_hyperimage_org__createGroupResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseElement'] = ws_service_hyperimage_org__getBaseElement_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getBaseElement'] = ws_service_hyperimage_org__getBaseElement_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProject'] = ws_service_hyperimage_org__getProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProject'] = ws_service_hyperimage_org__getProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createGroupResponse'] = ws_service_hyperimage_org__createGroupResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createGroupResponse'] = ws_service_hyperimage_org__createGroupResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiUser'] = ws_service_hyperimage_org__hiUser_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiUser'] = ws_service_hyperimage_org__hiUser_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateProjectStartElement'] = ws_service_hyperimage_org__updateProjectStartElement_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateProjectStartElement'] = ws_service_hyperimage_org__updateProjectStartElement_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopAddUserToProject'] = ws_service_hyperimage_org__sysopAddUserToProject_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopAddUserToProject'] = ws_service_hyperimage_org__sysopAddUserToProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopCreateUserResponse'] = ws_service_hyperimage_org__sysopCreateUserResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopCreateUserResponse'] = ws_service_hyperimage_org__sysopCreateUserResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopAddUserToProject'] = ws_service_hyperimage_org__sysopAddUserToProject_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopAddUserToProject'] = ws_service_hyperimage_org__sysopAddUserToProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateGroupProperties'] = ws_service_hyperimage_org__updateGroupProperties_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateGroupProperties'] = ws_service_hyperimage_org__updateGroupProperties_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}rebuildSearchIndex'] = ws_service_hyperimage_org__rebuildSearchIndex_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}rebuildSearchIndex'] = ws_service_hyperimage_org__rebuildSearchIndex_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeLayerResponse'] = ws_service_hyperimage_org__removeLayerResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeLayerResponse'] = ws_service_hyperimage_org__removeLayerResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateObjectSortOrderResponse'] = ws_service_hyperimage_org__updateObjectSortOrderResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateObjectSortOrderResponse'] = ws_service_hyperimage_org__updateObjectSortOrderResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopCreateProjectResponse'] = ws_service_hyperimage_org__sysopCreateProjectResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopCreateProjectResponse'] = ws_service_hyperimage_org__sysopCreateProjectResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateObjectSortOrderResponse'] = ws_service_hyperimage_org__updateObjectSortOrderResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateObjectSortOrderResponse'] = ws_service_hyperimage_org__updateObjectSortOrderResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getImportGroupResponse'] = ws_service_hyperimage_org__getImportGroupResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getImportGroupResponse'] = ws_service_hyperimage_org__getImportGroupResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopCreateProject'] = ws_service_hyperimage_org__sysopCreateProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopCreateProject'] = ws_service_hyperimage_org__sysopCreateProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createTagGroupResponse'] = ws_service_hyperimage_org__createTagGroupResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createTagGroupResponse'] = ws_service_hyperimage_org__createTagGroupResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeLayerLinkResponse'] = ws_service_hyperimage_org__removeLayerLinkResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeLayerLinkResponse'] = ws_service_hyperimage_org__removeLayerLinkResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveUserFromProjectResponse'] = ws_service_hyperimage_org__adminRemoveUserFromProjectResponse_serialize;
@@ -22429,30 +23355,34 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetUsersResponse'] = ws_service_hyperimage_org__adminGetUsersResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeLayerLink'] = ws_service_hyperimage_org__removeLayerLink_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeLayerLink'] = ws_service_hyperimage_org__removeLayerLink_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagGroups'] = ws_service_hyperimage_org__getTagGroups_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagGroups'] = ws_service_hyperimage_org__getTagGroups_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createFlexMetadataRecord'] = ws_service_hyperimage_org__createFlexMetadataRecord_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createFlexMetadataRecord'] = ws_service_hyperimage_org__createFlexMetadataRecord_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveTemplateFromProjectResponse'] = ws_service_hyperimage_org__adminRemoveTemplateFromProjectResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminRemoveTemplateFromProjectResponse'] = ws_service_hyperimage_org__adminRemoveTemplateFromProjectResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminSetProjectRoleResponse'] = ws_service_hyperimage_org__adminSetProjectRoleResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminSetProjectRoleResponse'] = ws_service_hyperimage_org__adminSetProjectRoleResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetRoleInProject'] = ws_service_hyperimage_org__adminGetRoleInProject_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetRoleInProject'] = ws_service_hyperimage_org__adminGetRoleInProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopGetUsers'] = ws_service_hyperimage_org__sysopGetUsers_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopGetUsers'] = ws_service_hyperimage_org__sysopGetUsers_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetRoleInProject'] = ws_service_hyperimage_org__adminGetRoleInProject_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetRoleInProject'] = ws_service_hyperimage_org__adminGetRoleInProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminSetProjectRoleResponse'] = ws_service_hyperimage_org__adminSetProjectRoleResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminSetProjectRoleResponse'] = ws_service_hyperimage_org__adminSetProjectRoleResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getGroups'] = ws_service_hyperimage_org__getGroups_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getGroups'] = ws_service_hyperimage_org__getGroups_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateGroupSortOrder'] = ws_service_hyperimage_org__updateGroupSortOrder_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateGroupSortOrder'] = ws_service_hyperimage_org__updateGroupSortOrder_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}setProject'] = ws_service_hyperimage_org__setProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}setProject'] = ws_service_hyperimage_org__setProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateGroupSortOrder'] = ws_service_hyperimage_org__updateGroupSortOrder_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateGroupSortOrder'] = ws_service_hyperimage_org__updateGroupSortOrder_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagCountForBaseUUID'] = ws_service_hyperimage_org__getTagCountForBaseUUID_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagCountForBaseUUID'] = ws_service_hyperimage_org__getTagCountForBaseUUID_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateFlexMetadataRecords'] = ws_service_hyperimage_org__updateFlexMetadataRecords_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateFlexMetadataRecords'] = ws_service_hyperimage_org__updateFlexMetadataRecords_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveUserFromProject'] = ws_service_hyperimage_org__adminRemoveUserFromProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminRemoveUserFromProject'] = ws_service_hyperimage_org__adminRemoveUserFromProject_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiFlexMetadataName'] = ws_service_hyperimage_org__hiFlexMetadataName_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiFlexMetadataName'] = ws_service_hyperimage_org__hiFlexMetadataName_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopGetProjectsForUserResponse'] = ws_service_hyperimage_org__sysopGetProjectsForUserResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopGetProjectsForUserResponse'] = ws_service_hyperimage_org__sysopGetProjectsForUserResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiFlexMetadataName'] = ws_service_hyperimage_org__hiFlexMetadataName_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiFlexMetadataName'] = ws_service_hyperimage_org__hiFlexMetadataName_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getRole'] = ws_service_hyperimage_org__getRole_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getRole'] = ws_service_hyperimage_org__getRole_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}moveToGroup'] = ws_service_hyperimage_org__moveToGroup_serialize;
@@ -22469,10 +23399,10 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiRepository'] = ws_service_hyperimage_org__hiRepository_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetRoleInProjectResponse'] = ws_service_hyperimage_org__adminGetRoleInProjectResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetRoleInProjectResponse'] = ws_service_hyperimage_org__adminGetRoleInProjectResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopDeleteUserResponse'] = ws_service_hyperimage_org__sysopDeleteUserResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopDeleteUserResponse'] = ws_service_hyperimage_org__sysopDeleteUserResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopGetProjectsForUser'] = ws_service_hyperimage_org__sysopGetProjectsForUser_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopGetProjectsForUser'] = ws_service_hyperimage_org__sysopGetProjectsForUser_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopDeleteUserResponse'] = ws_service_hyperimage_org__sysopDeleteUserResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopDeleteUserResponse'] = ws_service_hyperimage_org__sysopDeleteUserResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopCreateUser'] = ws_service_hyperimage_org__sysopCreateUser_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopCreateUser'] = ws_service_hyperimage_org__sysopCreateUser_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getCurrentUser'] = ws_service_hyperimage_org__getCurrentUser_serialize;
@@ -22493,16 +23423,20 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateProjectDefaultLanguage'] = ws_service_hyperimage_org__updateProjectDefaultLanguage_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}sysopRemoveUserFromProject'] = ws_service_hyperimage_org__sysopRemoveUserFromProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopRemoveUserFromProject'] = ws_service_hyperimage_org__sysopRemoveUserFromProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseUUIDResponse'] = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseUUIDResponse'] = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagIDsForBase'] = ws_service_hyperimage_org__getTagIDsForBase_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagIDsForBase'] = ws_service_hyperimage_org__getTagIDsForBase_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveSetFromTemplateResponse'] = ws_service_hyperimage_org__adminRemoveSetFromTemplateResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminRemoveSetFromTemplateResponse'] = ws_service_hyperimage_org__adminRemoveSetFromTemplateResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTrashGroup'] = ws_service_hyperimage_org__getTrashGroup_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTrashGroup'] = ws_service_hyperimage_org__getTrashGroup_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getGroupContentQuickInfoResponse'] = ws_service_hyperimage_org__getGroupContentQuickInfoResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getGroupContentQuickInfoResponse'] = ws_service_hyperimage_org__getGroupContentQuickInfoResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminAddLanguageToProjectResponse'] = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminAddLanguageToProjectResponse'] = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}deletePreference'] = ws_service_hyperimage_org__deletePreference_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}deletePreference'] = ws_service_hyperimage_org__deletePreference_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminAddLanguageToProjectResponse'] = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminAddLanguageToProjectResponse'] = ws_service_hyperimage_org__adminAddLanguageToProjectResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeDefaultView'] = ws_service_hyperimage_org__removeDefaultView_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeDefaultView'] = ws_service_hyperimage_org__removeDefaultView_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetUserByUserNameResponse'] = ws_service_hyperimage_org__adminGetUserByUserNameResponse_serialize;
@@ -22519,6 +23453,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getFlexMetadataRecords'] = ws_service_hyperimage_org__getFlexMetadataRecords_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}deleteFromProject'] = ws_service_hyperimage_org__deleteFromProject_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}deleteFromProject'] = ws_service_hyperimage_org__deleteFromProject_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseUUID'] = ws_service_hyperimage_org__getTagIDsForBaseUUID_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagIDsForBaseUUID'] = ws_service_hyperimage_org__getTagIDsForBaseUUID_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeFromGroupResponse'] = ws_service_hyperimage_org__removeFromGroupResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeFromGroupResponse'] = ws_service_hyperimage_org__removeFromGroupResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createObject'] = ws_service_hyperimage_org__createObject_serialize;
@@ -22529,30 +23465,32 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getImportGroup'] = ws_service_hyperimage_org__getImportGroup_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminCreateSetDisplayNameResponse'] = ws_service_hyperimage_org__adminCreateSetDisplayNameResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminCreateSetDisplayNameResponse'] = ws_service_hyperimage_org__adminCreateSetDisplayNameResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagCountForBase'] = ws_service_hyperimage_org__getTagCountForBase_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagCountForBase'] = ws_service_hyperimage_org__getTagCountForBase_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminUpdateTemplateSortOrder'] = ws_service_hyperimage_org__adminUpdateTemplateSortOrder_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminUpdateTemplateSortOrder'] = ws_service_hyperimage_org__adminUpdateTemplateSortOrder_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetUserByUserName'] = ws_service_hyperimage_org__adminGetUserByUserName_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetUserByUserName'] = ws_service_hyperimage_org__adminGetUserByUserName_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseElementByUUIDResponse'] = ws_service_hyperimage_org__getBaseElementByUUIDResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getBaseElementByUUIDResponse'] = ws_service_hyperimage_org__getBaseElementByUUIDResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetUserByUserName'] = ws_service_hyperimage_org__adminGetUserByUserName_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetUserByUserName'] = ws_service_hyperimage_org__adminGetUserByUserName_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminUpdateTemplateResponse'] = ws_service_hyperimage_org__adminUpdateTemplateResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminUpdateTemplateResponse'] = ws_service_hyperimage_org__adminUpdateTemplateResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetProjectUsersResponse'] = ws_service_hyperimage_org__adminGetProjectUsersResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetProjectUsersResponse'] = ws_service_hyperimage_org__adminGetProjectUsersResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}HIServiceException'] = ws_service_hyperimage_org__HIServiceException_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}HIServiceException'] = ws_service_hyperimage_org__HIServiceException_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}HIParameterException'] = ws_service_hyperimage_org__HIParameterException_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}HIParameterException'] = ws_service_hyperimage_org__HIParameterException_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}HIServiceException'] = ws_service_hyperimage_org__HIServiceException_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}HIServiceException'] = ws_service_hyperimage_org__HIServiceException_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updatePreference'] = ws_service_hyperimage_org__updatePreference_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updatePreference'] = ws_service_hyperimage_org__updatePreference_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiFlexMetadataTemplate'] = ws_service_hyperimage_org__hiFlexMetadataTemplate_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiFlexMetadataTemplate'] = ws_service_hyperimage_org__hiFlexMetadataTemplate_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createContentQuickInfoResponse'] = ws_service_hyperimage_org__createContentQuickInfoResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createContentQuickInfoResponse'] = ws_service_hyperimage_org__createContentQuickInfoResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjectsResponse'] = ws_service_hyperimage_org__getProjectsResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjectsResponse'] = ws_service_hyperimage_org__getProjectsResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createContentQuickInfo'] = ws_service_hyperimage_org__createContentQuickInfo_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createContentQuickInfo'] = ws_service_hyperimage_org__createContentQuickInfo_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjectsResponse'] = ws_service_hyperimage_org__getProjectsResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjectsResponse'] = ws_service_hyperimage_org__getProjectsResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseQuickInfo'] = ws_service_hyperimage_org__getBaseQuickInfo_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getBaseQuickInfo'] = ws_service_hyperimage_org__getBaseQuickInfo_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminAddLanguageToProject'] = ws_service_hyperimage_org__adminAddLanguageToProject_serialize;
@@ -22587,10 +23525,10 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjectResponse'] = ws_service_hyperimage_org__getProjectResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeFromGroup'] = ws_service_hyperimage_org__removeFromGroup_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeFromGroup'] = ws_service_hyperimage_org__removeFromGroup_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveTemplateFromProject'] = ws_service_hyperimage_org__adminRemoveTemplateFromProject_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminRemoveTemplateFromProject'] = ws_service_hyperimage_org__adminRemoveTemplateFromProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiKeyValue'] = ws_service_hyperimage_org__hiKeyValue_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiKeyValue'] = ws_service_hyperimage_org__hiKeyValue_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminRemoveTemplateFromProject'] = ws_service_hyperimage_org__adminRemoveTemplateFromProject_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminRemoveTemplateFromProject'] = ws_service_hyperimage_org__adminRemoveTemplateFromProject_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminDeleteRepository'] = ws_service_hyperimage_org__adminDeleteRepository_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminDeleteRepository'] = ws_service_hyperimage_org__adminDeleteRepository_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}fieldSearch'] = ws_service_hyperimage_org__fieldSearch_serialize;
@@ -22605,30 +23543,34 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getStateResponse'] = ws_service_hyperimage_org__getStateResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjectLightTableElementsResponse'] = ws_service_hyperimage_org__getProjectLightTableElementsResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjectLightTableElementsResponse'] = ws_service_hyperimage_org__getProjectLightTableElementsResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse'] = ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse'] = ws_service_hyperimage_org__adminDeleteRepositoryResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updatePreferenceResponse'] = ws_service_hyperimage_org__updatePreferenceResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updatePreferenceResponse'] = ws_service_hyperimage_org__updatePreferenceResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTrashGroupResponse'] = ws_service_hyperimage_org__getTrashGroupResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTrashGroupResponse'] = ws_service_hyperimage_org__getTrashGroupResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updatePreferenceResponse'] = ws_service_hyperimage_org__updatePreferenceResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updatePreferenceResponse'] = ws_service_hyperimage_org__updatePreferenceResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse'] = ws_service_hyperimage_org__adminDeleteRepositoryResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminDeleteRepositoryResponse'] = ws_service_hyperimage_org__adminDeleteRepositoryResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiPreference'] = ws_service_hyperimage_org__hiPreference_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiPreference'] = ws_service_hyperimage_org__hiPreference_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}removeLayer'] = ws_service_hyperimage_org__removeLayer_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}removeLayer'] = ws_service_hyperimage_org__removeLayer_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getRoleResponse'] = ws_service_hyperimage_org__getRoleResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getRoleResponse'] = ws_service_hyperimage_org__getRoleResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createInscriptionResponse'] = ws_service_hyperimage_org__createInscriptionResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createInscriptionResponse'] = ws_service_hyperimage_org__createInscriptionResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiLanguage'] = ws_service_hyperimage_org__hiLanguage_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiLanguage'] = ws_service_hyperimage_org__hiLanguage_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createInscriptionResponse'] = ws_service_hyperimage_org__createInscriptionResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createInscriptionResponse'] = ws_service_hyperimage_org__createInscriptionResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminGetUsers'] = ws_service_hyperimage_org__adminGetUsers_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminGetUsers'] = ws_service_hyperimage_org__adminGetUsers_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagCountForBaseResponse'] = ws_service_hyperimage_org__getTagCountForBaseResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagCountForBaseResponse'] = ws_service_hyperimage_org__getTagCountForBaseResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createLayer'] = ws_service_hyperimage_org__createLayer_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createLayer'] = ws_service_hyperimage_org__createLayer_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getScaledImageResponse'] = ws_service_hyperimage_org__getScaledImageResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getScaledImageResponse'] = ws_service_hyperimage_org__getScaledImageResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminUpdateSetDisplayName'] = ws_service_hyperimage_org__adminUpdateSetDisplayName_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminUpdateSetDisplayName'] = ws_service_hyperimage_org__adminUpdateSetDisplayName_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagGroupsResponse'] = ws_service_hyperimage_org__getTagGroupsResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagGroupsResponse'] = ws_service_hyperimage_org__getTagGroupsResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateProjectStartElementResponse'] = ws_service_hyperimage_org__updateProjectStartElementResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateProjectStartElementResponse'] = ws_service_hyperimage_org__updateProjectStartElementResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getCurrentUserResponse'] = ws_service_hyperimage_org__getCurrentUserResponse_serialize;
@@ -22655,18 +23597,20 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateGroupPropertiesResponse'] = ws_service_hyperimage_org__updateGroupPropertiesResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}createTextResponse'] = ws_service_hyperimage_org__createTextResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createTextResponse'] = ws_service_hyperimage_org__createTextResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}createTagGroup'] = ws_service_hyperimage_org__createTagGroup_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createTagGroup'] = ws_service_hyperimage_org__createTagGroup_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateProjectDefaultLanguageResponse'] = ws_service_hyperimage_org__updateProjectDefaultLanguageResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateProjectDefaultLanguageResponse'] = ws_service_hyperimage_org__updateProjectDefaultLanguageResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}moveToTrashResponse'] = ws_service_hyperimage_org__moveToTrashResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}moveToTrashResponse'] = ws_service_hyperimage_org__moveToTrashResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getRepositories'] = ws_service_hyperimage_org__getRepositories_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getRepositories'] = ws_service_hyperimage_org__getRepositories_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}setLayerLinkResponse'] = ws_service_hyperimage_org__setLayerLinkResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}setLayerLinkResponse'] = ws_service_hyperimage_org__setLayerLinkResponse_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjects'] = ws_service_hyperimage_org__getProjects_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjects'] = ws_service_hyperimage_org__getProjects_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getRepositories'] = ws_service_hyperimage_org__getRepositories_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getRepositories'] = ws_service_hyperimage_org__getRepositories_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiLightTable'] = ws_service_hyperimage_org__hiLightTable_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiLightTable'] = ws_service_hyperimage_org__hiLightTable_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjects'] = ws_service_hyperimage_org__getProjects_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjects'] = ws_service_hyperimage_org__getProjects_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateUserPasswordResponse'] = ws_service_hyperimage_org__updateUserPasswordResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateUserPasswordResponse'] = ws_service_hyperimage_org__updateUserPasswordResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseQuickInfoByUUIDResponse'] = ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_serialize;
@@ -22677,10 +23621,10 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}sysopDeleteUser'] = ws_service_hyperimage_org__sysopDeleteUser_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}hiBase'] = ws_service_hyperimage_org__hiBase_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}hiBase'] = ws_service_hyperimage_org__hiBase_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminAddUserToProjectResponse'] = ws_service_hyperimage_org__adminAddUserToProjectResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminAddUserToProjectResponse'] = ws_service_hyperimage_org__adminAddUserToProjectResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateContentOwner'] = ws_service_hyperimage_org__updateContentOwner_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateContentOwner'] = ws_service_hyperimage_org__updateContentOwner_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminAddUserToProjectResponse'] = ws_service_hyperimage_org__adminAddUserToProjectResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminAddUserToProjectResponse'] = ws_service_hyperimage_org__adminAddUserToProjectResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminUpdateTemplateSortOrderResponse'] = ws_service_hyperimage_org__adminUpdateTemplateSortOrderResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminUpdateTemplateSortOrderResponse'] = ws_service_hyperimage_org__adminUpdateTemplateSortOrderResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}copyToGroupResponse'] = ws_service_hyperimage_org__copyToGroupResponse_serialize;
@@ -22695,10 +23639,10 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateProjectMetadataResponse'] = ws_service_hyperimage_org__updateProjectMetadataResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjectLightTableElements'] = ws_service_hyperimage_org__getProjectLightTableElements_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjectLightTableElements'] = ws_service_hyperimage_org__getProjectLightTableElements_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateViewSortOrderResponse'] = ws_service_hyperimage_org__updateViewSortOrderResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateViewSortOrderResponse'] = ws_service_hyperimage_org__updateViewSortOrderResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getProjectTextElementsResponse'] = ws_service_hyperimage_org__getProjectTextElementsResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getProjectTextElementsResponse'] = ws_service_hyperimage_org__getProjectTextElementsResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateViewSortOrderResponse'] = ws_service_hyperimage_org__updateViewSortOrderResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateViewSortOrderResponse'] = ws_service_hyperimage_org__updateViewSortOrderResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}setLayerLink'] = ws_service_hyperimage_org__setLayerLink_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}setLayerLink'] = ws_service_hyperimage_org__setLayerLink_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}rebuildSearchIndexResponse'] = ws_service_hyperimage_org__rebuildSearchIndexResponse_serialize;
@@ -22713,6 +23657,8 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}createLayerResponse'] = ws_service_hyperimage_org__createLayerResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}HIEntityNotFoundException'] = ws_service_hyperimage_org__HIEntityNotFoundException_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}HIEntityNotFoundException'] = ws_service_hyperimage_org__HIEntityNotFoundException_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}getTagCountForBaseUUIDResponse'] = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getTagCountForBaseUUIDResponse'] = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminCreateRepositoryResponse'] = ws_service_hyperimage_org__adminCreateRepositoryResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}adminCreateRepositoryResponse'] = ws_service_hyperimage_org__adminCreateRepositoryResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getBaseQuickInfoByUUID'] = ws_service_hyperimage_org__getBaseQuickInfoByUUID_serialize;
@@ -22721,10 +23667,10 @@ function ws_service_hyperimage_org__HIEditor () {
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateUserResponse'] = ws_service_hyperimage_org__updateUserResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}getImage'] = ws_service_hyperimage_org__getImage_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}getImage'] = ws_service_hyperimage_org__getImage_deserialize;
-    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateLayerPropertiesResponse'] = ws_service_hyperimage_org__updateLayerPropertiesResponse_serialize;
-    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateLayerPropertiesResponse'] = ws_service_hyperimage_org__updateLayerPropertiesResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}setProjectResponse'] = ws_service_hyperimage_org__setProjectResponse_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}setProjectResponse'] = ws_service_hyperimage_org__setProjectResponse_deserialize;
+    this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateLayerPropertiesResponse'] = ws_service_hyperimage_org__updateLayerPropertiesResponse_serialize;
+    this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateLayerPropertiesResponse'] = ws_service_hyperimage_org__updateLayerPropertiesResponse_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}updateUserPassword'] = ws_service_hyperimage_org__updateUserPassword_serialize;
     this.globalElementDeserializers['{http://ws.service.hyperimage.org/}updateUserPassword'] = ws_service_hyperimage_org__updateUserPassword_deserialize;
     this.globalElementSerializers['{http://ws.service.hyperimage.org/}adminAddSetToTemplateResponse'] = ws_service_hyperimage_org__adminAddSetToTemplateResponse_serialize;
@@ -22824,90 +23770,6 @@ function ws_service_hyperimage_org__updateProjectMetadataResponse_deserializeRes
 
     return returnObject;
 }
-function ws_service_hyperimage_org__getBaseQuickInfoByUUID_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserializeResponse');
-     responseObject = ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.getBaseQuickInfoByUUID_onsuccess = ws_service_hyperimage_org__getBaseQuickInfoByUUID_op_onsuccess;
-
-function ws_service_hyperimage_org__getBaseQuickInfoByUUID_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     client.user_onerror(httpStatus, httpStatusText);
-    }
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.getBaseQuickInfoByUUID_onerror = ws_service_hyperimage_org__getBaseQuickInfoByUUID_op_onerror;
-
-//
-// Operation {http://ws.service.hyperimage.org/}getBaseQuickInfoByUUID
-// Wrapped operation.
-// parameter uuid
-// - simple type {http://www.w3.org/2001/XMLSchema}string//
-function ws_service_hyperimage_org__getBaseQuickInfoByUUID_op(successCallback, errorCallback, uuid) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(1);
-    args[0] = uuid;
-    xml = this.getBaseQuickInfoByUUID_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.getBaseQuickInfoByUUID_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.getBaseQuickInfoByUUID_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.getBaseQuickInfoByUUID = ws_service_hyperimage_org__getBaseQuickInfoByUUID_op;
-
-function ws_service_hyperimage_org__getBaseQuickInfoByUUID_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new ws_service_hyperimage_org__getBaseQuickInfoByUUID();
-    wrapperObj.setUuid(args[0]);
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:getBaseQuickInfoByUUID', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.getBaseQuickInfoByUUID_serializeInput = ws_service_hyperimage_org__getBaseQuickInfoByUUID_serializeInput;
-
-function ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
 function ws_service_hyperimage_org__copyToGroup_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -22992,6 +23854,90 @@ ws_service_hyperimage_org__HIEditor.prototype.copyToGroup_serializeInput = ws_se
 
 function ws_service_hyperimage_org__copyToGroupResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = ws_service_hyperimage_org__copyToGroupResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
+function ws_service_hyperimage_org__getBaseQuickInfoByUUID_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getBaseQuickInfoByUUID_onsuccess = ws_service_hyperimage_org__getBaseQuickInfoByUUID_op_onsuccess;
+
+function ws_service_hyperimage_org__getBaseQuickInfoByUUID_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getBaseQuickInfoByUUID_onerror = ws_service_hyperimage_org__getBaseQuickInfoByUUID_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}getBaseQuickInfoByUUID
+// Wrapped operation.
+// parameter uuid
+// - simple type {http://www.w3.org/2001/XMLSchema}string//
+function ws_service_hyperimage_org__getBaseQuickInfoByUUID_op(successCallback, errorCallback, uuid) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(1);
+    args[0] = uuid;
+    xml = this.getBaseQuickInfoByUUID_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.getBaseQuickInfoByUUID_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.getBaseQuickInfoByUUID_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getBaseQuickInfoByUUID = ws_service_hyperimage_org__getBaseQuickInfoByUUID_op;
+
+function ws_service_hyperimage_org__getBaseQuickInfoByUUID_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__getBaseQuickInfoByUUID();
+    wrapperObj.setUuid(args[0]);
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:getBaseQuickInfoByUUID', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getBaseQuickInfoByUUID_serializeInput = ws_service_hyperimage_org__getBaseQuickInfoByUUID_serializeInput;
+
+function ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__getBaseQuickInfoByUUIDResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -23671,6 +24617,90 @@ ws_service_hyperimage_org__HIEditor.prototype.adminGetRoleInProject_serializeInp
 
 function ws_service_hyperimage_org__adminGetRoleInProjectResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = ws_service_hyperimage_org__adminGetRoleInProjectResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
+function ws_service_hyperimage_org__getTagCountForBase_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__getTagCountForBaseResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__getTagCountForBaseResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagCountForBase_onsuccess = ws_service_hyperimage_org__getTagCountForBase_op_onsuccess;
+
+function ws_service_hyperimage_org__getTagCountForBase_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagCountForBase_onerror = ws_service_hyperimage_org__getTagCountForBase_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}getTagCountForBase
+// Wrapped operation.
+// parameter baseID
+// - simple type {http://www.w3.org/2001/XMLSchema}long//
+function ws_service_hyperimage_org__getTagCountForBase_op(successCallback, errorCallback, baseID) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(1);
+    args[0] = baseID;
+    xml = this.getTagCountForBase_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.getTagCountForBase_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.getTagCountForBase_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagCountForBase = ws_service_hyperimage_org__getTagCountForBase_op;
+
+function ws_service_hyperimage_org__getTagCountForBase_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__getTagCountForBase();
+    wrapperObj.setBaseID(args[0]);
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:getTagCountForBase', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagCountForBase_serializeInput = ws_service_hyperimage_org__getTagCountForBase_serializeInput;
+
+function ws_service_hyperimage_org__getTagCountForBaseResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__getTagCountForBaseResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -25907,87 +26937,6 @@ function ws_service_hyperimage_org__sysopAddUserToProjectResponse_deserializeRes
 
     return returnObject;
 }
-function ws_service_hyperimage_org__sysopGetUsers_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling ws_service_hyperimage_org__sysopGetUsersResponse_deserializeResponse');
-     responseObject = ws_service_hyperimage_org__sysopGetUsersResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.sysopGetUsers_onsuccess = ws_service_hyperimage_org__sysopGetUsers_op_onsuccess;
-
-function ws_service_hyperimage_org__sysopGetUsers_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     client.user_onerror(httpStatus, httpStatusText);
-    }
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.sysopGetUsers_onerror = ws_service_hyperimage_org__sysopGetUsers_op_onerror;
-
-//
-// Operation {http://ws.service.hyperimage.org/}sysopGetUsers
-// Wrapped operation.
-//
-function ws_service_hyperimage_org__sysopGetUsers_op(successCallback, errorCallback) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(0);
-    xml = this.sysopGetUsers_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.sysopGetUsers_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.sysopGetUsers_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.sysopGetUsers = ws_service_hyperimage_org__sysopGetUsers_op;
-
-function ws_service_hyperimage_org__sysopGetUsers_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new ws_service_hyperimage_org__sysopGetUsers();
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:sysopGetUsers', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.sysopGetUsers_serializeInput = ws_service_hyperimage_org__sysopGetUsers_serializeInput;
-
-function ws_service_hyperimage_org__sysopGetUsersResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = ws_service_hyperimage_org__sysopGetUsersResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
 function ws_service_hyperimage_org__getGroups_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -26066,6 +27015,87 @@ ws_service_hyperimage_org__HIEditor.prototype.getGroups_serializeInput = ws_serv
 
 function ws_service_hyperimage_org__getGroupsResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = ws_service_hyperimage_org__getGroupsResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
+function ws_service_hyperimage_org__sysopGetUsers_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__sysopGetUsersResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__sysopGetUsersResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.sysopGetUsers_onsuccess = ws_service_hyperimage_org__sysopGetUsers_op_onsuccess;
+
+function ws_service_hyperimage_org__sysopGetUsers_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.sysopGetUsers_onerror = ws_service_hyperimage_org__sysopGetUsers_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}sysopGetUsers
+// Wrapped operation.
+//
+function ws_service_hyperimage_org__sysopGetUsers_op(successCallback, errorCallback) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(0);
+    xml = this.sysopGetUsers_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.sysopGetUsers_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.sysopGetUsers_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.sysopGetUsers = ws_service_hyperimage_org__sysopGetUsers_op;
+
+function ws_service_hyperimage_org__sysopGetUsers_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__sysopGetUsers();
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:sysopGetUsers', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.sysopGetUsers_serializeInput = ws_service_hyperimage_org__sysopGetUsers_serializeInput;
+
+function ws_service_hyperimage_org__sysopGetUsersResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__sysopGetUsersResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -27168,96 +28198,6 @@ function ws_service_hyperimage_org__createObjectResponse_deserializeResponse(cxf
 
     return returnObject;
 }
-function ws_service_hyperimage_org__adminAddSetToTemplate_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling ws_service_hyperimage_org__adminAddSetToTemplateResponse_deserializeResponse');
-     responseObject = ws_service_hyperimage_org__adminAddSetToTemplateResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.adminAddSetToTemplate_onsuccess = ws_service_hyperimage_org__adminAddSetToTemplate_op_onsuccess;
-
-function ws_service_hyperimage_org__adminAddSetToTemplate_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     client.user_onerror(httpStatus, httpStatusText);
-    }
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.adminAddSetToTemplate_onerror = ws_service_hyperimage_org__adminAddSetToTemplate_op_onerror;
-
-//
-// Operation {http://ws.service.hyperimage.org/}adminAddSetToTemplate
-// Wrapped operation.
-// parameter templateID
-// - simple type {http://www.w3.org/2001/XMLSchema}long// parameter tagName
-// - simple type {http://www.w3.org/2001/XMLSchema}string// parameter isRichText
-// - simple type {http://www.w3.org/2001/XMLSchema}boolean//
-function ws_service_hyperimage_org__adminAddSetToTemplate_op(successCallback, errorCallback, templateID, tagName, isRichText) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(3);
-    args[0] = templateID;
-    args[1] = tagName;
-    args[2] = isRichText;
-    xml = this.adminAddSetToTemplate_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.adminAddSetToTemplate_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.adminAddSetToTemplate_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.adminAddSetToTemplate = ws_service_hyperimage_org__adminAddSetToTemplate_op;
-
-function ws_service_hyperimage_org__adminAddSetToTemplate_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new ws_service_hyperimage_org__adminAddSetToTemplate();
-    wrapperObj.setTemplateID(args[0]);
-    wrapperObj.setTagName(args[1]);
-    wrapperObj.setIsRichText(args[2]);
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:adminAddSetToTemplate', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-ws_service_hyperimage_org__HIEditor.prototype.adminAddSetToTemplate_serializeInput = ws_service_hyperimage_org__adminAddSetToTemplate_serializeInput;
-
-function ws_service_hyperimage_org__adminAddSetToTemplateResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = ws_service_hyperimage_org__adminAddSetToTemplateResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
 function ws_service_hyperimage_org__fieldSearch_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -27347,6 +28287,96 @@ ws_service_hyperimage_org__HIEditor.prototype.fieldSearch_serializeInput = ws_se
 
 function ws_service_hyperimage_org__fieldSearchResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = ws_service_hyperimage_org__fieldSearchResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
+function ws_service_hyperimage_org__adminAddSetToTemplate_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__adminAddSetToTemplateResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__adminAddSetToTemplateResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.adminAddSetToTemplate_onsuccess = ws_service_hyperimage_org__adminAddSetToTemplate_op_onsuccess;
+
+function ws_service_hyperimage_org__adminAddSetToTemplate_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.adminAddSetToTemplate_onerror = ws_service_hyperimage_org__adminAddSetToTemplate_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}adminAddSetToTemplate
+// Wrapped operation.
+// parameter templateID
+// - simple type {http://www.w3.org/2001/XMLSchema}long// parameter tagName
+// - simple type {http://www.w3.org/2001/XMLSchema}string// parameter isRichText
+// - simple type {http://www.w3.org/2001/XMLSchema}boolean//
+function ws_service_hyperimage_org__adminAddSetToTemplate_op(successCallback, errorCallback, templateID, tagName, isRichText) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(3);
+    args[0] = templateID;
+    args[1] = tagName;
+    args[2] = isRichText;
+    xml = this.adminAddSetToTemplate_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.adminAddSetToTemplate_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.adminAddSetToTemplate_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.adminAddSetToTemplate = ws_service_hyperimage_org__adminAddSetToTemplate_op;
+
+function ws_service_hyperimage_org__adminAddSetToTemplate_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__adminAddSetToTemplate();
+    wrapperObj.setTemplateID(args[0]);
+    wrapperObj.setTagName(args[1]);
+    wrapperObj.setIsRichText(args[2]);
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:adminAddSetToTemplate', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.adminAddSetToTemplate_serializeInput = ws_service_hyperimage_org__adminAddSetToTemplate_serializeInput;
+
+function ws_service_hyperimage_org__adminAddSetToTemplateResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__adminAddSetToTemplateResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -28462,6 +29492,90 @@ function ws_service_hyperimage_org__adminUpdateTemplateSortOrderResponse_deseria
 
     return returnObject;
 }
+function ws_service_hyperimage_org__getTagIDsForBaseUUID_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagIDsForBaseUUID_onsuccess = ws_service_hyperimage_org__getTagIDsForBaseUUID_op_onsuccess;
+
+function ws_service_hyperimage_org__getTagIDsForBaseUUID_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagIDsForBaseUUID_onerror = ws_service_hyperimage_org__getTagIDsForBaseUUID_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}getTagIDsForBaseUUID
+// Wrapped operation.
+// parameter uuid
+// - simple type {http://www.w3.org/2001/XMLSchema}string//
+function ws_service_hyperimage_org__getTagIDsForBaseUUID_op(successCallback, errorCallback, uuid) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(1);
+    args[0] = uuid;
+    xml = this.getTagIDsForBaseUUID_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.getTagIDsForBaseUUID_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.getTagIDsForBaseUUID_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagIDsForBaseUUID = ws_service_hyperimage_org__getTagIDsForBaseUUID_op;
+
+function ws_service_hyperimage_org__getTagIDsForBaseUUID_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__getTagIDsForBaseUUID();
+    wrapperObj.setUuid(args[0]);
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:getTagIDsForBaseUUID', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagIDsForBaseUUID_serializeInput = ws_service_hyperimage_org__getTagIDsForBaseUUID_serializeInput;
+
+function ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__getTagIDsForBaseUUIDResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
 function ws_service_hyperimage_org__updateLayerProperties_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -29493,6 +30607,90 @@ function ws_service_hyperimage_org__adminRemoveUserFromProjectResponse_deseriali
 
     return returnObject;
 }
+function ws_service_hyperimage_org__getTagCountForBaseUUID_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagCountForBaseUUID_onsuccess = ws_service_hyperimage_org__getTagCountForBaseUUID_op_onsuccess;
+
+function ws_service_hyperimage_org__getTagCountForBaseUUID_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagCountForBaseUUID_onerror = ws_service_hyperimage_org__getTagCountForBaseUUID_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}getTagCountForBaseUUID
+// Wrapped operation.
+// parameter uuid
+// - simple type {http://www.w3.org/2001/XMLSchema}string//
+function ws_service_hyperimage_org__getTagCountForBaseUUID_op(successCallback, errorCallback, uuid) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(1);
+    args[0] = uuid;
+    xml = this.getTagCountForBaseUUID_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.getTagCountForBaseUUID_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.getTagCountForBaseUUID_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagCountForBaseUUID = ws_service_hyperimage_org__getTagCountForBaseUUID_op;
+
+function ws_service_hyperimage_org__getTagCountForBaseUUID_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__getTagCountForBaseUUID();
+    wrapperObj.setUuid(args[0]);
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:getTagCountForBaseUUID', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagCountForBaseUUID_serializeInput = ws_service_hyperimage_org__getTagCountForBaseUUID_serializeInput;
+
+function ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__getTagCountForBaseUUIDResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
 function ws_service_hyperimage_org__getFlexMetadataRecords_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -29748,6 +30946,87 @@ function ws_service_hyperimage_org__createGroupResponse_deserializeResponse(cxfj
 
     return returnObject;
 }
+function ws_service_hyperimage_org__getTagGroups_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__getTagGroupsResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__getTagGroupsResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagGroups_onsuccess = ws_service_hyperimage_org__getTagGroups_op_onsuccess;
+
+function ws_service_hyperimage_org__getTagGroups_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagGroups_onerror = ws_service_hyperimage_org__getTagGroups_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}getTagGroups
+// Wrapped operation.
+//
+function ws_service_hyperimage_org__getTagGroups_op(successCallback, errorCallback) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(0);
+    xml = this.getTagGroups_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.getTagGroups_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.getTagGroups_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagGroups = ws_service_hyperimage_org__getTagGroups_op;
+
+function ws_service_hyperimage_org__getTagGroups_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__getTagGroups();
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:getTagGroups', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagGroups_serializeInput = ws_service_hyperimage_org__getTagGroups_serializeInput;
+
+function ws_service_hyperimage_org__getTagGroupsResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__getTagGroupsResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
 function ws_service_hyperimage_org__getGroupContentQuickInfo_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -29829,6 +31108,90 @@ ws_service_hyperimage_org__HIEditor.prototype.getGroupContentQuickInfo_serialize
 
 function ws_service_hyperimage_org__getGroupContentQuickInfoResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = ws_service_hyperimage_org__getGroupContentQuickInfoResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
+function ws_service_hyperimage_org__createTagGroup_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__createTagGroupResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__createTagGroupResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.createTagGroup_onsuccess = ws_service_hyperimage_org__createTagGroup_op_onsuccess;
+
+function ws_service_hyperimage_org__createTagGroup_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.createTagGroup_onerror = ws_service_hyperimage_org__createTagGroup_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}createTagGroup
+// Wrapped operation.
+// parameter uuid
+// - simple type {http://www.w3.org/2001/XMLSchema}string//
+function ws_service_hyperimage_org__createTagGroup_op(successCallback, errorCallback, uuid) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(1);
+    args[0] = uuid;
+    xml = this.createTagGroup_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.createTagGroup_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.createTagGroup_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.createTagGroup = ws_service_hyperimage_org__createTagGroup_op;
+
+function ws_service_hyperimage_org__createTagGroup_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__createTagGroup();
+    wrapperObj.setUuid(args[0]);
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:createTagGroup', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.createTagGroup_serializeInput = ws_service_hyperimage_org__createTagGroup_serializeInput;
+
+function ws_service_hyperimage_org__createTagGroupResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__createTagGroupResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -30267,6 +31630,90 @@ ws_service_hyperimage_org__HIEditor.prototype.getVersionID_serializeInput = ws_s
 
 function ws_service_hyperimage_org__getVersionIDResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = ws_service_hyperimage_org__getVersionIDResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
+function ws_service_hyperimage_org__getTagIDsForBase_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling ws_service_hyperimage_org__getTagIDsForBaseResponse_deserializeResponse');
+     responseObject = ws_service_hyperimage_org__getTagIDsForBaseResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagIDsForBase_onsuccess = ws_service_hyperimage_org__getTagIDsForBase_op_onsuccess;
+
+function ws_service_hyperimage_org__getTagIDsForBase_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     client.user_onerror(httpStatus, httpStatusText);
+    }
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagIDsForBase_onerror = ws_service_hyperimage_org__getTagIDsForBase_op_onerror;
+
+//
+// Operation {http://ws.service.hyperimage.org/}getTagIDsForBase
+// Wrapped operation.
+// parameter baseID
+// - simple type {http://www.w3.org/2001/XMLSchema}long//
+function ws_service_hyperimage_org__getTagIDsForBase_op(successCallback, errorCallback, baseID) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(1);
+    args[0] = baseID;
+    xml = this.getTagIDsForBase_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.getTagIDsForBase_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.getTagIDsForBase_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagIDsForBase = ws_service_hyperimage_org__getTagIDsForBase_op;
+
+function ws_service_hyperimage_org__getTagIDsForBase_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new ws_service_hyperimage_org__getTagIDsForBase();
+    wrapperObj.setBaseID(args[0]);
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='http://ws.service.hyperimage.org/' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:getTagIDsForBase', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+ws_service_hyperimage_org__HIEditor.prototype.getTagIDsForBase_serializeInput = ws_service_hyperimage_org__getTagIDsForBase_serializeInput;
+
+function ws_service_hyperimage_org__getTagIDsForBaseResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = ws_service_hyperimage_org__getTagIDsForBaseResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -30853,7 +32300,7 @@ ws_service_hyperimage_org__HIEditor.prototype.rebuildSearchIndex_serializeInput 
 function ws_service_hyperimage_org__rebuildSearchIndexResponse_deserializeResponse(cxfjsutils, partElement) {
 }
 function ws_service_hyperimage_org__HIEditor_ws_service_hyperimage_org__HIEditorPort () {
-  this.url = 'http://127.0.0.1:8080/HI3Author/HIEditorService';
+  this.url = 'http://localhost:8080/HI3Author/HIEditorService';
 }
 ws_service_hyperimage_org__HIEditor_ws_service_hyperimage_org__HIEditorPort.prototype = new ws_service_hyperimage_org__HIEditor;
 

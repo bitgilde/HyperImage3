@@ -24,5 +24,6 @@
     <jar href="../editor/HI3Author-EditorClient_3.0.jar"/>
 </resources>
     <application-desc main-class="org.hyperimage.sysop.client.Main">
+        <argument><%= serverURL %>/HI3Author</argument>
 </application-desc>
 </jnlp>

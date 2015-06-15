@@ -160,13 +160,13 @@ public class HILogin {
                         
         } catch (NoResultException e) {
             try {
-                sysop = new HIUser("System", "Operator", "sysop@hyperimage.eu", "sysop", "secret");
+                sysop = new HIUser("System", "Operator", "sysop@hyperimage.invalid", "sysop", "secret");
                 UserTransaction utx = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
                 utx.begin();
                 em.joinTransaction();
                 em.persist(sysop);
                 utx.commit();
-                System.out.println("NOTE: HI DB sysop-user created. PLEASE CHANGE SYSOP PASSWORD IMMEDIATELY!");
+                System.out.println("NOTE: HI DB 'sysop' user created. PLEASE CHANGE SYSOP PASSWORD IMMEDIATELY!");
             } catch (NamingException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
                 Logger.getLogger(HILogin.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -200,8 +200,8 @@ public class HILogin {
                 return HIEditor.manager.export(editor);
             } catch (InstantiationException e) {
                 e.printStackTrace();
+                throw new HIMaintenanceModeException("HI INIT/CONF ERROR: "+e.getMessage());
             }
-            return null;
         }
 
         return null;
@@ -229,9 +229,9 @@ public class HILogin {
         HIUser user = null;
         Properties props = new Properties();
         props.setProperty("request.token.verb", "POST");
-        props.setProperty("request.token.url",  "http://prometheus-test.uni-koeln.de/pandora-devel/oauth/request_token");
+        props.setProperty("request.token.url",  prefs.getPrometheusAPIPref().endsWith("/")?prefs.getPrometheusAPIPref().substring(0, prefs.getPrometheusAPIPref().length()-1):prefs.getPrometheusAPIPref()+"/oauth/request_token");
         props.setProperty("access.token.verb",  "POST");
-        props.setProperty("access.token.url",   "http://prometheus-test.uni-koeln.de/pandora-devel/oauth/access_token");
+        props.setProperty("access.token.url",   prefs.getPrometheusAPIPref().endsWith("/")?prefs.getPrometheusAPIPref().substring(0, prefs.getPrometheusAPIPref().length()-1):prefs.getPrometheusAPIPref()+"/oauth/access_token");
         props.setProperty("callback.url",       "oob");
         props.setProperty("consumer.key",       prefs.getPrometheusOAUTHConsumerKey());
         props.setProperty("consumer.secret",    prefs.getPrometheusOAUTHConsumerSecret());

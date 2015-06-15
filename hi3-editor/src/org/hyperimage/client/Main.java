@@ -161,9 +161,9 @@ public class Main {
         }
         System.out.println("OAUTH / Prometheus Mode: " + HIRuntime.OAUTHMode);
 
-        // DEBUG remove
         if (HIRuntime.OAUTHMode) {
             System.setProperty("HI.feature.importDisabled", "true");
+            System.setProperty("HI.feature.tagsDisabled", "true");
 //            System.setProperty("HI.feature.trashDisabled", "true");
             System.setProperty("HI.feature.templateEditorDisabled", "true");
             System.setProperty("HI.feature.accountSettingsDisabled", "true");

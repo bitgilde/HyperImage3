@@ -3,6 +3,7 @@ package org.hyperimage.client.ws;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -37,6 +38,7 @@ public class SysopAddUserToProject {
 
     protected long userID;
     protected long projectID;
+    @XmlSchemaType(name = "string")
     protected HiRoles role;
 
     /**

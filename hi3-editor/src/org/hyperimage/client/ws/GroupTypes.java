@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="HIGROUP_REGULAR"/>
  *     &lt;enumeration value="HIGROUP_IMPORT"/>
  *     &lt;enumeration value="HIGROUP_TRASH"/>
+ *     &lt;enumeration value="HIGROUP_TAG"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -27,7 +28,8 @@ public enum GroupTypes {
 
     HIGROUP_REGULAR,
     HIGROUP_IMPORT,
-    HIGROUP_TRASH;
+    HIGROUP_TRASH,
+    HIGROUP_TAG;
 
     public String value() {
         return name();

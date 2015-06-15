@@ -104,6 +104,7 @@ public class XMLImporter implements ErrorHandler {
     ArrayList<Element> urls = new ArrayList<>();
     ArrayList<Element> litas = new ArrayList<>();
     ArrayList<Element> groups = new ArrayList<>();
+    ArrayList<Element> tags = new ArrayList<>();
     Element xmlImportGroup;
     ArrayList<HiFlexMetadataTemplate> templates = new ArrayList<>();
     HashMap<HiText, Element> textMap = new HashMap<>();

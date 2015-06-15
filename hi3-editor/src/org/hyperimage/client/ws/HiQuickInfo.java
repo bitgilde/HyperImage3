@@ -4,6 +4,7 @@ package org.hyperimage.client.ws;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -45,6 +46,7 @@ import javax.xml.bind.annotation.XmlType;
 public class HiQuickInfo {
 
     protected long baseID;
+    @XmlSchemaType(name = "string")
     protected HiBaseTypes contentType;
     protected int count;
     protected String preview;

@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.components;
 
 import com.sun.media.jai.codec.JPEGEncodeParam;
@@ -901,6 +921,7 @@ public class GroupBrowser extends HIComponent
                             groupListView.getList().setEnabled(false);
                             groupContentsView.prepareElementLoading();
                             metadataEditorView.setGroup(groupListView.getCurrentGroup(), HIRuntime.getManager().getProject().getDefaultLanguage().getLanguageId());
+                            metadataEditorView.setTagCount(HIRuntime.getGui().getTagCountForElement(groupListView.getCurrentGroup()));
                             contentLoader.loadGroup(groupListView.getCurrentGroup());
                             return false;
                         }
@@ -1149,7 +1170,9 @@ public class GroupBrowser extends HIComponent
 
 		
 		groupContentsView.setCurrentGroup(group);
-		metadataEditorView.setGroup(group,HIRuntime.getManager().getProject().getDefaultLanguage().getLanguageId());
+		metadataEditorView.setGroup(group, HIRuntime.getManager().getProject().getDefaultLanguage().getLanguageId());
+                metadataEditorView.setTagCount(HIRuntime.getGui().getTagCountForElement(group));
+
 		contentLoader.loadGroup(group);
 		HIRuntime.getGui().stopIndicatingServiceActivity();
 		updateTitle();
@@ -1233,6 +1256,7 @@ public class GroupBrowser extends HIComponent
 			
 			// update GUI
 			metadataEditorView.setGroup(groupListView.getCurrentGroup(), HIRuntime.getManager().getProject().getDefaultLanguage().getLanguageId());
+                        metadataEditorView.setTagCount(HIRuntime.getGui().getTagCountForElement(groupListView.getCurrentGroup()));
 		}
 		
 
@@ -1244,8 +1268,10 @@ public class GroupBrowser extends HIComponent
 			if ( base instanceof HiGroup ) {
 				// update group metadata and/or title
 				groupListView.updateGroup((HiGroup)base);
-				if ( groupListView.getCurrentGroup().getId() == base.getId() )
+				if ( groupListView.getCurrentGroup().getId() == base.getId() ) {
 					metadataEditorView.setGroup((HiGroup)base,HIRuntime.getManager().getProject().getDefaultLanguage().getLanguageId()); 
+                                        metadataEditorView.setTagCount(HIRuntime.getGui().getTagCountForElement((HiGroup)base));
+                                }
 			}
 
 			// update group contents if necessary
@@ -1570,7 +1596,8 @@ public class GroupBrowser extends HIComponent
 			groupContentsView.prepareElementLoading();
 			HiGroup group = groupListView.getCurrentGroup();
 			groupContentsView.setCurrentGroup(group);
-			metadataEditorView.setGroup(group,HIRuntime.getManager().getProject().getDefaultLanguage().getLanguageId());
+			metadataEditorView.setGroup(group, HIRuntime.getManager().getProject().getDefaultLanguage().getLanguageId());
+                        metadataEditorView.setTagCount(HIRuntime.getGui().getTagCountForElement(group));
 			
 			if ( group != null )
 				contentLoader.loadGroup(group);

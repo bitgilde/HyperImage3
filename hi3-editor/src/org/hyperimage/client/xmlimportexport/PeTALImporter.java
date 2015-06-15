@@ -679,7 +679,7 @@ public class PeTALImporter {
                     projElements = petalElement.getElementsByTagNameNS("http://www.hyperimage.eu/PeTAL/2.0", "group");
                     for (int i = 0; i < projElements.getLength(); i++) {
                         Element groupElement = (Element) projElements.item(i);
-                        if (!groupElement.getAttribute("type").equalsIgnoreCase("import")) {
+                        if (!groupElement.getAttribute("type").equalsIgnoreCase("import") && !groupElement.getAttribute("type").equalsIgnoreCase("tag")) {
                             groups.addElement(groupElement);
                         }
                     }

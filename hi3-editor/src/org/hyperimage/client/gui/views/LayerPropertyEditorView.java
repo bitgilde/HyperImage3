@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.gui.views;
 
 import java.awt.BorderLayout;
@@ -141,6 +161,10 @@ implements ChangeListener, PopupMenuListener, ActionListener, MouseListener {
 		
 		initComponents();
 		setDisplayPanel(propertyPanel);
+                
+                // set up tags
+                metadataEditorControl.setBaseID(0);
+                metadataEditorControl.setTagCount(0);
 		
 		// Drag and Drop
 		linkTargetList.setDragEnabled(true);
@@ -194,6 +218,8 @@ implements ChangeListener, PopupMenuListener, ActionListener, MouseListener {
 			setEditingEnabled(false);
 		} else { 
 			setEditingEnabled(true);
+                        metadataEditorControl.setBaseID(layer.getModel().getId());
+                        metadataEditorControl.setTagCount(HIRuntime.getGui().getTagCountForElement(layer.getModel().getId()));
 			layerOpacitySlider.setValue(layer.getColour().getAlpha());
 			float relOpacity = (float)layerOpacitySlider.getValue() / 255f;
 			layerOpacityField.setText(String.valueOf((int)(relOpacity*100)));

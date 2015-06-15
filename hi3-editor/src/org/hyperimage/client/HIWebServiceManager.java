@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client;
 
 import java.awt.Color;
@@ -42,6 +62,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -61,6 +82,7 @@ import org.hyperimage.client.model.RelativePolygon;
 import org.hyperimage.client.model.RelativePolygon.HiPolygonTypes;
 import org.hyperimage.client.util.ImageHelper;
 import org.hyperimage.client.util.MetadataHelper;
+import org.hyperimage.client.ws.GroupTypes;
 import org.hyperimage.client.ws.HIEditor;
 import org.hyperimage.client.ws.HIEditorService;
 import org.hyperimage.client.ws.HILogin;
@@ -98,7 +120,7 @@ import org.xml.sax.SAXException;
  */
 public class HIWebServiceManager {
 
-	private static final String minimumVersionID = "3.0.1";
+	private static final String minimumVersionID = "3.0.3";
 	
 	private HILoginService loginService;
 	private HIEditorService editorService;
@@ -110,6 +132,7 @@ public class HIWebServiceManager {
 	private HiGroup trashGroup = null;
 	private HiProject project = null;
 	private HiUser curUser = null;
+        private List<HiGroup> projectTags = null;
 	private Vector<Color> projectColors;
 	private Vector<String> projectPolygons;
 	
@@ -271,12 +294,12 @@ public class HIWebServiceManager {
 	public HiProject getProject() {
 		return project;
 	}
-
+        
 	public boolean setProject(HiProject project) throws HIWebServiceException {
 		boolean success;
 		try {
 			success = editor.setProject(project);
-			
+                        			
 			if ( success ) {
 				importGroup = editor.getImportGroup();
 				trashGroup = editor.getTrashGroup();
@@ -287,6 +310,7 @@ public class HIWebServiceManager {
 				
 				projectColors.removeAllElements();
 				projectPolygons.removeAllElements();
+                                projectTags = null;
 				
 				// find project color pref
 				String projColors = MetadataHelper.findPreferenceValue(project, "colors");
@@ -1167,6 +1191,85 @@ public class HIWebServiceManager {
                 throw new HIWebServiceException(se);
             }
 	}
+        
+	// ----------------------------------
+
+	public List<HiGroup> getTags() throws HIWebServiceException {
+            if ( projectTags == null ) {
+		try {
+			projectTags = editor.getTagGroups();
+		} catch (Exception se) {
+			throw new HIWebServiceException(se);
+		}
+            }
+            return projectTags;
+	}
+        
+	// ----------------------------------
+
+	public ArrayList<HiGroup> getTagsForBaseElement(long baseID) throws HIWebServiceException {
+            ArrayList<HiGroup> baseTags = new ArrayList<>();
+
+            if ( projectTags == null ) getTags(); // refresh tag list if necessary
+            
+            List<Long> baseTagIDs;
+            try {
+                baseTagIDs = editor.getTagIDsForBase(baseID);
+                
+            } catch (Exception se) {
+                throw new HIWebServiceException(se);
+            }
+            
+            for ( Long tagID : baseTagIDs ) {
+                for ( HiGroup tag : projectTags ) if ( tag.getId() == tagID ) baseTags.add(tag);
+            }
+            
+            return baseTags;
+	}
+                
+	// ----------------------------------
+
+	public ArrayList<HiGroup> getTagsForBaseElement(HiBase base) throws HIWebServiceException {
+            return getTagsForBaseElement(base.getId());
+        }
+        
+        // ----------------------------------
+
+        public long getTagCountForElement(long baseID) throws HIWebServiceException {
+
+            if ( projectTags == null ) getTags(); // refresh tag list if necessary
+            
+            List<Long> baseTagIDs;
+            try {
+                return editor.getTagCountForBase(baseID);
+                
+            } catch (Exception se) {
+                throw new HIWebServiceException(se);
+            }
+            
+	}
+
+        // ----------------------------------
+
+	public long getTagCountForElement(HiBase base) throws HIWebServiceException {
+            return getTagCountForElement(base.getId());
+        }
+
+        // ----------------------------------
+
+
+	public HiGroup createTagGroup() throws HIWebServiceException {
+            return createTagGroup(null);
+        }
+	public HiGroup createTagGroup(String uuid) throws HIWebServiceException {
+            try {
+                HiGroup newTag = editor.createTagGroup(uuid);
+                if ( newTag != null && projectTags != null ) projectTags.add(newTag);
+                return newTag;
+            } catch (Exception se) {
+                throw new HIWebServiceException(se);
+            }
+	}
 	
 	// ----------------------------------
 
@@ -1368,7 +1471,11 @@ public class HIWebServiceManager {
             }
 	}
 	public boolean deleteGroup(HiGroup group) throws HIWebServiceException {
-            return deleteGroup(group.getId());
+            boolean success = deleteGroup(group.getId());
+            if ( success &&  group.getType() == GroupTypes.HIGROUP_TAG && projectTags != null ) {
+                projectTags.remove(group);
+            }
+            return success;
 	}	
 	
 	// ----------------------------------
@@ -1463,7 +1570,7 @@ public class HIWebServiceManager {
 		int index = 0;
 		int contentIndex;
 
-		// parse sort order string (don�t trust user input)
+		// parse sort order string (don't trust user input)
 		for ( String contentIDString : MetadataHelper.findPreferenceValue(getProject(), "groupSortOrder").split(",") ) {
 			try {
 				contentID = Long.parseLong(contentIDString);

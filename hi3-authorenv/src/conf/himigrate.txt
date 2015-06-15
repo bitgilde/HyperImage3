@@ -9,3 +9,5 @@ alter table hibase add column uuid character varying(36);
 ALTER TABLE hibase ADD COLUMN timestamp bigint;
 UPDATE hibase SET timestamp=(select (extract('epoch' from CURRENT_TIMESTAMP)*1000)::bigint);
 ALTER TABLE hibase ALTER COLUMN timestamp SET NOT NULL;
+
+ALTER TABLE hiproject ALTER COLUMN defaultlanguage_id DROP NOT NULL;

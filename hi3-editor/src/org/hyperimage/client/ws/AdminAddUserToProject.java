@@ -3,6 +3,7 @@ package org.hyperimage.client.ws;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -34,6 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class AdminAddUserToProject {
 
     protected long userID;
+    @XmlSchemaType(name = "string")
     protected HiRoles role;
 
     /**

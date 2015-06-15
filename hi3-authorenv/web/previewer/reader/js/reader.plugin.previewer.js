@@ -218,7 +218,7 @@ function HIExceptionHandler(status, exception) {
 	if ( exception.type == "HISessionExpiredException" ) reportError("Session Expired / Sitzung abgelaufen");
 }
 
-reader.version = "v3.0.beta1";
+reader.version = "v3.0.beta2";
 reader.productID = 'Reader PreViewer';
 
 
@@ -424,6 +424,17 @@ function saveServerTable() {
 		xmlText += "    <title xml:lang=\""+reader.project.langs[i]+"\">"+title+"</title>\n";	
 	}
 	$(reader.table.frames).each(function(index, frame) {
+            // convert coordinates to int
+            frame.x = Math.round(frame.x);
+            frame.y = Math.round(frame.y);
+            frame.width = Math.round(frame.width);
+            frame.height = Math.round(frame.height);
+            // convert frame content to int
+            frame.imagePos.x = Math.round(frame.imagePos.x);
+            frame.imagePos.y = Math.round(frame.imagePos.y);
+            frame.imagePos.width = Math.round(frame.imagePos.width);
+            frame.imagePos.height = Math.round(frame.imagePos.height);
+            
 		xmlText += "    <frame order=\""+(index+1)+"\" x=\""+frame.x+"\" y=\""+frame.y+"\" width=\""+frame.width+"\" height=\""+frame.height+"\">\n";
 		xmlText += "      <frameContent ref=\""+frame.href+"\" x=\""+frame.imagePos.x+"\" y=\""+frame.imagePos.y+"\" width=\""+frame.imagePos.width+"\" height=\""+frame.imagePos.height+"\" />\n";
 		xmlText += "    </frame>\n";
@@ -903,6 +914,18 @@ function convertLegacyLineFormat(field) {
 }
 
 // @override
+function attachTags(item) {
+    if ( item != null && item.tags == null ) {
+        // attach tag info
+        item.tags = [];
+        reader.service.HIEditor.getTagIDsForBase(function (result) {
+            item.tags = result.getReturn();
+            $(item.tags).each(function(index, tag) { item.tags[index] = reader.project.tags['G'+tag]; });
+        }, HIExceptionHandler, item.id.substring(1));
+    }
+}
+
+// @override
 function parseItem(data, success, shouldSetGUI) {
 	if ( typeof(data) == 'string' ) data = $.parseXML(data);
 
@@ -1185,7 +1208,9 @@ function parseItem(data, success, shouldSetGUI) {
 			id = 'G'+data.getId();
 			if ( reader.project.items[id] == null ) {
 				item = new HIGroup(id, data.getUUID());
-				item.sortOrder = data.getSortOrder().split(',');
+                                item.type = "group";
+                                if ( data.getType() == "HIGROUP_TAG" ) item.type = "tag";
+                                item.sortOrder = data.getSortOrder().split(',');
 				// parse group metadata
 				for (var i=0; i < data.getMetadata().length; i++) {
 					var lang = data.getMetadata()[i].getLanguage();
@@ -1226,8 +1251,12 @@ function parseItem(data, success, shouldSetGUI) {
 				groupContents.sort(function(a, b) {
 					return item.sortOrder.indexOf(a.target.substring(1)) - item.sortOrder.indexOf(b.target.substring(1));
 				});
+                                
+                                var sortedContents = {};
+                                for (var i=0; i < groupContents.length; i++)
+                                    sortedContents[groupContents[i].target] = groupContents[i];
 				
-				item.members = groupContents;
+				item.members = sortedContents;
 
 				// parse back refs (sites)
 				// FIXME: sites and refs not implemented in live view
@@ -1315,7 +1344,22 @@ function parseItem(data, success, shouldSetGUI) {
 			break;
 
 	}
-	
+        // attach tag info
+        if ( id != null && reader.project.items[id] != null && reader.project.items[id].tags == null  ) {
+            reader.project.items[id].tags = [];
+            reader.service.HIEditor.getTagIDsForBase(function (result) {
+                reader.project.items[id].tags = result.getReturn();
+                $(reader.project.items[id].tags).each(function(index, tag) { reader.project.items[id].tags[index] = reader.project.tags['G'+tag]; });
+            }, HIExceptionHandler, id.substring(1));
+        }
+        if ( viewID != null && reader.project.items[viewID] != null && reader.project.items[viewID].tags == null ) {
+            reader.project.items[viewID].tags = [];
+            reader.service.HIEditor.getTagIDsForBase(function (result) {
+                reader.project.items[viewID].tags = result.getReturn();
+                $(reader.project.items[viewID].tags).each(function(index, tag) { reader.project.items[viewID].tags[index] = reader.project.tags['G'+tag]; });
+            }, HIExceptionHandler, viewID.substring(1));
+        }
+        
 	if ( unloaded != null && reader.project.items[unloaded] == null ) {
 		console.log("unloaded item: ", unloaded);
 		loadItem(unloaded, true, shouldSetGUI);
@@ -1333,13 +1377,16 @@ function loadFrame(item) {
 	else
 		reader.service.HIEditor.getBaseQuickInfo(function(result) {quickinfo = result.getReturn();}, HIExceptionHandler, item.href.substring(1));
 
-	reader.service.HIEditor.getBaseElement(function(result) {
+    if ( quickinfo != null ) { // check if element exists before proceeding
+        reader.service.HIEditor.getBaseElement(function(result) {
 		parseItem(result.getReturn(), "success", false);
 		setLoadingIndicator(false);
 		window.addFrame(item); // display frame		
 	}, HIExceptionHandler, quickinfo.getRelatedID());
 
 	loadItem(item.href, true, false);
+        
+    }	
 }
 
 
@@ -1547,11 +1594,12 @@ function initContextMenus() {
 				case 'layer':
 					var layer = reader.project.items[contentID];
 					if ( layer == null ) {
-						$.ajax({ url: reader.path+contentID+'.xml', async: false, data: null, dataType: 'xml', success: function(data) { xmlData = data; } });
-						if ( xmlData != null ) parseItem(xmlData, 'success');
-						var viewID = $(xmlData).find('view').attr('id');
-						$.ajax({ url: reader.path+viewID+'.xml', async: false, data: null, dataType: 'xml', success: function(data) { xmlData = data; } });
-						if ( xmlData != null ) parseItem(xmlData, 'success');
+                                           reader.service.HIEditor.getBaseElement(function(result) {
+                                                baseElement = result.getReturn();
+                                                parseItem(baseElement, 'success');
+						layer = reader.project.items[contentID];
+                                            }, HIExceptionHandler, contentID.substring(1));                                            
+                                             
 					}
 					setLoadingIndicator(false);
 					addLayerToLightTable(contentID);
@@ -1560,10 +1608,12 @@ function initContextMenus() {
 				case 'view':
 					var view = reader.project.items[contentID];
 					if ( view == null ) {
-						$.ajax({ url: reader.path+contentID+'.xml', async: false, data: null, dataType: 'xml', success: function(data) { xmlData = data; } });
-						if ( xmlData != null ) parseItem(xmlData, 'success');
+                                            reader.service.HIEditor.getBaseElement(function(result) {
+                                                baseElement = result.getReturn();
+                                                parseItem(baseElement, 'success');
 						view = reader.project.items[contentID];
-					}
+                                            }, HIExceptionHandler, contentID.substring(1));                                            
+ 					}
 					setLoadingIndicator(false);
 					addViewToLightTable(view.id);
 					break;
@@ -1571,15 +1621,20 @@ function initContextMenus() {
 				case 'object':
 					var object = reader.project.items[contentID];
 					if ( object == null ) {
-						$.ajax({ url: reader.path+contentID+'.xml', async: false, data: null, dataType: 'xml', success: function(data) { xmlData = data; } });
-						if ( xmlData != null ) parseItem(xmlData, 'success');
-						object = reader.project.items[contentID];
+                                            reader.service.HIEditor.getBaseElement(function(result) {
+                                                baseElement = result.getReturn();
+                                                parseItem(baseElement, 'success');
+                                                object = reader.project.items[contentID];
+                                            }, HIExceptionHandler, contentID.substring(1));
 					}
 					var view = reader.project.items[object.defaultViewID];
 					if ( view == null ) {
-						$.ajax({ url: reader.path+object.defaultViewID+'.xml', async: false, data: null, dataType: 'xml', success: function(data) { xmlData = data; } });
-						if ( xmlData != null ) parseItem(xmlData, 'success');
+                                            reader.service.HIEditor.getBaseElement(function(result) {
+                                                baseElement = result.getReturn();
+                                                parseItem(baseElement, 'success');
 						view = reader.project.items[object.defaultViewID];
+                                            }, HIExceptionHandler, object.defaultViewID.substring(1));
+                                            
 					}
 					setLoadingIndicator(false);
 					addViewToLightTable(object.defaultViewID);
@@ -1733,7 +1788,7 @@ function initReader() {
 			reader.project.sortedFields = sortedFields;
 		
 			/*
-			 * extract visible groups, project texts and light tables
+			 * extract visible groups, tags, project texts and light tables
 			 */
 			// groups
 			var serverGroups = null;
@@ -1741,6 +1796,7 @@ function initReader() {
 			for (groupID in serverGroups) {
 				var group = serverGroups[groupID];
 				reader.project.groups['G'+group.getId()] = new Object();
+
 				for ( mdID in group.getMetadata() ) {
 					var record = group.getMetadata()[mdID];
 					for ( cID in record.getContents() ) {
@@ -1767,7 +1823,29 @@ function initReader() {
 				if ( sortedGroups[groupID] == null ) sortedGroups[groupID] = reader.project.groups[groupID];
 			}
 			reader.project.groups = sortedGroups;
-			
+
+			// tags
+			var serverTags = null;
+			reader.service.HIEditor.getTagGroups(function(result) {serverTags = result.getReturn();}, HIExceptionHandler);
+			for (tagID in serverTags) {
+				var tag = serverTags[tagID];
+				reader.project.tags['G'+tag.getId()] = new Object();
+                                reader.project.tags['G'+tag.getId()].id = 'G'+tag.getId();
+                                reader.project.tags['G'+tag.getId()].uuid = tag.getUUID();
+                                reader.project.tags['G'+tag.getId()].type = "tag";
+                                
+
+				for ( mdID in tag.getMetadata() ) {
+					var record = tag.getMetadata()[mdID];
+					for ( cID in record.getContents() ) {
+						var entry = record.getContents()[cID];
+						if ( entry.getKey() == 'HIBase.title' )
+							if ( entry.getValue().length > 0 ) reader.project.tags['G'+tag.getId()][record.getLanguage()] = entry.getValue();
+							else reader.project.tags['G'+tag.getId()][record.getLanguage()] = '(G'+tag.getId()+')';
+					}
+				}			
+			}
+                    
 			// texts
 			var serverTexts = null;
 			reader.service.HIEditor.getProjectTextElements(function(result) {serverTexts = result.getReturn();}, HIExceptionHandler);

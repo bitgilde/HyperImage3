@@ -194,7 +194,6 @@ function collectContent(items) {
 	return contents;
 }
 
-
 function parseItem(data, success, shouldSetGUI) {
 	if ( typeof(data) == 'string' ) data = $.parseXML(data);
 
@@ -212,6 +211,7 @@ function parseItem(data, success, shouldSetGUI) {
 			if ( reader.project.items[viewID] == null ) {
 				item = new HIView(viewID);
 				item.uuid = data.getElementsByTagName("subject")[0].getAttribute("uuid");
+                                attachTags(item, data.getElementsByTagName("view")[0].getAttribute("tags"));
 				viewUUID = item.uuid;
 
 				// parse view metadata
@@ -258,6 +258,7 @@ function parseItem(data, success, shouldSetGUI) {
 				$(data).find('view > layer').each(function (index, xmlLayer) {					
 					var layer = new HILayer(xmlLayer.getAttribute("id"));
 					layer.uuid = xmlLayer.getAttribute("uuid");
+                                        attachTags(layer, xmlLayer.getAttribute("tags"));
 					layer.color = xmlLayer.getAttribute("color");
 					layer.opacity = parseFloat(xmlLayer.getAttribute("opacity"));
 					layer.ref = xmlLayer.getAttribute("ref");
@@ -295,6 +296,7 @@ function parseItem(data, success, shouldSetGUI) {
 			if ( reader.project.items[viewID] == null ) {
 				item = new HIInscription(viewID);
 				item.uuid = data.getElementsByTagName("subject")[0].getAttribute("uuid");
+                                attachTags(item, data.getElementsByTagName("inscription")[0].getAttribute("tags"));
 				viewUUID = item.uuid;
 
 				// parse inscription content
@@ -321,6 +323,7 @@ function parseItem(data, success, shouldSetGUI) {
 			if ( reader.project.items[id] == null ) {
 				item = new HIObject(id);
 				item.uuid = data.getElementsByTagName("object")[0].getAttribute("uuid");
+                                attachTags(item, data.getElementsByTagName("object")[0].getAttribute("tags"));
 				
 				if ( viewID != null && reader.project.items[viewID] != null )
 					item.siblings = reader.project.items[viewID].siblings;
@@ -367,6 +370,7 @@ function parseItem(data, success, shouldSetGUI) {
 			var xmlLayer = $(data).find('layer')[0];
 			var layer = new HILayer(xmlLayer.getAttribute("id"));
 			layer.uuid = xmlLayer.getAttribute("uuid");
+                        attachTags(layer, xmlLayer.getAttribute("tags"));
 			layer.color = xmlLayer.getAttribute("color");
 			layer.opacity = parseFloat(xmlLayer.getAttribute("opacity"));
 			layer.ref = xmlLayer.getAttribute("ref");
@@ -394,6 +398,7 @@ function parseItem(data, success, shouldSetGUI) {
 			if ( reader.project.items[id] == null ) {
 				item = new HIText(id);
 				item.uuid = data.getElementsByTagName("subject")[0].getAttribute("uuid");
+                                attachTags(item, data.getElementsByTagName("text")[0].getAttribute("tags"));
 				// parse text metadata
 				titles = $(data).find("text > title");
 				for (var i=0; i < titles.length; i++)
@@ -418,6 +423,7 @@ function parseItem(data, success, shouldSetGUI) {
 			if ( reader.project.items[id] == null ) {
 				item = new HIGroup(id);
 				item.uuid = data.getElementsByTagName("subject")[0].getAttribute("uuid");
+                                attachTags(item, data.getElementsByTagName("group")[0].getAttribute("tags"));
 				// parse group metadata
 				titles = $(data).find("group > title");
 				for (var i=0; i < titles.length; i++)
@@ -445,6 +451,7 @@ function parseItem(data, success, shouldSetGUI) {
 			if ( reader.project.items[id] == null ) {
 				item = new HIURL(id);
 				item.uuid = data.getElementsByTagName("subject")[0].getAttribute("uuid");
+                                attachTags(item, data.getElementsByTagName("url")[0].getAttribute("tags"));
 				// parse URL metadata
 				tempTitle = $(data).find("url > title")[0];
 				if ( tempTitle != null && tempTitle.firstChild != null )
@@ -467,6 +474,7 @@ function parseItem(data, success, shouldSetGUI) {
 			if ( reader.project.items[id] == null ) {
 				item = new HILighttable(id);
 				item.uuid = data.getElementsByTagName("subject")[0].getAttribute("uuid");
+                                attachTags(item, data.getElementsByTagName("lita")[0].getAttribute("tags"));
 				// parse light table metadata
 				var titles = $(data).find("lita > title");
 				for (var i=0; i < titles.length; i++)
@@ -1920,6 +1928,19 @@ function setGUIMode(mode) {
 	}
 }
 
+function attachTags(item, taglist) {
+    // override this function in subclass
+    if ( item == null || taglist == null ) return;
+    
+    if ( item.tags == null ) {
+        item.tags = [];
+        for (var i = 0; i < taglist.split(",").length; i++) {
+            if ( reader.project.tags[taglist.split(",")[i]] != null ) item.tags.push(reader.project.tags[taglist.split(",")[i]]);
+        }
+    }
+    
+}
+
 function loadViewFileData(element, view, ref) {
     setNavAvailable(false);
     element.load(function() {
@@ -1964,7 +1985,11 @@ function setGUI(forceLoad) {
 		return;
 	}
 	setGUIMode(guiMode);
-		
+        
+        // init tags
+        $('#tagSection').hide();
+        $('#taglist > li').remove();
+        
 	// init metadata fields
 	for (var i=0; i < reader.project.sortedFields.length; i++) $("#"+reader.project.sortedFields[i]+"_field").hide();	
 	$("#objectannotation_field").hide(); $("#viewannotation_field").hide(); $("#groupannotation_field").hide(); $("#layerannotation_field").hide();
@@ -1974,6 +1999,33 @@ function setGUI(forceLoad) {
 	$('#canvasTooltip').hide(); // clear old tooltips
 	$('.context-menu-list').hide(); // hide old context menus
 	reader.viewID = newViewID;
+        
+        // set up tags
+        var obj = getObject(item);
+        var tagFound = false;
+        if ( obj != null && obj.tags != null ) {            
+            $(obj.tags).each(function(index, tag) {
+                tagFound = true;
+                var tagTitle = "Tag (" + tag.uuid.substring(24) + ")";
+                if ( tag[reader.lang] != null && tag[reader.lang].length > 0 ) tagTitle = tag[reader.lang];
+                $('#taglist').append('<li class="greentag"><a href="#'+tag.id+'/">'+tagTitle+'</a></li>');
+                
+            });
+        }
+        var tagItemID = item.id;
+        if ( obj != null && tagItemID == obj.id ) tagItemID = reader.viewID;
+        if ( reader.project.items[tagItemID] != null ) attachTags(reader.project.items[tagItemID]);
+        
+        if ( reader.project.items[tagItemID] != null && reader.project.items[tagItemID].tags != null && reader.project.tags[tagItemID] == null ) {
+            $(reader.project.items[tagItemID].tags).each(function(index, tag) {
+                tagFound = true;
+                var tagTitle = "Tag (" + tag.uuid.substring(24) + ")";
+                if ( tag[reader.lang] != null && tag[reader.lang].length > 0 ) tagTitle = tag[reader.lang];
+                $('#taglist').append('<li><a href="#'+tag.id+'/">'+tagTitle+'</a></li>');
+            });
+        }
+        if ( tagFound ) $('#tagSection').show();
+        
 	switch (guiMode) {
 		case 0: // canvas view
 			displayObjectMetadata(getObject(item));
@@ -2071,6 +2123,16 @@ function setGUI(forceLoad) {
 			var tooltipDiv = '';
 			if ( layer.title[reader.lang] != null && layer.title[reader.lang].length > 0 ) tooltipDiv += layer.title[reader.lang]+"<br />";
 			if ( layer.annotation[reader.lang] != null && layer.annotation[reader.lang].length > 0 ) tooltipDiv += "<br />"+layer.annotation[reader.lang];
+                        if ( layer.tags == null ) attachTags(layer); // attach tags
+                        if ( layer.tags != null && layer.tags.length > 0 ) {
+                            tooltipDiv += '<br /><br /><ul class="tags">';
+                            $(layer.tags).each(function(index, tag) {
+                                var tagTitle = "Tag (" + tag.uuid.substring(24) + ")";
+                                if ( tag[reader.lang] != null && tag[reader.lang].length > 0 ) tagTitle = tag[reader.lang];
+                                tooltipDiv += '<li><a href="#'+tag.id+'/">'+tagTitle+'</a></li>';
+                            });
+                            tooltipDiv += "</ul>";
+                        }
 
 			if ( tooltipDiv.length > 0 ) $(svgLayer).tooltip({
 				tip: "#canvasTooltip",

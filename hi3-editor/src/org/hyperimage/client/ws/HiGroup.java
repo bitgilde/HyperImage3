@@ -3,6 +3,7 @@ package org.hyperimage.client.ws;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -38,6 +39,7 @@ public class HiGroup
 {
 
     protected String sortOrder;
+    @XmlSchemaType(name = "string")
     protected GroupTypes type;
     protected boolean visible;
 

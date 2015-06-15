@@ -64,6 +64,7 @@ import org.hyperimage.client.ws.HiQuickInfo;
 import org.hyperimage.client.ws.HiText;
 import org.hyperimage.client.ws.HiView;
 import org.hyperimage.client.ws.Hiurl;
+import static org.hyperimage.client.xmlimportexport.XMLImporter.PeTAL_3_0_XMLNS;
 import static org.hyperimage.client.xmlimportexport.XMLImporter.XLINK_XMLNS;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -416,7 +417,7 @@ public class PeTAL3Importer extends XMLImporter {
         NodeList projElements = rootElement.getElementsByTagNameNS(PeTAL_3_0_XMLNS, "group");
         for (int i = 0; i < projElements.getLength(); i++) {
             Element groupElement = (Element) projElements.item(i);
-            if (!groupElement.getAttribute("type").equalsIgnoreCase("import")) {
+            if (!groupElement.getAttribute("type").equalsIgnoreCase("import") && !groupElement.getAttribute("type").equalsIgnoreCase("tag")) {
                 groups.add(groupElement);
             } else if ( groupElement.getAttribute("type").equalsIgnoreCase("import") )
                 xmlImportGroup = groupElement;
@@ -464,6 +465,53 @@ public class PeTAL3Importer extends XMLImporter {
         if ( groupSortOrderPref != null ) {
             groupSortOrderPref.setValue(sortOrder);
             HIRuntime.getManager().updatePreference(groupSortOrderPref);
+        }
+    }
+
+    private void importTags() throws HIWebServiceException {
+        HIRuntime.getGui().setMessage(Messages.getString("PeTALImporter.importtags"));
+        tags.clear();
+        
+        // compile tag list
+        NodeList projElements = rootElement.getElementsByTagNameNS(PeTAL_3_0_XMLNS, "group");
+        for (int i = 0; i < projElements.getLength(); i++) {
+            Element tagElement = (Element) projElements.item(i);
+            if (tagElement.getAttribute("type").equalsIgnoreCase("tag")) {
+                tags.add(tagElement);
+            }
+        }
+
+        // import tags
+        for (Element tagElement : tags) {
+            // incremental import --> check if object already exists in project
+            HiGroup tag = null;
+            try {
+                // try to fetch HIGroup from server using uuid
+                HiBase base = HIRuntime.getManager().getBaseElement(tagElement.getAttribute("id"));
+                if ( base != null && base instanceof HiGroup ) tag = (HiGroup)base;
+            } catch(HIWebServiceException e) {
+                // element not found
+            }
+            
+            boolean isNewTag = false;
+            if ( tag == null ) {
+                tag = HIRuntime.getManager().createTagGroup(tagElement.getAttribute("id"));
+                isNewTag = true;
+            }
+            long timestamp = parseTimestamp (tagElement.getAttribute("timestamp"));
+            if ( isNewTag || (tag != null && tag.getTimestamp() < timestamp ) ) {
+                // add / update group metadata
+                attachMetadataRecords(tagElement,
+                    tag.getMetadata(),
+                    DC_1_1_XMLNS,
+                    "title",
+                    "title",
+                    null, null, null,
+                    HIBASE_2_0_XMLNS,
+                    "annotation",
+                    "comment");
+            }
+             
         }
     }
     
@@ -1215,8 +1263,6 @@ public class PeTAL3Importer extends XMLImporter {
 
 
     public void importXMLToProject() {
-  //      HIRuntime.getGui().displayInfoDialog(Messages.getString("HIClientGUI.159"), "PeTAL 3.0 Import is not yet implemented.");
-
         HIRuntime.getGui().startIndicatingServiceActivity(true);
         HIRuntime.getGui().setMessage(Messages.getString("PeTALImporter.1")); //$NON-NLS-1$
         importSuccessful = false;
@@ -1236,6 +1282,8 @@ public class PeTAL3Importer extends XMLImporter {
                     importTemplates();
 
                     importGroups();
+
+                    importTags();
 
                     importTexts();
 
@@ -1286,6 +1334,38 @@ public class PeTAL3Importer extends XMLImporter {
                         HIRuntime.getManager().updateGroupSortOrder(group.getId(), sortOrder);
                     }
 
+                    /*
+                     * set tag memberships
+                     */
+                    projElements = null;
+                    counter = 1;
+
+                    HIRuntime.getGui().setMessage(Messages.getString("PeTALImporter.tagmembership"));
+                    for (Element tagElement : tags ) {
+                        HiGroup tag = (HiGroup) HIRuntime.getManager().getBaseElement(tagElement.getAttribute("id"));
+                        List<HiQuickInfo> contents = HIRuntime.getManager().getGroupContents(tag);
+
+                        NodeList memberElements = tagElement.getElementsByTagNameNS(PeTAL_3_0_XMLNS, "member");
+                        for (int i = 0; i < memberElements.getLength(); i++) {
+                            Element memberElement = (Element) memberElements.item(i);
+                            String ref = memberElement.getAttributeNS(XLINK_XMLNS, "href");
+                            if ( ref != null ) ref = ref.substring(1);
+                            
+                            HiQuickInfo info = null;
+                            try {
+                                info = HIRuntime.getManager().getBaseQuickInfo(ref);
+                            } catch (HIWebServiceException e) {
+                                // ignore
+                            }
+                            boolean containsElement = false;
+                            for ( HiQuickInfo content : contents ) 
+                                if ( content.getBaseID() == info.getBaseID() ) containsElement = true;
+                            if ( info != null && !containsElement ) {
+                                HIRuntime.getManager().addToGroup(info.getBaseID(), tag.getId());
+                            }
+                        }
+                    }                   
+                    
                     /*
                      * set layer links
                      */

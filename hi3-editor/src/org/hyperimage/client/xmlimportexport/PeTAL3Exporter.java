@@ -19,6 +19,14 @@
  * For further information on HyperImage visit http://hyperimage.ws/
  */
 
+/*
+ * Copyright 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.xmlimportexport;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
@@ -250,6 +258,10 @@ public class PeTAL3Exporter {
         try {
             groups = HIRuntime.getManager().getGroups();
             groups.add(0, HIRuntime.getManager().getImportGroup());
+            
+            // add tags to export group list
+            List<HiGroup> tags = HIRuntime.getManager().getTags();
+            groups.addAll(tags);
 
             float percentage = 100f / (float) (groups.size() - 1);
             float progress = 0f;
@@ -264,18 +276,12 @@ public class PeTAL3Exporter {
                 } else {
                     tempGroup.setAttribute("id", group.getUUID());
                 }
-
-                // [JML] removed visibilty from PeTAL export
-				/*
-                 if ( group.isVisible() && group.getType() == GroupTypes.HIGROUP_REGULAR )
-                 tempGroup.setAttribute("visible", "true");
-                 else
-                 tempGroup.setAttribute("visible", "false");
-                 */
                 if (group.getType() == GroupTypes.HIGROUP_IMPORT) {
                     tempGroup.setAttribute("type", "import");
                 } else if (group.getType() == GroupTypes.HIGROUP_REGULAR) {
                     tempGroup.setAttribute("type", "regular");
+                } else if (group.getType() == GroupTypes.HIGROUP_TAG) {
+                    tempGroup.setAttribute("type", "tag");
                 } else {
                     tempGroup.setAttribute("type", "trash");
                 }
@@ -292,6 +298,13 @@ public class PeTAL3Exporter {
 
                     mdElement = getSingleLineBaseElementNode("title", "dc:title", "HIBase", record, petalXML);
                     mdElement.removeAttribute("xml:lang"); // not needed
+                    // always give tags a name (title)
+                    if ( group.getType() == GroupTypes.HIGROUP_TAG ) if ( mdElement.getTextContent() == null || mdElement.getTextContent().trim().length() == 0 ) {
+                            mdElement.setTextContent("Tag ("+group.getUUID().split("-")[4]+")");
+                        }
+ {
+                        
+                    }
                     RDFDescriptionElement.appendChild(mdElement);
 
                     mdElement = getMultiLineBaseElementNode("comment", "HIBase:annotation", "HIBase", record, petalXML);
@@ -511,6 +524,25 @@ public class PeTAL3Exporter {
             }; // user messed with sort order string format, no problem
         }
     }
+    
+    private static void fixLitaElement(Element frame) {
+        try {
+            if (frame.getAttribute("x") != null && frame.getAttribute("x").length() > 0) {
+                frame.setAttribute("x", Integer.toString(Math.round(Float.parseFloat(frame.getAttribute("x")))));
+            }
+            if (frame.getAttribute("y") != null && frame.getAttribute("y").length() > 0) {
+                frame.setAttribute("y", Integer.toString(Math.round(Float.parseFloat(frame.getAttribute("y")))));
+            }
+            if (frame.getAttribute("width") != null && frame.getAttribute("width").length() > 0) {
+                frame.setAttribute("width", Integer.toString(Math.round(Float.parseFloat(frame.getAttribute("width")))));
+            }
+            if (frame.getAttribute("height") != null && frame.getAttribute("height").length() > 0) {
+                frame.setAttribute("height", Integer.toString(Math.round(Float.parseFloat(frame.getAttribute("height")))));
+            }
+        } catch (Exception e) {
+            // do nothing
+        }
+    }
 
     private static Element getLightTableElement(HiLightTable lightTable,
             Document creator) {
@@ -543,6 +575,20 @@ public class PeTAL3Exporter {
             } else {
                 lightTableElement.setAttribute("id", lightTable.getUUID());
             }
+            // fix light table coordinates
+            NodeList frames = lightTableElement.getElementsByTagName("frameAnn");
+            for (int i=0; i < frames.getLength(); i++) {
+                fixLitaElement((Element) frames.item(i));
+            }
+            frames = lightTableElement.getElementsByTagName("frame");
+            for (int i=0; i < frames.getLength(); i++) {
+                fixLitaElement((Element) frames.item(i));
+            }
+            frames = lightTableElement.getElementsByTagName("frameContent");
+            for (int i=0; i < frames.getLength(); i++) {
+                fixLitaElement((Element) frames.item(i));
+            }
+            
             // TODO light table image and annotation update references / links
             NodeList contents = lightTableElement.getElementsByTagName("frameContent");
             for (int i=0; i < contents.getLength(); i++) {

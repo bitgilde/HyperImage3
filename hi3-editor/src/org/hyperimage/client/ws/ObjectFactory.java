@@ -27,6 +27,7 @@ public class ObjectFactory {
     private final static QName _AdminGetUserByIDResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminGetUserByIDResponse");
     private final static QName _UpdateViewSortOrder_QNAME = new QName("http://ws.service.hyperimage.org/", "updateViewSortOrder");
     private final static QName _UpdateLightTableResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "updateLightTableResponse");
+    private final static QName _GetTagIDsForBaseResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagIDsForBaseResponse");
     private final static QName _AdminAddTemplateToProjectResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminAddTemplateToProjectResponse");
     private final static QName _AdminAddUserToProject_QNAME = new QName("http://ws.service.hyperimage.org/", "adminAddUserToProject");
     private final static QName _SysopUpdateProjectQuota_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopUpdateProjectQuota");
@@ -60,10 +61,10 @@ public class ObjectFactory {
     private final static QName _GetRepositoriesResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getRepositoriesResponse");
     private final static QName _GetBaseQuickInfoResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getBaseQuickInfoResponse");
     private final static QName _SysopRemoveUserFromProjectResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopRemoveUserFromProjectResponse");
-    private final static QName _DeletePreferenceResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "deletePreferenceResponse");
     private final static QName _GetBaseElement_QNAME = new QName("http://ws.service.hyperimage.org/", "getBaseElement");
-    private final static QName _GetProject_QNAME = new QName("http://ws.service.hyperimage.org/", "getProject");
+    private final static QName _DeletePreferenceResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "deletePreferenceResponse");
     private final static QName _CreateGroupResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "createGroupResponse");
+    private final static QName _GetProject_QNAME = new QName("http://ws.service.hyperimage.org/", "getProject");
     private final static QName _UpdateProjectStartElement_QNAME = new QName("http://ws.service.hyperimage.org/", "updateProjectStartElement");
     private final static QName _SysopAddUserToProject_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopAddUserToProject");
     private final static QName _SysopCreateUserResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopCreateUserResponse");
@@ -74,6 +75,7 @@ public class ObjectFactory {
     private final static QName _SysopCreateProjectResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopCreateProjectResponse");
     private final static QName _GetImportGroupResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getImportGroupResponse");
     private final static QName _SysopCreateProject_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopCreateProject");
+    private final static QName _CreateTagGroupResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "createTagGroupResponse");
     private final static QName _RemoveLayerLinkResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "removeLayerLinkResponse");
     private final static QName _CreateGroup_QNAME = new QName("http://ws.service.hyperimage.org/", "createGroup");
     private final static QName _AdminRemoveUserFromProjectResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminRemoveUserFromProjectResponse");
@@ -83,6 +85,7 @@ public class ObjectFactory {
     private final static QName _CopyToGroup_QNAME = new QName("http://ws.service.hyperimage.org/", "copyToGroup");
     private final static QName _AdminGetUsersResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminGetUsersResponse");
     private final static QName _RemoveLayerLink_QNAME = new QName("http://ws.service.hyperimage.org/", "removeLayerLink");
+    private final static QName _GetTagGroups_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagGroups");
     private final static QName _CreateFlexMetadataRecord_QNAME = new QName("http://ws.service.hyperimage.org/", "createFlexMetadataRecord");
     private final static QName _AdminRemoveTemplateFromProjectResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminRemoveTemplateFromProjectResponse");
     private final static QName _SysopGetUsers_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopGetUsers");
@@ -92,6 +95,7 @@ public class ObjectFactory {
     private final static QName _SetProject_QNAME = new QName("http://ws.service.hyperimage.org/", "setProject");
     private final static QName _UpdateGroupSortOrder_QNAME = new QName("http://ws.service.hyperimage.org/", "updateGroupSortOrder");
     private final static QName _UpdateFlexMetadataRecords_QNAME = new QName("http://ws.service.hyperimage.org/", "updateFlexMetadataRecords");
+    private final static QName _GetTagCountForBaseUUID_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagCountForBaseUUID");
     private final static QName _AdminRemoveUserFromProject_QNAME = new QName("http://ws.service.hyperimage.org/", "adminRemoveUserFromProject");
     private final static QName _SysopGetProjectsForUserResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopGetProjectsForUserResponse");
     private final static QName _GetRole_QNAME = new QName("http://ws.service.hyperimage.org/", "getRole");
@@ -101,15 +105,17 @@ public class ObjectFactory {
     private final static QName _UpdateURL_QNAME = new QName("http://ws.service.hyperimage.org/", "updateURL");
     private final static QName _UpdateFlexMetadataRecord_QNAME = new QName("http://ws.service.hyperimage.org/", "updateFlexMetadataRecord");
     private final static QName _AdminGetRoleInProjectResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminGetRoleInProjectResponse");
-    private final static QName _SysopGetProjectsForUser_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopGetProjectsForUser");
     private final static QName _SysopDeleteUserResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopDeleteUserResponse");
+    private final static QName _SysopGetProjectsForUser_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopGetProjectsForUser");
     private final static QName _SysopCreateUser_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopCreateUser");
     private final static QName _GetCurrentUser_QNAME = new QName("http://ws.service.hyperimage.org/", "getCurrentUser");
     private final static QName _SysopUpdateProjectQuotaResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopUpdateProjectQuotaResponse");
     private final static QName _UpdateLightTable_QNAME = new QName("http://ws.service.hyperimage.org/", "updateLightTable");
-    private final static QName _CreatePreferenceResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "createPreferenceResponse");
     private final static QName _UpdateProjectDefaultLanguage_QNAME = new QName("http://ws.service.hyperimage.org/", "updateProjectDefaultLanguage");
+    private final static QName _CreatePreferenceResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "createPreferenceResponse");
     private final static QName _SysopRemoveUserFromProject_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopRemoveUserFromProject");
+    private final static QName _GetTagIDsForBaseUUIDResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagIDsForBaseUUIDResponse");
+    private final static QName _GetTagIDsForBase_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagIDsForBase");
     private final static QName _AdminRemoveSetFromTemplateResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminRemoveSetFromTemplateResponse");
     private final static QName _GetTrashGroup_QNAME = new QName("http://ws.service.hyperimage.org/", "getTrashGroup");
     private final static QName _GetGroupContentQuickInfoResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getGroupContentQuickInfoResponse");
@@ -123,11 +129,13 @@ public class ObjectFactory {
     private final static QName _GetImageResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getImageResponse");
     private final static QName _GetFlexMetadataRecords_QNAME = new QName("http://ws.service.hyperimage.org/", "getFlexMetadataRecords");
     private final static QName _DeleteFromProject_QNAME = new QName("http://ws.service.hyperimage.org/", "deleteFromProject");
+    private final static QName _GetTagIDsForBaseUUID_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagIDsForBaseUUID");
     private final static QName _RemoveFromGroupResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "removeFromGroupResponse");
     private final static QName _CreateObject_QNAME = new QName("http://ws.service.hyperimage.org/", "createObject");
     private final static QName _AdminGetUserByID_QNAME = new QName("http://ws.service.hyperimage.org/", "adminGetUserByID");
     private final static QName _GetImportGroup_QNAME = new QName("http://ws.service.hyperimage.org/", "getImportGroup");
     private final static QName _AdminCreateSetDisplayNameResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminCreateSetDisplayNameResponse");
+    private final static QName _GetTagCountForBase_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagCountForBase");
     private final static QName _AdminUpdateTemplateSortOrder_QNAME = new QName("http://ws.service.hyperimage.org/", "adminUpdateTemplateSortOrder");
     private final static QName _GetBaseElementByUUIDResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getBaseElementByUUIDResponse");
     private final static QName _AdminGetUserByUserName_QNAME = new QName("http://ws.service.hyperimage.org/", "adminGetUserByUserName");
@@ -154,23 +162,25 @@ public class ObjectFactory {
     private final static QName _UpdateContentOwnerResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "updateContentOwnerResponse");
     private final static QName _RemoveFromGroup_QNAME = new QName("http://ws.service.hyperimage.org/", "removeFromGroup");
     private final static QName _AdminRemoveTemplateFromProject_QNAME = new QName("http://ws.service.hyperimage.org/", "adminRemoveTemplateFromProject");
-    private final static QName _FieldSearch_QNAME = new QName("http://ws.service.hyperimage.org/", "fieldSearch");
     private final static QName _AdminDeleteRepository_QNAME = new QName("http://ws.service.hyperimage.org/", "adminDeleteRepository");
+    private final static QName _FieldSearch_QNAME = new QName("http://ws.service.hyperimage.org/", "fieldSearch");
     private final static QName _AdminRemoveSetFromTemplate_QNAME = new QName("http://ws.service.hyperimage.org/", "adminRemoveSetFromTemplate");
     private final static QName _CreateLightTableResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "createLightTableResponse");
     private final static QName _GetGroupContentQuickInfo_QNAME = new QName("http://ws.service.hyperimage.org/", "getGroupContentQuickInfo");
     private final static QName _GetStateResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getStateResponse");
     private final static QName _GetProjectLightTableElementsResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getProjectLightTableElementsResponse");
+    private final static QName _UpdatePreferenceResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "updatePreferenceResponse");
     private final static QName _AdminDeleteRepositoryResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminDeleteRepositoryResponse");
     private final static QName _GetTrashGroupResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getTrashGroupResponse");
-    private final static QName _UpdatePreferenceResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "updatePreferenceResponse");
     private final static QName _RemoveLayer_QNAME = new QName("http://ws.service.hyperimage.org/", "removeLayer");
     private final static QName _GetRoleResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getRoleResponse");
     private final static QName _CreateInscriptionResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "createInscriptionResponse");
     private final static QName _AdminGetUsers_QNAME = new QName("http://ws.service.hyperimage.org/", "adminGetUsers");
+    private final static QName _GetTagCountForBaseResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagCountForBaseResponse");
     private final static QName _CreateLayer_QNAME = new QName("http://ws.service.hyperimage.org/", "createLayer");
     private final static QName _GetScaledImageResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getScaledImageResponse");
     private final static QName _AdminUpdateSetDisplayName_QNAME = new QName("http://ws.service.hyperimage.org/", "adminUpdateSetDisplayName");
+    private final static QName _GetTagGroupsResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagGroupsResponse");
     private final static QName _UpdateProjectStartElementResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "updateProjectStartElementResponse");
     private final static QName _GetCurrentUserResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getCurrentUserResponse");
     private final static QName _SimpleSearchResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "simpleSearchResponse");
@@ -184,6 +194,7 @@ public class ObjectFactory {
     private final static QName _UpdateGroupPropertiesResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "updateGroupPropertiesResponse");
     private final static QName _CreateTextResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "createTextResponse");
     private final static QName _UpdateProjectDefaultLanguageResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "updateProjectDefaultLanguageResponse");
+    private final static QName _CreateTagGroup_QNAME = new QName("http://ws.service.hyperimage.org/", "createTagGroup");
     private final static QName _MoveToTrashResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "moveToTrashResponse");
     private final static QName _GetRepositories_QNAME = new QName("http://ws.service.hyperimage.org/", "getRepositories");
     private final static QName _SetLayerLinkResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "setLayerLinkResponse");
@@ -209,6 +220,7 @@ public class ObjectFactory {
     private final static QName _SysopGetUsersResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopGetUsersResponse");
     private final static QName _CreateLayerResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "createLayerResponse");
     private final static QName _HIEntityNotFoundException_QNAME = new QName("http://ws.service.hyperimage.org/", "HIEntityNotFoundException");
+    private final static QName _GetTagCountForBaseUUIDResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getTagCountForBaseUUIDResponse");
     private final static QName _GetBaseQuickInfoByUUID_QNAME = new QName("http://ws.service.hyperimage.org/", "getBaseQuickInfoByUUID");
     private final static QName _AdminCreateRepositoryResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "adminCreateRepositoryResponse");
     private final static QName _UpdateUserResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "updateUserResponse");
@@ -220,8 +232,8 @@ public class ObjectFactory {
     private final static QName _AdminAddTemplateToProject_QNAME = new QName("http://ws.service.hyperimage.org/", "adminAddTemplateToProject");
     private final static QName _GetVersionIDResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "getVersionIDResponse");
     private final static QName _SysopDeleteProjectResponse_QNAME = new QName("http://ws.service.hyperimage.org/", "sysopDeleteProjectResponse");
-    private final static QName _CreateViewData_QNAME = new QName("", "data");
     private final static QName _GetScaledImageResponseReturn_QNAME = new QName("", "return");
+    private final static QName _CreateViewData_QNAME = new QName("", "data");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.hyperimage.client.ws
@@ -343,6 +355,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetTagCountForBaseUUID }
+     * 
+     */
+    public GetTagCountForBaseUUID createGetTagCountForBaseUUID() {
+        return new GetTagCountForBaseUUID();
+    }
+
+    /**
      * Create an instance of {@link UpdateFlexMetadataRecords }
      * 
      */
@@ -356,6 +376,14 @@ public class ObjectFactory {
      */
     public RemoveLayerLink createRemoveLayerLink() {
         return new RemoveLayerLink();
+    }
+
+    /**
+     * Create an instance of {@link GetTagGroups }
+     * 
+     */
+    public GetTagGroups createGetTagGroups() {
+        return new GetTagGroups();
     }
 
     /**
@@ -535,19 +563,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreatePreferenceResponse }
-     * 
-     */
-    public CreatePreferenceResponse createCreatePreferenceResponse() {
-        return new CreatePreferenceResponse();
-    }
-
-    /**
      * Create an instance of {@link UpdateProjectDefaultLanguage }
      * 
      */
     public UpdateProjectDefaultLanguage createUpdateProjectDefaultLanguage() {
         return new UpdateProjectDefaultLanguage();
+    }
+
+    /**
+     * Create an instance of {@link CreatePreferenceResponse }
+     * 
+     */
+    public CreatePreferenceResponse createCreatePreferenceResponse() {
+        return new CreatePreferenceResponse();
     }
 
     /**
@@ -615,6 +643,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetTagIDsForBase }
+     * 
+     */
+    public GetTagIDsForBase createGetTagIDsForBase() {
+        return new GetTagIDsForBase();
+    }
+
+    /**
+     * Create an instance of {@link GetTagIDsForBaseUUIDResponse }
+     * 
+     */
+    public GetTagIDsForBaseUUIDResponse createGetTagIDsForBaseUUIDResponse() {
+        return new GetTagIDsForBaseUUIDResponse();
+    }
+
+    /**
      * Create an instance of {@link SysopRemoveUserFromProject }
      * 
      */
@@ -660,6 +704,14 @@ public class ObjectFactory {
      */
     public RemoveDefaultViewResponse createRemoveDefaultViewResponse() {
         return new RemoveDefaultViewResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTagIDsForBaseResponse }
+     * 
+     */
+    public GetTagIDsForBaseResponse createGetTagIDsForBaseResponse() {
+        return new GetTagIDsForBaseResponse();
     }
 
     /**
@@ -935,6 +987,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CreateTagGroupResponse }
+     * 
+     */
+    public CreateTagGroupResponse createCreateTagGroupResponse() {
+        return new CreateTagGroupResponse();
+    }
+
+    /**
      * Create an instance of {@link SysopCreateProject }
      * 
      */
@@ -1183,6 +1243,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CreateTagGroup }
+     * 
+     */
+    public CreateTagGroup createCreateTagGroup() {
+        return new CreateTagGroup();
+    }
+
+    /**
      * Create an instance of {@link UpdateViewSortOrderResponse }
      * 
      */
@@ -1351,6 +1419,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetTagCountForBaseUUIDResponse }
+     * 
+     */
+    public GetTagCountForBaseUUIDResponse createGetTagCountForBaseUUIDResponse() {
+        return new GetTagCountForBaseUUIDResponse();
+    }
+
+    /**
      * Create an instance of {@link GetBaseQuickInfoByUUID }
      * 
      */
@@ -1511,11 +1587,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetTagIDsForBaseUUID }
+     * 
+     */
+    public GetTagIDsForBaseUUID createGetTagIDsForBaseUUID() {
+        return new GetTagIDsForBaseUUID();
+    }
+
+    /**
      * Create an instance of {@link AdminCreateSetDisplayNameResponse }
      * 
      */
     public AdminCreateSetDisplayNameResponse createAdminCreateSetDisplayNameResponse() {
         return new AdminCreateSetDisplayNameResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTagCountForBase }
+     * 
+     */
+    public GetTagCountForBase createGetTagCountForBase() {
+        return new GetTagCountForBase();
     }
 
     /**
@@ -1655,6 +1747,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UpdatePreferenceResponse }
+     * 
+     */
+    public UpdatePreferenceResponse createUpdatePreferenceResponse() {
+        return new UpdatePreferenceResponse();
+    }
+
+    /**
      * Create an instance of {@link AdminDeleteRepositoryResponse }
      * 
      */
@@ -1668,14 +1768,6 @@ public class ObjectFactory {
      */
     public GetTrashGroupResponse createGetTrashGroupResponse() {
         return new GetTrashGroupResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdatePreferenceResponse }
-     * 
-     */
-    public UpdatePreferenceResponse createUpdatePreferenceResponse() {
-        return new UpdatePreferenceResponse();
     }
 
     /**
@@ -1751,6 +1843,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetTagGroupsResponse }
+     * 
+     */
+    public GetTagGroupsResponse createGetTagGroupsResponse() {
+        return new GetTagGroupsResponse();
+    }
+
+    /**
      * Create an instance of {@link AdminUpdateSetDisplayName }
      * 
      */
@@ -1780,6 +1880,14 @@ public class ObjectFactory {
      */
     public CreateLayer createCreateLayer() {
         return new CreateLayer();
+    }
+
+    /**
+     * Create an instance of {@link GetTagCountForBaseResponse }
+     * 
+     */
+    public GetTagCountForBaseResponse createGetTagCountForBaseResponse() {
+        return new GetTagCountForBaseResponse();
     }
 
     /**
@@ -1999,6 +2107,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "updateLightTableResponse")
     public JAXBElement<UpdateLightTableResponse> createUpdateLightTableResponse(UpdateLightTableResponse value) {
         return new JAXBElement<UpdateLightTableResponse>(_UpdateLightTableResponse_QNAME, UpdateLightTableResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagIDsForBaseResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagIDsForBaseResponse")
+    public JAXBElement<GetTagIDsForBaseResponse> createGetTagIDsForBaseResponse(GetTagIDsForBaseResponse value) {
+        return new JAXBElement<GetTagIDsForBaseResponse>(_GetTagIDsForBaseResponse_QNAME, GetTagIDsForBaseResponse.class, null, value);
     }
 
     /**
@@ -2299,15 +2416,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeletePreferenceResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "deletePreferenceResponse")
-    public JAXBElement<DeletePreferenceResponse> createDeletePreferenceResponse(DeletePreferenceResponse value) {
-        return new JAXBElement<DeletePreferenceResponse>(_DeletePreferenceResponse_QNAME, DeletePreferenceResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetBaseElement }{@code >}}
      * 
      */
@@ -2317,12 +2425,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetProject }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeletePreferenceResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getProject")
-    public JAXBElement<GetProject> createGetProject(GetProject value) {
-        return new JAXBElement<GetProject>(_GetProject_QNAME, GetProject.class, null, value);
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "deletePreferenceResponse")
+    public JAXBElement<DeletePreferenceResponse> createDeletePreferenceResponse(DeletePreferenceResponse value) {
+        return new JAXBElement<DeletePreferenceResponse>(_DeletePreferenceResponse_QNAME, DeletePreferenceResponse.class, null, value);
     }
 
     /**
@@ -2332,6 +2440,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "createGroupResponse")
     public JAXBElement<CreateGroupResponse> createCreateGroupResponse(CreateGroupResponse value) {
         return new JAXBElement<CreateGroupResponse>(_CreateGroupResponse_QNAME, CreateGroupResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetProject }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getProject")
+    public JAXBElement<GetProject> createGetProject(GetProject value) {
+        return new JAXBElement<GetProject>(_GetProject_QNAME, GetProject.class, null, value);
     }
 
     /**
@@ -2425,6 +2542,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateTagGroupResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "createTagGroupResponse")
+    public JAXBElement<CreateTagGroupResponse> createCreateTagGroupResponse(CreateTagGroupResponse value) {
+        return new JAXBElement<CreateTagGroupResponse>(_CreateTagGroupResponse_QNAME, CreateTagGroupResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RemoveLayerLinkResponse }{@code >}}
      * 
      */
@@ -2503,6 +2629,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "removeLayerLink")
     public JAXBElement<RemoveLayerLink> createRemoveLayerLink(RemoveLayerLink value) {
         return new JAXBElement<RemoveLayerLink>(_RemoveLayerLink_QNAME, RemoveLayerLink.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagGroups }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagGroups")
+    public JAXBElement<GetTagGroups> createGetTagGroups(GetTagGroups value) {
+        return new JAXBElement<GetTagGroups>(_GetTagGroups_QNAME, GetTagGroups.class, null, value);
     }
 
     /**
@@ -2587,6 +2722,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagCountForBaseUUID }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagCountForBaseUUID")
+    public JAXBElement<GetTagCountForBaseUUID> createGetTagCountForBaseUUID(GetTagCountForBaseUUID value) {
+        return new JAXBElement<GetTagCountForBaseUUID>(_GetTagCountForBaseUUID_QNAME, GetTagCountForBaseUUID.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AdminRemoveUserFromProject }{@code >}}
      * 
      */
@@ -2668,21 +2812,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SysopGetProjectsForUser }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "sysopGetProjectsForUser")
-    public JAXBElement<SysopGetProjectsForUser> createSysopGetProjectsForUser(SysopGetProjectsForUser value) {
-        return new JAXBElement<SysopGetProjectsForUser>(_SysopGetProjectsForUser_QNAME, SysopGetProjectsForUser.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SysopDeleteUserResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "sysopDeleteUserResponse")
     public JAXBElement<SysopDeleteUserResponse> createSysopDeleteUserResponse(SysopDeleteUserResponse value) {
         return new JAXBElement<SysopDeleteUserResponse>(_SysopDeleteUserResponse_QNAME, SysopDeleteUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SysopGetProjectsForUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "sysopGetProjectsForUser")
+    public JAXBElement<SysopGetProjectsForUser> createSysopGetProjectsForUser(SysopGetProjectsForUser value) {
+        return new JAXBElement<SysopGetProjectsForUser>(_SysopGetProjectsForUser_QNAME, SysopGetProjectsForUser.class, null, value);
     }
 
     /**
@@ -2722,15 +2866,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreatePreferenceResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "createPreferenceResponse")
-    public JAXBElement<CreatePreferenceResponse> createCreatePreferenceResponse(CreatePreferenceResponse value) {
-        return new JAXBElement<CreatePreferenceResponse>(_CreatePreferenceResponse_QNAME, CreatePreferenceResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UpdateProjectDefaultLanguage }{@code >}}
      * 
      */
@@ -2740,12 +2875,39 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreatePreferenceResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "createPreferenceResponse")
+    public JAXBElement<CreatePreferenceResponse> createCreatePreferenceResponse(CreatePreferenceResponse value) {
+        return new JAXBElement<CreatePreferenceResponse>(_CreatePreferenceResponse_QNAME, CreatePreferenceResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SysopRemoveUserFromProject }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "sysopRemoveUserFromProject")
     public JAXBElement<SysopRemoveUserFromProject> createSysopRemoveUserFromProject(SysopRemoveUserFromProject value) {
         return new JAXBElement<SysopRemoveUserFromProject>(_SysopRemoveUserFromProject_QNAME, SysopRemoveUserFromProject.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagIDsForBaseUUIDResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagIDsForBaseUUIDResponse")
+    public JAXBElement<GetTagIDsForBaseUUIDResponse> createGetTagIDsForBaseUUIDResponse(GetTagIDsForBaseUUIDResponse value) {
+        return new JAXBElement<GetTagIDsForBaseUUIDResponse>(_GetTagIDsForBaseUUIDResponse_QNAME, GetTagIDsForBaseUUIDResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagIDsForBase }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagIDsForBase")
+    public JAXBElement<GetTagIDsForBase> createGetTagIDsForBase(GetTagIDsForBase value) {
+        return new JAXBElement<GetTagIDsForBase>(_GetTagIDsForBase_QNAME, GetTagIDsForBase.class, null, value);
     }
 
     /**
@@ -2866,6 +3028,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagIDsForBaseUUID }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagIDsForBaseUUID")
+    public JAXBElement<GetTagIDsForBaseUUID> createGetTagIDsForBaseUUID(GetTagIDsForBaseUUID value) {
+        return new JAXBElement<GetTagIDsForBaseUUID>(_GetTagIDsForBaseUUID_QNAME, GetTagIDsForBaseUUID.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RemoveFromGroupResponse }{@code >}}
      * 
      */
@@ -2908,6 +3079,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "adminCreateSetDisplayNameResponse")
     public JAXBElement<AdminCreateSetDisplayNameResponse> createAdminCreateSetDisplayNameResponse(AdminCreateSetDisplayNameResponse value) {
         return new JAXBElement<AdminCreateSetDisplayNameResponse>(_AdminCreateSetDisplayNameResponse_QNAME, AdminCreateSetDisplayNameResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagCountForBase }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagCountForBase")
+    public JAXBElement<GetTagCountForBase> createGetTagCountForBase(GetTagCountForBase value) {
+        return new JAXBElement<GetTagCountForBase>(_GetTagCountForBase_QNAME, GetTagCountForBase.class, null, value);
     }
 
     /**
@@ -3145,21 +3325,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FieldSearch }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "fieldSearch")
-    public JAXBElement<FieldSearch> createFieldSearch(FieldSearch value) {
-        return new JAXBElement<FieldSearch>(_FieldSearch_QNAME, FieldSearch.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AdminDeleteRepository }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "adminDeleteRepository")
     public JAXBElement<AdminDeleteRepository> createAdminDeleteRepository(AdminDeleteRepository value) {
         return new JAXBElement<AdminDeleteRepository>(_AdminDeleteRepository_QNAME, AdminDeleteRepository.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FieldSearch }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "fieldSearch")
+    public JAXBElement<FieldSearch> createFieldSearch(FieldSearch value) {
+        return new JAXBElement<FieldSearch>(_FieldSearch_QNAME, FieldSearch.class, null, value);
     }
 
     /**
@@ -3208,6 +3388,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePreferenceResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "updatePreferenceResponse")
+    public JAXBElement<UpdatePreferenceResponse> createUpdatePreferenceResponse(UpdatePreferenceResponse value) {
+        return new JAXBElement<UpdatePreferenceResponse>(_UpdatePreferenceResponse_QNAME, UpdatePreferenceResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AdminDeleteRepositoryResponse }{@code >}}
      * 
      */
@@ -3223,15 +3412,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTrashGroupResponse")
     public JAXBElement<GetTrashGroupResponse> createGetTrashGroupResponse(GetTrashGroupResponse value) {
         return new JAXBElement<GetTrashGroupResponse>(_GetTrashGroupResponse_QNAME, GetTrashGroupResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePreferenceResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "updatePreferenceResponse")
-    public JAXBElement<UpdatePreferenceResponse> createUpdatePreferenceResponse(UpdatePreferenceResponse value) {
-        return new JAXBElement<UpdatePreferenceResponse>(_UpdatePreferenceResponse_QNAME, UpdatePreferenceResponse.class, null, value);
     }
 
     /**
@@ -3271,6 +3451,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagCountForBaseResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagCountForBaseResponse")
+    public JAXBElement<GetTagCountForBaseResponse> createGetTagCountForBaseResponse(GetTagCountForBaseResponse value) {
+        return new JAXBElement<GetTagCountForBaseResponse>(_GetTagCountForBaseResponse_QNAME, GetTagCountForBaseResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CreateLayer }{@code >}}
      * 
      */
@@ -3295,6 +3484,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "adminUpdateSetDisplayName")
     public JAXBElement<AdminUpdateSetDisplayName> createAdminUpdateSetDisplayName(AdminUpdateSetDisplayName value) {
         return new JAXBElement<AdminUpdateSetDisplayName>(_AdminUpdateSetDisplayName_QNAME, AdminUpdateSetDisplayName.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagGroupsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagGroupsResponse")
+    public JAXBElement<GetTagGroupsResponse> createGetTagGroupsResponse(GetTagGroupsResponse value) {
+        return new JAXBElement<GetTagGroupsResponse>(_GetTagGroupsResponse_QNAME, GetTagGroupsResponse.class, null, value);
     }
 
     /**
@@ -3412,6 +3610,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "updateProjectDefaultLanguageResponse")
     public JAXBElement<UpdateProjectDefaultLanguageResponse> createUpdateProjectDefaultLanguageResponse(UpdateProjectDefaultLanguageResponse value) {
         return new JAXBElement<UpdateProjectDefaultLanguageResponse>(_UpdateProjectDefaultLanguageResponse_QNAME, UpdateProjectDefaultLanguageResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateTagGroup }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "createTagGroup")
+    public JAXBElement<CreateTagGroup> createCreateTagGroup(CreateTagGroup value) {
+        return new JAXBElement<CreateTagGroup>(_CreateTagGroup_QNAME, CreateTagGroup.class, null, value);
     }
 
     /**
@@ -3640,6 +3847,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTagCountForBaseUUIDResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.service.hyperimage.org/", name = "getTagCountForBaseUUIDResponse")
+    public JAXBElement<GetTagCountForBaseUUIDResponse> createGetTagCountForBaseUUIDResponse(GetTagCountForBaseUUIDResponse value) {
+        return new JAXBElement<GetTagCountForBaseUUIDResponse>(_GetTagCountForBaseUUIDResponse_QNAME, GetTagCountForBaseUUIDResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetBaseQuickInfoByUUID }{@code >}}
      * 
      */
@@ -3742,15 +3958,6 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "data", scope = CreateView.class)
-    public JAXBElement<byte[]> createCreateViewData(byte[] value) {
-        return new JAXBElement<byte[]>(_CreateViewData_QNAME, byte[].class, CreateView.class, ((byte[]) value));
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}}
-     * 
-     */
     @XmlElementDecl(namespace = "", name = "return", scope = GetScaledImageResponse.class)
     public JAXBElement<byte[]> createGetScaledImageResponseReturn(byte[] value) {
         return new JAXBElement<byte[]>(_GetScaledImageResponseReturn_QNAME, byte[].class, GetScaledImageResponse.class, ((byte[]) value));
@@ -3763,6 +3970,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "return", scope = GetImageResponse.class)
     public JAXBElement<byte[]> createGetImageResponseReturn(byte[] value) {
         return new JAXBElement<byte[]>(_GetScaledImageResponseReturn_QNAME, byte[].class, GetImageResponse.class, ((byte[]) value));
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "data", scope = CreateView.class)
+    public JAXBElement<byte[]> createCreateViewData(byte[] value) {
+        return new JAXBElement<byte[]>(_CreateViewData_QNAME, byte[].class, CreateView.class, ((byte[]) value));
     }
 
 }

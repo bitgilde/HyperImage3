@@ -30,6 +30,26 @@
  * All rights reserved.  Use is subject to license terms.
  */
 
+/*
+ * Copyright 2015 bitGilde IT Solutions UG (haftungsbeschränkt)
+ * All rights reserved. Use is subject to license terms.
+ * http://bitgilde.de/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * For further information on HyperImage visit http://hyperimage.ws/
+ */
+
 package org.hyperimage.client.gui.views;
 
 import java.awt.Color;
@@ -129,6 +149,7 @@ public class GroupPropertyEditorView extends GUIView
 		if ( group != null ) {
 			groupVisibleCheckBox.removeItemListener(this);
 			if ( group.getType() == GroupTypes.HIGROUP_REGULAR ) {
+                            metadataEditorControl.setBaseID(group.getId());
 				if ( group.getUUID() == null ) metadataEditorControl.setIdLabel("G"+group.getId()); //$NON-NLS-1$
                                 else metadataEditorControl.setIdLabel(group.getUUID());
                                 metadataEditorControl.setTimeLabel(MetadataHelper.getFuzzyDate(group.getTimestamp()));
@@ -246,5 +267,9 @@ public class GroupPropertyEditorView extends GUIView
 	public void itemStateChanged(ItemEvent e) {
 		propertyChanged = ( groupVisibleCheckBox.isSelected() != group.isVisible() );
 	}
+
+    public void setTagCount(long count) {
+        metadataEditorControl.setTagCount(count);
+    }
 
 }

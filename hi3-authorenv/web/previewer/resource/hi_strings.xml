@@ -20,6 +20,7 @@
 		<str key="MENU_DISPLAY">Darstellung</str>
 		<str key="MENU_NAVIGATION">Navigation</str>
 		<str key="MENU_GROUPS">Gruppen</str>
+		<str key="MENU_TAGS">Tags</str>
 		<str key="MENU_ABOUT">Über den HyperImage-Reader PreViewer</str>
 		<str key="MENU_IMPRINT">Impressum</str>
 		<str key="MENU_FULL_SCREEN">Vollbild</str>
@@ -114,7 +115,8 @@
 		<str key="ID_LAYER">ID des Layers:</str>
 		<str key="ID_INSCRIPTION">ID der Inschrift:</str>
 		<str key="ID_TEXT">ID des Textes:</str>
-		<str key="ID_LITA">ID des Lichttisches:</str>
+		<str key="ID_LITA">ID des Lichttisches:</str>                
+		<str key="ANNOTATION_TAGS">Tags</str>
 		<str key="ANNOTATION_OBJECT">Anmerkungen zum Objekt</str>
 		<str key="ANNOTATION_VIEW">Anmerkungen zur Ansicht</str>
 		<str key="ANNOTATION_LAYER">Anmerkungen zum Layer</str>
@@ -224,6 +226,7 @@
 		<str key="MENU_DISPLAY">Display</str>
 		<str key="MENU_NAVIGATION">Navigation</str>
 		<str key="MENU_GROUPS">Groups</str>
+		<str key="MENU_TAGS">Tags</str>
 		<str key="MENU_ABOUT">About the HyperImage PreViewer</str>
 		<str key="MENU_IMPRINT">Credits</str>
 		<str key="MENU_FULL_SCREEN">Fullscreen</str>
@@ -319,6 +322,7 @@
 		<str key="ID_INSCRIPTION">ID of inscription:</str>
 		<str key="ID_TEXT">ID of text:</str>
 		<str key="ID_LITA">ID of light table:</str>
+		<str key="ANNOTATION_TAGS">Tags</str>
 		<str key="ANNOTATION_OBJECT">Annotation of object</str>
 		<str key="ANNOTATION_VIEW">Annotation of view</str>
 		<str key="ANNOTATION_LAYER">Annotation of layer</str>

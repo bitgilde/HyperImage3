@@ -403,6 +403,7 @@
 					<xs:enumeration value="import" />						
 					<xs:enumeration value="regular" />
 					<xs:enumeration value="trash" />
+					<xs:enumeration value="tag" />						
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>

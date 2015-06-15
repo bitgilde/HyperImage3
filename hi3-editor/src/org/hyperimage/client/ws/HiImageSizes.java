@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="HI_PREVIEW"/>
  *     &lt;enumeration value="HI_FULL"/>
  *     &lt;enumeration value="HI_ORIGINAL"/>
+ *     &lt;enumeration value="HI_NAV"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -29,7 +30,8 @@ public enum HiImageSizes {
     HI_THUMBNAIL,
     HI_PREVIEW,
     HI_FULL,
-    HI_ORIGINAL;
+    HI_ORIGINAL,
+    HI_NAV;
 
     public String value() {
         return name();

@@ -64,7 +64,7 @@ public class HIProject implements Serializable {
     long used = 0;
 
     @JoinColumn(nullable = false)
-    @OneToOne(cascade = CascadeType.ALL, optional = false, targetEntity = HILanguage.class)
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = HILanguage.class)
     HILanguage defaultLanguage;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project", targetEntity = HILanguage.class)

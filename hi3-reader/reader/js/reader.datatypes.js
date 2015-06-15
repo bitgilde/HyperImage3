@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 function HIReader() {
-	this.version = 'v3.0.beta1';
+	this.version = 'v3.0.beta2';
 	this.productID = 'Static Reader';
 	
 	this.xmlserializer = new XMLSerializer();
@@ -76,6 +76,7 @@ function HIReader() {
 	this.project.title = new Object();
 	this.project.texts = new Object();
 	this.project.groups = new Object();
+	this.project.tags = new Object();
 	this.project.litas = new Object();
 	this.project.templates = new Object();
 	this.project.langs = new Array();

@@ -284,19 +284,25 @@ function loadProjectFile(data, success) {
 		reader.project.search.files[files[i].getAttribute("xml:lang")] = files[i].getElementsByTagName("file")[0].firstChild.nodeValue;
 		
 	/*
-	 * extract visible groups, project texts and light tables
+	 * extract visible groups, tags, project texts and light tables
 	 */
 	 var menus = data.getElementsByTagName("menu");
 	 for (i=0; i < menus.length; i++) {
 	 	// switch between groups and texts
 	 	if ( menus[i].getAttribute("key") == "text" ) entries = reader.project.texts;
 	 	else if ( menus[i].getAttribute("key") == "group" ) entries = reader.project.groups;
+	 	else if ( menus[i].getAttribute("key") == "tag" ) entries = reader.project.tags;
 	 	else entries = reader.project.litas;
 	 	var lang = menus[i].getAttribute("xml:lang");
 	 	// get menu items for lang
 	 	items = menus[i].getElementsByTagName("item");
 		for (itemID=0; itemID < items.length; itemID++) {
-			if ( entries[items[itemID].getAttribute("ref")] == null ) entries[items[itemID].getAttribute("ref")] = new Object();
+                    if ( entries[items[itemID].getAttribute("ref")] == null ) entries[items[itemID].getAttribute("ref")] = {};
+                    if ( menus[i].getAttribute("key") == "tag" ) {
+                        entries[items[itemID].getAttribute("ref")].id = items[itemID].getAttribute("ref");
+                        entries[items[itemID].getAttribute("ref")].uuid = items[itemID].getAttribute("uuid");
+                    }
+                    if ( entries[items[itemID].getAttribute("ref")] == null ) entries[items[itemID].getAttribute("ref")] = new Object();
 			if ( items[itemID].firstChild ) entries[items[itemID].getAttribute("ref")][lang] = items[itemID].firstChild.nodeValue;
 			else entries[items[itemID].getAttribute("ref")][lang] = '';
 		}
@@ -448,6 +454,9 @@ function setLanguage(lang) {
 	// group menu display names
 	for (group in reader.project.groups)
 		$('.'+group+"_menuitem").text(reader.project.groups[group][lang]);
+	// tag menu display names
+	for (tag in reader.project.tags)
+		$('.'+tag+"_menuitem").text(reader.project.tags[tag][lang]);
 	// text menu display names
 	for (text in reader.project.texts)
 		$('.'+text+"_menuitem").text(reader.project.texts[text][lang]);
@@ -712,7 +721,7 @@ function initGUI() {
 	tempHTML += '  <div id="viewsource_value" class="mdvalue">&nbsp;</div>\n';
 	tempHTML += '</div>\n';
 	
-	mdDIV.innerHTML = tempHTML;
+	mdDIV.innerHTML = mdDIV.innerHTML + tempHTML;
 
 	// set up start item in menus
 	$("a.startitem").each(function(index, item) { item.href = '#'+reader.start+"/"; });
@@ -744,15 +753,19 @@ function initGUI() {
 			$('#languageMenu').prepend('<li><a id="setLang_'+reader.project.langs[i]+'" href="javascript:setLanguage(\''+reader.project.langs[i]+'\');">'+reader.project.langs[i]+'</a></li>');
 	
 	/*
-	 * set up group, text and lighttable menu
+	 * set up group, text, tag and lighttable menu
 	 */
 	tempHTML = "";
 	groupDIV = $("#groupmenu");
+        tagDIV = $("#tagmenu");
 	textDIV = $("#textmenu");
 	litaDIV = $("#publicLightTables");
 	for (group in reader.project.groups) 
 		groupDIV.append('<li><a class="'+group+'_menuitem" href="#'+group+'/">&nbsp;</a></li>');	
 	if ( Object.keys(reader.project.groups).length == 0 ) $('#groupmenu').parent().css("display", "none");
+	for (tag in reader.project.tags) 
+		tagDIV.append('<li><a class="'+tag+'_menuitem" href="#'+tag+'/">&nbsp;</a></li>');	
+	if ( Object.keys(reader.project.groups).length == 0 ) $('#tagmenu').parent().css("display", "none");
 	for (text in reader.project.texts) 
 		textDIV.append('<li><a class="'+text+'_menuitem" href="#'+text+'/">&nbsp;</a></li>');	
 	if ( Object.keys(reader.project.texts).length == 0 ) $('#textmenu').parent().css("display", "none");	

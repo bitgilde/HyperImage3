@@ -69,7 +69,7 @@ function initPubTool() {
 	    pubtool.stopwords = window.stopwords;
 	    pubtool.hiThemes = window.hiThemes;
             
-            pubtool.version = 'v3.0.beta1';
+            pubtool.version = 'v3.0.beta2';
 	
 		JSZipUtils.getBinaryContent('pubtool/reader-base.zip', function(err, data) {
 			if ( err ) {
@@ -337,6 +337,19 @@ function parseServiceMDField (field) {
 	return previewText;
 }
 
+		
+function attachTags(item) {
+    if ( item != null && item.tags == null && pubtool.project.tags != null ) {
+        // attach tag info
+        item.tags = [];
+        $(Object.keys(pubtool.project.tags)).each(function(index, tagID){
+            tag = pubtool.project.tags[tagID];
+            if ( tag.keymembers[item.id] != null ) item.tags.push(tag);
+        });
+    }
+}
+
+
 function parseItem(data, relatedID) {
 	if ( typeof(data) == 'string' ) data = $.parseXML(data);
 
@@ -472,9 +485,12 @@ function parseItem(data, relatedID) {
 					layer.parent = item;
 					item.layers[layer.id] = layer;
 					pubtool.project.items[layer.id] = layer;
+                                        attachTags(layer);
+
 
 				});
 				pubtool.project.items[viewID] = item;
+                                attachTags(item);
 				
 			}
 			break;
@@ -506,6 +522,7 @@ function parseItem(data, relatedID) {
 				else item.siblings = new Object();
 				
 				pubtool.project.items[viewID] = item;
+                                attachTags(item);
 			}		
 			break;
 			
@@ -532,6 +549,7 @@ function parseItem(data, relatedID) {
 				item.defaultViewID = data.getDefaultView();
 				if ( item.defaultViewID != null ) item.defaultViewID = (data.getDefaultView().typeMarker == 'ws_service_hyperimage_org__hiView' ? 'V'+item.defaultViewID.getId() : 'I'+item.defaultViewID.getId());
 				pubtool.project.items[id] = item;
+                                attachTags(item);
 			}
 			// check if object has unloaded view
 			for ( var i=0; i < data.getViews().length; i++ ) {
@@ -573,6 +591,7 @@ function parseItem(data, relatedID) {
 				item.sites = new Object();
 				item.refs = new Object();				
 				pubtool.project.items[id] = item;
+                                attachTags(item);
 			}
 			break;
 
@@ -606,6 +625,7 @@ function parseItem(data, relatedID) {
 				item.refs = new Object();
 								
 				pubtool.project.items[id] = item;
+                                attachTags(item);
 			}
 			break;
 
@@ -621,6 +641,7 @@ function parseItem(data, relatedID) {
 				item.refs = new Object();
 				item.url = data.getUrl().encodeXML();
 				pubtool.project.items[id] = item;
+                                attachTags(item);
 			}
 			break;
 			
@@ -640,13 +661,35 @@ function parseItem(data, relatedID) {
 				// TODO replace frameAnnotation <line> with HTML
 				item.count = 0;
 				$(data).children().children().each(function (index, node) {
-					if ( node.tagName == 'frame' ) item.count++;
+					if ( node.tagName == 'lita' ) {
+                                            item.count = $(node).find("lita > frame").size();
+                                            // fix frame position
+                                            $(node).find("lita > frameAnn").each(function(index, frame) {
+                                               frame.setAttribute("x", parseInt(frame.getAttribute("x")));
+                                               frame.setAttribute("y", parseInt(frame.getAttribute("y")));
+                                               frame.setAttribute("width", parseInt(frame.getAttribute("width")));
+                                               frame.setAttribute("height", parseInt(frame.getAttribute("height")));
+                                           });
+                                            $(node).find("lita > frame").each(function(index, frame) {
+                                               frame.setAttribute("x", parseInt(frame.getAttribute("x")));
+                                               frame.setAttribute("y", parseInt(frame.getAttribute("y")));
+                                               frame.setAttribute("width", parseInt(frame.getAttribute("width")));
+                                               frame.setAttribute("height", parseInt(frame.getAttribute("height")));
+                                               $(frame).find("frameContent").each(function(index, frameContent) {
+                                                   frameContent.setAttribute("x", parseInt(frameContent.getAttribute("x")));
+                                                   frameContent.setAttribute("y", parseInt(frameContent.getAttribute("y")));
+                                                   frameContent.setAttribute("width", parseInt(frameContent.getAttribute("width")));
+                                                   frameContent.setAttribute("height", parseInt(frameContent.getAttribute("height")));
+                                               });
+                                            });
+                                        }
 					item.xml += pubtool.serializer.serializeToString(node);
 				});
 				
 				item.sites = new Object();
 				item.refs = new Object();
 				pubtool.project.items[id] = item;
+                                attachTags(item);
 			}
 			break;			
 			
@@ -984,8 +1027,47 @@ function loadProjectContents() {
 	if ( !pubtool.project.groupsLoaded || !pubtool.project.textsLoaded || !pubtool.project.litasLoaded ) return;
 	$('#startbutton').button("option", "disabled", false);
 
-	if ( !pubtool.project.groupContentsLoaded ) {
-		$('#progressbar').progressbar( "option", "max", Object.keys(pubtool.project.groups).length );
+	if ( !pubtool.project.tagsLoaded ) {
+            if ( !pubtool.project.tags ) pubtool.project.tags = {};
+            pubtool.service.HIEditor.getTagGroups(
+				function(result) {
+                                    // parse tags
+                                    for (tagID in result.getReturn()) {
+                                        var tag = result.getReturn()[tagID];
+                                        pubtool.project.tags['G'+tag.getId()] = new Object();
+                                        pubtool.project.tags['G'+tag.getId()].id = 'G'+tag.getId();
+                                        pubtool.project.tags['G'+tag.getId()].uuid = tag.getUUID();
+                                        pubtool.project.tags['G'+tag.getId()].type = "group";
+                                        pubtool.project.tags['G'+tag.getId()].isTag = true;
+                                        pubtool.project.tags['G'+tag.getId()].keymembers = {};
+                                        pubtool.project.tags['G'+tag.getId()].members = [];
+                                        pubtool.project.tags['G'+tag.getId()].title = {};
+                                        pubtool.project.tags['G'+tag.getId()].annotation = {};
+                                        pubtool.project.tags['G'+tag.getId()].sortOrder = [];
+                                        pubtool.project.tags['G'+tag.getId()].refs = {};
+                                        pubtool.project.tags['G'+tag.getId()].sites = {};
+
+                                        for ( mdID in tag.getMetadata() ) {
+                                            var record = tag.getMetadata()[mdID];
+                                            for ( cID in record.getContents() ) {
+						var entry = record.getContents()[cID];
+						if ( entry.getKey() == 'HIBase.title' ) {
+							if ( entry.getValue().length > 0 ) pubtool.project.tags['G'+tag.getId()][record.getLanguage()] = entry.getValue();
+							else pubtool.project.tags['G'+tag.getId()][record.getLanguage()] = '(G'+tag.getId()+')';
+                                                        pubtool.project.tags['G'+tag.getId()].title[record.getLanguage()] = pubtool.project.tags['G'+tag.getId()][record.getLanguage()];
+                                                }
+                                                pubtool.project.tags['G'+tag.getId()].annotation[record.getLanguage()] = "";
+                                                        
+                                            }
+                                        }			
+                                    }
+                                    pubtool.project.tagsLoaded = true;
+                                    loadProjectContents();
+					
+				}, HIExceptionHandler);
+            
+        } else if ( !pubtool.project.groupContentsLoaded ) {
+		$('#progressbar').progressbar( "option", "max", Object.keys(pubtool.project.groups).length + Object.keys(pubtool.project.tags).length );
 		$('#progressbar').progressbar( "option", "value", 0 );
 		$('.progress-label').html(t("loadingGroupContents"));
 		$('#previewImage').attr('src', 'pubtool/img/hyperimage-logo-pubtool.png');
@@ -1009,13 +1091,38 @@ function loadProjectContents() {
 					pubtool.project.groups[groupID].members = groupContents;
 				
 					// load remaining project items when finished
-					if ( $('#progressbar').progressbar( "option", "value" ) == Object.keys(pubtool.project.groups).length ) {
+					if ( $('#progressbar').progressbar( "option", "value" ) == (Object.keys(pubtool.project.groups).length + Object.keys(pubtool.project.tags).length) ) {
 						pubtool.project.groupContentsLoaded = true;
 						loadProjectContents();
 					}
 				}, HIExceptionHandler, groupID.substring(1));		
 		});
-	} else if ( !pubtool.project.projectContentsLoaded ) {
+                // tag groups
+                $(Object.keys(pubtool.project.tags)).each(
+			function(i, tagID) {
+				pubtool.service.HIEditor.getGroupContentQuickInfo(
+				function(result) {
+					var serverContents = result.getReturn();
+					$('#progressbar').progressbar( "option", "value", $('#progressbar').progressbar( "option", "value" )+1 ); // update progress bar
+					$(serverContents).each(
+						function(index, member) {
+                                                    var contentID = GetIDModifierFromContentType(member.getContentType())+member.getBaseID();
+                                                    pubtool.project.tags[tagID].keymembers[contentID] = contentID;
+                                                    pubtool.project.tags[tagID].members.push(contentID);
+                                                    pubtool.project.tags[tagID].sortOrder.push(contentID.substring(1));
+					});					
+				
+					// load remaining project items when finished
+					if ( $('#progressbar').progressbar( "option", "value" ) == (Object.keys(pubtool.project.groups).length + Object.keys(pubtool.project.tags).length) ) {
+                                                // attach tags to groups
+                                                $(Object.keys(pubtool.project.groups)).each(function(index, groupID) { attachTags(pubtool.project.groups[groupID]); });
+                                                // continue loading ptoject contents
+						pubtool.project.groupContentsLoaded = true;
+						loadProjectContents();
+					}
+				}, HIExceptionHandler, tagID.substring(1));		
+		});
+            } else if ( !pubtool.project.projectContentsLoaded ) {
 		// load remaining objects and urls
 		$('#progressbar').progressbar( "option", "max", Object.keys(pubtool.project.itemsToLoad).length );
 		$('#progressbar').progressbar( "option", "value", 0 );
@@ -1128,8 +1235,22 @@ function generatePeTALDocs() {
 		return refs;
 	}
 	
+        function serializeTags(item) {
+            if ( item.tags == null ) attachTags(item);
+            if ( item.tags == null ) return ' ';
+            var tags = item.tags;
+            var refs = ' tags="';
+            for (var i=0; i < tags.length; i++) {
+                var ref = tags[i];
+                if ( i>0 ) refs += ',';
+                refs += ref.id;
+            }				
+		refs += '" ';
+            return refs;
+	}
+	
 	function serializeLayer(layer, order) {
-		var layerDoc = '<layer id="'+layer.id+'" uuid="'+layer.uuid+'" color="'+layer.color+'" opacity="'+layer.opacity+'" order="'+order+'"';
+		var layerDoc = '<layer id="'+layer.id+'" uuid="'+layer.uuid+'" '+serializeTags(layer)+' color="'+layer.color+'" opacity="'+layer.opacity+'" order="'+order+'"';
 		if ( layer.ref != null ) layerDoc += ' ref="'+layer.ref+'"';
 		layerDoc += '>';
 		for ( var i=0; i < pubtool.project.langs.length; i++ ) {
@@ -1152,7 +1273,7 @@ function generatePeTALDocs() {
 		
 		switch (item.id.substring(0,1)) {
 			case 'T':
-				doc += '<text id="'+item.id+'">';
+				doc += '<text id="'+item.id+'" '+serializeTags(item)+'>';
 				for ( var i=0; i < pubtool.project.langs.length; i++ ) {
 					doc += serializeField('title', item.title[pubtool.project.langs[i]], pubtool.project.langs[i]);
 					doc += serializeField('content', item.content[pubtool.project.langs[i]], pubtool.project.langs[i]);
@@ -1160,7 +1281,7 @@ function generatePeTALDocs() {
 				break;
 
 			case 'G':
-				doc += '<group id="'+item.id+'">';
+				doc += '<group id="'+item.id+'" '+serializeTags(item)+'>';
 				for ( var i=0; i < pubtool.project.langs.length; i++ ) {
 					doc += serializeField('title', item.title[pubtool.project.langs[i]], pubtool.project.langs[i]);
 					doc += serializeField('annotation', item.annotation[pubtool.project.langs[i]], pubtool.project.langs[i]);
@@ -1169,9 +1290,9 @@ function generatePeTALDocs() {
 				for ( var i=0; i < item.sortOrder.length; i++ ) {
 					var sortedItem = item.sortOrder[i];
 					var groupMember = null;
-					for ( var index=0; index < item.members.length; index++ )
+					for ( var index=0; index < item.members.length; index++ ) {
 						if ( item.members[index].substring(1) == sortedItem ) groupMember = item.members[index];
-					
+                                        }
 					if ( groupMember != null )
 						doc += serializeContentPreview('member', pubtool.project.items[groupMember]);
 				}
@@ -1187,7 +1308,7 @@ function generatePeTALDocs() {
 				var objectUUID = item.uuid;
 				if ( getPeTALType(item) == 'view' || getPeTALType(item) == 'inscription' ) {objectID = item.parent.id; objectUUID = item.parent.uuid;}
 				if ( getPeTALType(item) == 'layer' ) {objectID = item.parent.parent.id; objectUUID = item.parent.parent.uuid;}
-				doc += '<object id="'+objectID+'" uuid="'+objectUUID+'">';
+				doc += '<object id="'+objectID+'" uuid="'+objectUUID+'" '+serializeTags(pubtool.project.items[objectID])+'>';
 				if ( getPeTALType(item) != 'layer' ) {
 					// object metadata
 					for (var langID=0; langID < pubtool.project.langs.length; langID++) {
@@ -1210,7 +1331,7 @@ function generatePeTALDocs() {
 				
 				// inscription data
 				if ( getPeTALType(item) == 'inscription' ) {
-					doc += '<inscription id="'+item.id+'" uuid="'+item.uuid+'">';
+					doc += '<inscription id="'+item.id+'" uuid="'+item.uuid+'" '+serializeTags(item)+'>';
 					for ( var i=0; i < pubtool.project.langs.length; i++ )
 						doc += serializeField('content', item.content[pubtool.project.langs[i]], pubtool.project.langs[i]);
 					doc += serializeRefs('siblings', 'sibling', pubtool.project.items[objectID].views);					
@@ -1219,7 +1340,7 @@ function generatePeTALDocs() {
 
 				// view data
 				if ( getPeTALType(item) == 'view' ) {					
-					doc += '<view id="'+item.id+'" uuid="'+item.uuid+'">';
+					doc += '<view id="'+item.id+'" uuid="'+item.uuid+'" '+serializeTags(item)+'>';
 					for ( var i=0; i < pubtool.project.langs.length; i++ ) {
 						doc += serializeField('title', item.title[pubtool.project.langs[i]], pubtool.project.langs[i]);
 						doc += serializeField('source', item.source[pubtool.project.langs[i]], pubtool.project.langs[i]);
@@ -1240,7 +1361,7 @@ function generatePeTALDocs() {
 
 				// layer data
 				if ( getPeTALType(item) == 'layer' ) {
-					doc += '<view id="'+item.parent.id+'" uuid="'+item.parent.uuid+'">';
+					doc += '<view id="'+item.parent.id+'" uuid="'+item.parent.uuid+'" '+serializeTags(item.parent)+'>';
 					var sortOrder = 1;
 					for ( var i=0; i < item.parent.sortOrder.length; i++ ) if ( item.parent.sortOrder[i] == item.id ) sortOrder = i+1;
 					doc += serializeLayer(item, sortOrder);
@@ -1249,14 +1370,14 @@ function generatePeTALDocs() {
 				break;
 
 			case 'U':
-				doc += '<url id="'+item.id+'" ref="'+item.url+'">';
+				doc += '<url id="'+item.id+'" ref="'+item.url+'" '+serializeTags(item)+'>';
 				doc += serializeField('title', item.title);
 				doc += serializeField('annotation', item.annotation);
 				doc += '<img width="128" height="128" src="img/'+item.id+'_thumb.jpg" use="thumb" />';
 				break;
 
 			case 'X':
-				doc += '<lita id="'+item.id+'">';
+				doc += '<lita id="'+item.id+'" '+serializeTags(item)+'>';
 				doc += item.xml;
 				break;
 		}
@@ -1348,6 +1469,18 @@ function generatePeTALDocs() {
 		pubtool.docs.project += '</menu>';
 	}
 
+	// persist tag menu
+	for (var lang in pubtool.project.langs) {
+            pubtool.docs.project += '<menu key="tag" xml:lang="'+pubtool.project.langs[lang]+'">';
+            var sortedGroupList = $('#groupSortable').sortable('toArray', {attribute: 'data-baseid'});
+            for (var i=0; i < Object.keys(pubtool.project.tags).length ; i++) {
+                id = Object.keys(pubtool.project.tags)[i];
+                tag = pubtool.project.tags[id];
+                pubtool.docs.project += '<item uuid="'+tag.uuid+'" ref="'+id+'">'+tag[pubtool.project.langs[lang]]+'</item>';	
+            }
+            pubtool.docs.project += '</menu>';
+	}
+
 	// persist user selected light table menu sort order and visibility
 	for (var lang in pubtool.project.langs) {
 		pubtool.docs.project += '<menu key="lita" xml:lang="'+pubtool.project.langs[lang]+'">';
@@ -1378,6 +1511,11 @@ function generatePeTALDocs() {
 		var item = pubtool.project.items[Object.keys(pubtool.project.items)[i]];
 		pubtool.docs.items[item.id] = serializeItem(item);
 	}
+        // serialize tag groups
+        for (var i=0; i < Object.keys(pubtool.project.tags).length; i++) {
+            var tag = pubtool.project.tags[Object.keys(pubtool.project.tags)[i]];
+            pubtool.docs.items[tag.id] = serializeItem(tag);
+        }
 	
 	// generate search index
 	pubtool.project.index = {};

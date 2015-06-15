@@ -1,0 +1,42 @@
+WHAT'S NEW - HyperImage 3 Virtual Research Environment
+For an overview of the new features in HyperImage 3 please visit http://hyperimage.ws/en/hi3-manual/whats-new/
+
+Legend:
++ added
+* fixed / updated / changed
+- removed
+
+
+2015-06-15 - HyperInage 3.0.beta2
+---------------------------------
++ added full client support for adding / removing / creating / deleting / editing tags
++ editor: added visual tag support and i18n for edit tag dialog
++ editor: added ability to import tags from PeTAL 3.0
++ pubtool: added support for exporting tags and tag categories
++ reader: added support for tags and tag categories
++ previewer: added ability to send group items to light table
++ manager: added support to launch system manager with server url preconfigured
++ added I18N to base tag editor
++ added switch for tag annotations
++ added backend support to creating and retrieving tags and tag categories
++ added tag support to PeTAL 3.0 schema
+* updated importer to deal with external image repositories
+* modified image retrieval path to call xquery mechanism for import.
+* refinements to tag button and dialog
+* updated tag manager i18n
+* editor: updated min required service version (3.0.3) to reflect tag support
+* updated service and bundled client jar
+* pubtool: updated reader base
+* pubtool: fixed long item names extending beyond layout borders (fixes #97)
+* updated I18N for reader
+* updated service version to 3.0.3 to reflect tag support
+* fixed prometheus urls
+* fixed export of light table frames to always have integers as attributes (fixes #125)
+* fixed a bug in ORM that prevented project's from being deleted (fixes #124)
+* bugfixes + updated version info
+- editor: removed refactored control
+
+
+2015-02-16 - HyperInage 3.0.beta1
+---------------------------------
+* initial release

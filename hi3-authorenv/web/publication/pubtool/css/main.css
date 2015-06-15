@@ -98,6 +98,10 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+ul li {
+    overflow-y: auto !important;
+}
+
 .ember-application {
     margin: 20px;
 }

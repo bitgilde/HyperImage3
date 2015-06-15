@@ -80,6 +80,8 @@ import org.hyperimage.client.gui.HITemplateSeperatorControl;
 import org.hyperimage.client.gui.HITextFieldControl;
 import org.hyperimage.client.gui.ResetButton;
 import org.hyperimage.client.gui.SaveButton;
+import org.hyperimage.client.gui.TagsButton;
+import org.hyperimage.client.gui.dialogs.HIBaseTagsEditorDialog;
 import org.hyperimage.client.util.MetadataHelper;
 import org.hyperimage.client.ws.HiBase;
 import org.hyperimage.client.ws.HiFlexMetadataRecord;
@@ -122,6 +124,7 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 	private JPanel metadataPanel;
 	private ResetButton resetButton;
 	private SaveButton saveButton;
+        private TagsButton tagsButton;
 
 	private HashMap<String, HITemplateSeperatorControl> prefixStore = new HashMap<String, HITemplateSeperatorControl>();
 
@@ -143,6 +146,10 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 		initComponents();
 		initFields();
 		buildLanguages();
+                
+                // attach listeners
+                tagsButton.addActionListener(this);
+                tagsButton.setCount((int) (long) HIRuntime.getGui().getTagCountForElement(base.getId()));
 
 		initBuffer();
 		setMetadataFields();
@@ -156,7 +163,8 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 	public void updateLanguage() {
 		languageLabel.setText(Messages.getString("FlexMetadataEditorView.17")); //$NON-NLS-1$
 		saveButton.setToolTipText(Messages.getString("FlexMetadataEditorView.19")); //$NON-NLS-1$
-                resetButton.setToolTipText(Messages.getString("FlexMetadataEditorView.20"));         //$NON-NLS-1$
+                resetButton.setToolTipText(Messages.getString("FlexMetadataEditorView.20")); //$NON-NLS-1$
+                tagsButton.setToolTipText(Messages.getString("MetadataEditorControl.tagButtonTooltip"));
 
 		setTitle(Messages.getString("FlexMetadataEditorView.0")); //$NON-NLS-1$
 		if ( base instanceof HiObject ) {
@@ -441,6 +449,7 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 		idLabel = new JLabel();
 		resetButton = new ResetButton();
 		saveButton = new SaveButton();
+                tagsButton = new TagsButton();
 
 		JScrollPane metadataElementsScroll = new JScrollPane(metadataElementsPanel);
 		metadataElementsScroll.setPreferredSize(new Dimension(200,300));
@@ -472,25 +481,30 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 		idLabel.setText(Messages.getString("FlexMetadataEditorView.18")); //$NON-NLS-1$
 
 
-		GroupLayout controlPanelLayout = new GroupLayout(controlPanel);
-		controlPanel.setLayout(controlPanelLayout);
-        controlPanelLayout.setHorizontalGroup(
-                controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
-                .add(controlPanelLayout.createSequentialGroup()
-                    .add(resetButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.RELATED)
-                    .add(saveButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.UNRELATED)
-                    .add(idLabel, GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                    .addContainerGap())
-            );
-            controlPanelLayout.setVerticalGroup(
-                controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
-                .add(controlPanelLayout.createParallelGroup(GroupLayout.BASELINE)
-                    .add(resetButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .add(saveButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .add(idLabel, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
-            );
+        GroupLayout controlPanelLayout = new GroupLayout(controlPanel);
+        controlPanel.setLayout(controlPanelLayout);
+        controlPanelLayout.setHorizontalGroup(controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(controlPanelLayout.createSequentialGroup()
+                .add(resetButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(saveButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.UNRELATED)
+                .add(idLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(tagsButton, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+        );
+        controlPanelLayout.setVerticalGroup(controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(controlPanelLayout.createSequentialGroup()
+                .add(0, 0, Short.MAX_VALUE)
+                .add(controlPanelLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(GroupLayout.TRAILING, controlPanelLayout.createParallelGroup(GroupLayout.BASELINE)
+                        .add(resetButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .add(saveButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .add(idLabel, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
+                    .add(GroupLayout.TRAILING, tagsButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .add(0, 0, 0))
+        );
+
 
 		GroupLayout editorPanelLayout = new GroupLayout(editorPanel);
 		editorPanel.setLayout(editorPanelLayout);
@@ -508,7 +522,7 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 				.add(GroupLayout.TRAILING, editorPanelLayout.createSequentialGroup()
 						.addContainerGap()
 						.add(metadataPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addPreferredGap(LayoutStyle.RELATED)
+						.addPreferredGap(LayoutStyle.RELATED, 6, 6)
 						.add(controlPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap())
 		);
@@ -517,8 +531,11 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 		
 		metadataElementsPanel.setLayout(new GridBagLayout());
 		languageComboBox.addActionListener(this);
+                if (System.getProperty("HI.feature.tagsDisabled") != null) {
+                    tagsButton.setVisible(false);
+                }
 
-        updateLanguage();
+                updateLanguage();
 	}
 
 	private void addFiller(int index, JPanel panel) {
@@ -578,7 +595,11 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 
 	// ----------------------------------------------
 
+        @Override
 	public void actionPerformed(ActionEvent e) {
+            if ( e.getSource() == tagsButton ) {
+                tagsButton.setCount(new HIBaseTagsEditorDialog(HIRuntime.getGui(), base.getId()).chooseTags());
+            } else {
 		if ( metadata != null ) if ( languageKeys.size() > 0 ) {
 
 			// trigger change state update
@@ -590,6 +611,7 @@ public class FlexMetadataEditorView extends GUIView implements ActionListener {
 			curLangIndex = languageComboBox.getSelectedIndex();
 			setMetadataFields();
 		}		
+            }
 	}
 
 }
